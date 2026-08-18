@@ -14,7 +14,7 @@ The purpose of this knowledge base is not to summarize research. It is to **conv
 >
 > This knowledge base was researched behind an egress policy that **blocked full-text retrieval from every scholarly and governmental host** — ERIC, PubMed, IES, the FTC, the Dept. of Education, SAGE, the standards sites, even Wikipedia. Web *search* worked; web *fetch* did not.
 >
-> **No contributor read a source document end to end.** Every claim came from search-result synthesis. Modules `01` and `04` mark this per-claim as `[SNIPPET]`; modules `02` and `05` declare it blanket-wise in their headers as `[SECONDARY-SOURCED]` at the retrieval level. Same fact, two vocabularies — an unmarked claim in `02` or `05` was **not** verified more deeply.
+> **No contributor read a source document end to end.** Every claim came from search-result synthesis. Modules `01`, `03` and `04` mark this per-claim as `[SNIPPET]`; modules `02` and `05` declare it blanket-wise in their headers as `[SECONDARY-SOURCED]` at the retrieval level. Same fact, two vocabularies — an unmarked claim in `02` or `05` was **not** verified more deeply.
 >
 > This is fine for shaping internal product defaults and choosing what to prototype. It is **not** sufficient for any number you put in front of a district, funder, parent, or marketing page, and **not** sufficient for any compliance or child-safety decision. Re-verify against primary sources first. See `00-shared-conventions.md` §2 for the full permitted/forbidden table.
 >
@@ -32,6 +32,11 @@ The purpose of this knowledge base is not to summarize research. It is to **conv
 | 03 | [Genre tropes & conventions](./03-genre-tropes-and-conventions.md) | Fantasy, adventure, mystery, realistic fiction, sci-fi, fable, folktale, fairy tale, humor, age-appropriate spooky/horror, hybrids — and how characters function inside each | `A3-` |
 | 04 | [Scaffolding, literacy, vocabulary & differentiation](./04-scaffolding-literacy-vocabulary-differentiation.md) | Instructional scaffolding for creative writing, literacy development through character work, character/emotion vocabulary and language complexity, differentiation and accessibility | `A4-` |
 | 05 | [Educator analytics, assessment & episode integration](./05-educator-analytics-assessment-and-episode-integration.md) | Assessment of narrative writing, dashboards and learning analytics, standards alignment, character persistence across episodes, child data privacy and safety | `A5-` |
+| 90 | [**Integrated decision logic**](./90-integrated-decision-logic.md) | Cross-module arbitration: precedence order, the union do-not-flag list, the shared offer budget, the prohibition set, defect register, quarantined evidence, and what needs a human decision | — |
+
+**566 claims** across the five research modules, all traceable.
+
+> **Implementers: read `90-integrated-decision-logic.md` before writing code.** It carries one high-severity defect (module `01`'s age bands are offset by one from every other module, which has already produced a two-band divergence in genre-prompt defaults for grades 2–3) and the build order that keeps the prohibitions cheap.
 
 ---
 
