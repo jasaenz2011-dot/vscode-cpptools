@@ -1437,3 +1437,443 @@ Default posture: the character is a THING THE CHILD WRITES, not a thing that tal
 | **P-27** | Re-verify all of Part E against primary sources on a fixed cadence; COPPA changed materially in 2025 and state AI/student-data law was moving in 2026. | `A5-C127`, `A5-C151` |
 
 ---
+---
+---
+
+# CLOSING SECTIONS
+
+## 1. Limitations and disagreements in the evidence base
+
+### 1.1 Limitations of this document specifically
+
+1. **No primary text was read.** `WebFetch` was blocked for every domain. Everything is search-summary derived. This is the dominant limitation and it affects every claim.
+2. **Numbers are unverified.** Every effect size, percentage and sample size should be treated as a lead, not a fact, until checked at source.
+3. **Regulatory text is paraphrase.** No statute, rule or official guidance page was read verbatim. Part E is a question list for counsel.
+4. **One framework's own standards text could not be retrieved** (`A5-C103`, Australian achievement standards), despite domain-restricted search of the official site.
+5. **Search-summary attribution is sometimes wrong.** `A5-C31` is a documented instance: a plausible-looking list of effect sizes appeared with no resolvable source. Others may have slipped through.
+6. **Recency skew.** Search results favour recent and well-indexed work. Older foundational studies (Videen/Deno/Marston 1982, Amabile 1982, Kluger & DeNisi 1996) surfaced only because they were named in queries.
+7. **English-language, US/UK/AU-centric.** No non-English-language research was retrieved.
+
+### 1.2 Genuine disagreements within the evidence
+
+| Disagreement | Position A | Position B | Product consequence |
+|---|---|---|---|
+| **Size of the formative assessment effect** | 0.40–0.70 (`A5-C01`) | median .25, weighted mean .20 (`A5-C02`), with the methodology of *that* critique itself contested (`A5-C03`) | Do not market with a borrowed effect size |
+| **Analytic vs holistic rubrics** | Analytic gives more consistency (`A5-C07`) | Neither is preferable; they differ on several dimensions (`A5-C06`) | Let teachers choose; ship neither as "correct" |
+| **Is text length construct-relevant?** | It correlates .50–.70 with quality and predicts scores (`A5-C27`) | Length did not increase with age while syntactic complexity did (`A5-C23`); "discussed controversially" (`A5-C27`) | Ban length metrics (`B3`) — the disagreement is itself the reason |
+| **Does AWE help?** | g = 0.861 (`A5-C28`) | g = 0.55 with "significant heterogeneity… cannot be understood as a single consistent intervention" (`A5-C29`); computer feedback weakest of four sources at 0.38 (`A5-C04`) | Do not treat AWE as a settled positive |
+| **Is CAT reliable?** | Described as gold standard, judges show high consistency (`A5-C41`) | Cannot capture time-sampling error (`A5-C42`); unscalable (`A5-C43`); needs ≥5 raters/story (`A5-C44`) | No creativity score (`P1`) |
+| **Do students benefit from seeing their own analytics?** | OLMs support agency and co-regulation (`A5-C86`); self-assessment works (`A5-C09`, `A5-C10`) | Dashboards induced social anxiety and negative emotions (`A5-C85`); evaluation expectation undermines creativity (`A5-C49`) | Children see *work*, not *scores* (`RULE C-1`) |
+| **Is AI scoring bias inevitable?** | Systems trained on diverse samples and calibrated to rubric criteria rather than dialect produce fairer scores (retrieved claim) | Documented race/ethnicity bias in a current frontier model (`A5-C33`); ELL bias (`A5-C34`, `A5-C36`) | Contain, audit, and do not use for consequential purposes (`P3`, `C-4`) |
+| **Do serial characters grow?** | Growth is the pleasure of seriality (`A5-C110` practitioner view) | Most serial characters are stable rather than changeable (`A5-C109`) | Track events, never enforce arcs (`RULE D-2`) |
+| **Does neutrality reduce representational bias?** | Neutral language is a common safety strategy | Neutrality produced near-erasure of feminine characters (`A5-C153`) | `RULE M-6` — neutrality is explicitly rejected as the mitigation |
+
+### 1.3 Where the evidence is thin enough that the product should simply not act
+
+- Children writing **serial fiction with recurring characters** — no empirical study retrieved (`A5-C113`).
+- **Character-quality assessment instruments** — no retrievable psychometrics (`A5-C21`, `A5-C48`).
+- **Whether model training on child creative work is lawful under the PPRA educational-products exception** (`A5-C142`) — unresolved.
+- **Ownership of student-created work** (`A5-C152`) — no authoritative source retrieved.
+- **Education-specific alert fatigue** — the only education-specific figure retrieved was a vendor claim (`A5-C78`).
+
+---
+
+## 2. Cultural assumptions — whose narrative norms get encoded
+
+This section exists because rubrics and analytics are not neutral instruments. Every scored dimension encodes somebody's idea of a good story.
+
+**`A5-C161`** `[E1]` `[SECONDARY-SOURCED]` **Narrative style varies culturally, and standard assessment favours one style.** Retrieved research describes **topic-associating** narrative styles — linking related events through thematic or emotional association rather than strict chronology — as used by African American children, contrasted with **topic-centered** styles emphasising linear organization; retrieved work notes a similar approach among Native American children, and call-response interaction. Retrieved analysis states that discontinuities between home and school language can lead to **misinterpretation and misrepresentation of students' knowledge and skills as assessed by standardized tests.** → [ERIC EJ497723, African American Kindergartners' Spoken Narratives](https://eric.ed.gov/?id=EJ497723); [LSHSS, Perceptions of Black Children's Narrative Language](https://pubs.asha.org/doi/10.1044/2020_LSHSS-20-00014)
+
+**`A5-C162`** `[E1]` `[SECONDARY-SOURCED]` **Who is judging changes the judgment.** Retrieved mixed-methods work reports that **Black adults preferred performative, topic-associating narratives to a greater extent than White adults**, spoke more positively about the children's narratives, and were **more accepting of narratives with less clear sequential structure.** → [LSHSS](https://pubs.asha.org/doi/10.1044/2020_LSHSS-20-00014)
+
+### 2.1 The specific cultural assumptions embedded in this document's own sources
+
+| Assumption | Where it enters | Who it disadvantages |
+|---|---|---|
+| **A good story has a linear, chronological event sequence** | CCSS W.2.3/W.3.3/W.4.3 "organize an event sequence that unfolds naturally"; NSS "conflict resolution"; story grammar | Children using topic-associating styles (`A5-C161`, `A5-C162`) |
+| **A good story resolves** | "provide a sense of closure" (W.2.3), "conclusion that follows" (W.4.3.e), NSS conflict resolution | Traditions where the point is not resolution |
+| **Character = an individual with interior states, wants, and arcs** | The entire Western character-craft canon; CCSS "thoughts and feelings" | Narrative traditions foregrounding collective, ancestral, or communal actors |
+| **Standard written English is the target register** | CBM-WE "correctly spelled words," "acceptable to a native speaker" (`A5-C18`) | Dialect speakers, multilingual writers (`A5-C36`) |
+| **Longer and lexically richer is better** | Length–quality r = .50–.70 (`A5-C27`); creativity predicted by length and lexical diversity (`A5-C45`) | Concise writers; children still building English vocabulary |
+| **Independent individual authorship is the unit** | Nearly all writing assessment | Collaborative and oral-tradition storytelling cultures (`A5-C121`) |
+| **The model's defaults are the world's defaults** | AI generation: masculine default (`A5-C153`), racial homogenization (`A5-C154`), wheelchair-as-disability (`A5-C155`), cultural/topic bias (`A5-C156`) | Everyone not in the training distribution's centre |
+
+### 2.2 Product commitments arising
+
+```
+RULE X-1 (No canonical story shape)
+Character Studio MUST NOT require, score, or nudge toward:
+  chronological ordering · conflict-resolution structure · a single protagonist ·
+  interiority · resolution · "arc" · standard-English dialogue.
+Scaffolds that offer these are OPTIONAL, DISMISSIBLE, and presented as ONE way among many.
+```
+
+```
+RULE X-2 (Dialect and multilingual writing are never errors)
+Spelling/grammar assistance NEVER applies inside character dialogue by default.
+Code-switching, translanguaging and dialect are supported as authorial choices.
+Standards support: L.3.3.b explicitly asks children to recognize and observe
+differences between spoken and written standard English (A5-C98).
+```
+
+```
+RULE X-3 (Whose rubric?)
+IF a rubric is used
+THEN the educator authors or selects it (RULE A-4),
+AND the product ships NO default rubric that would function as a norm.
+Rationale: A5-C161/A5-C162 — the "correct" narrative shape differs by community,
+and evaluator background changes the evaluation.
+```
+
+```
+RULE X-4 (Aggregate metrics get an equity check)
+Any class-aggregate metric (W7) is checked for whether it would systematically
+under-count the narrative practices of any group before it ships.
+IF the feature counted is a Western-canon craft element (e.g. "has a resolution")
+THEN it does not ship as a metric; it may ship as an optional teaching prompt.
+```
+
+---
+
+## 3. Accessibility considerations
+
+**`A5-C163`** `[E1]` `[E4]` `[SECONDARY-SOURCED]` Retrieved work on supporting the writing process with technology for students with disabilities reports that **technology-based graphic organizers, word prediction, speech recognition, talking word processors, and multimedia/digital storytelling programs can improve the quantity and/or quality of student writing** for students with learning disabilities and emotional/behavioral disorders, across prewriting, drafting, revising, proofreading and publishing. → [Intervention in School and Clinic / SAGE](https://journals.sagepub.com/doi/abs/10.1177/1053451219837636)
+
+**`A5-C164`** `[E4]` `[SECONDARY-SOURCED]` Retrieved UDL framing: **dictation converts speech to text for learners who struggle to type or to get thoughts onto paper**, and **UDL offers assistive technology to all students to choose from rather than limiting these tools to students with disabilities.** Retrieved caveat: to use dictation, children must speak clearly and learn verbal commands for punctuation. → [Understood, assistive technology for writing](https://www.understood.org/en/articles/assistive-technology-for-writing); [Reading Rockets](https://www.readingrockets.org/topics/assistive-technology/articles/assistive-technology-writing); [IDA overview](https://dyslexiaida.org/instructional-and-assistive-technology-maximizing-the-benefits-for-students-who-struggle/)
+
+### Accessibility rules
+
+| # | Rule | Traced to |
+|---|---|---|
+| **AX-1** | **Dictation is available to every child**, not gated behind a disability designation. | `A5-C164` (UDL: offer to all) |
+| **AX-2** | Voice input is processed under `RULE P-10` (transient, transcribe, delete, never a voiceprint). Accessibility must not become a biometric collection vector. | `A5-C136`, `A5-C127` |
+| **AX-3** | **Dictated text is never distinguishable in the data model from typed text**, and no metric anywhere treats them differently. | `A5-C164`, Part B `B6` |
+| **AX-4** | Every character field accepts **drawing, audio note, image, or text** — text is not the only way to record who a character is. | `A5-C163` (multimedia/digital storytelling improve writing outcomes) |
+| **AX-5** | **Word prediction and graphic-organizer scaffolds available to all**, optional, off by default (no nudging, `A5-C146`). | `A5-C163` |
+| **AX-6** | Nothing in the tool penalizes spelling or mechanics — because `B3`/`B5` already ban the metrics that would. This is stated explicitly because it is the single largest accessibility barrier in writing tools for children with dyslexia and dysgraphia. | `A5-C163`, Part B `B3`, `B5` |
+| **AX-7** | Explanations follow `RULE C-3` three-register model; retrieved guidance warns text-heavy explanations overwhelm young users. | `A5-C88` |
+| **AX-8** | Any AI-generated imagery must not default disabled characters to the retrieved stereotype patterns; audited under `RULE M-7`. | `A5-C155` |
+| **AX-9** | Standard technical accessibility (WCAG conformance, keyboard operation, screen-reader labelling, contrast, no colour-only encoding) is assumed. **`[UNVERIFIED]`** — no accessibility standard was retrieved this session; specify against the current WCAG version with a specialist. | — |
+
+---
+
+## 4. Populations underrepresented in the evidence
+
+| Population | Status in the retrieved evidence |
+|---|---|
+| **Children writing serial/recurring-character fiction** | **Absent.** No empirical study retrieved (`A5-C113`) |
+| **Grades 2–8 for AWE effects** | Under-represented: AWE effects were larger for post-secondary than secondary; K-8 barely addressed (`A5-C30`) |
+| **Multilingual / English learners in creative writing assessment** | Studied for *bias against them* (`A5-C34`, `A5-C36`) and for *strengths in fan spaces* (`A5-C118`), but not for creative-writing assessment validity |
+| **Children with disabilities in narrative/creative assessment** | Assistive-technology research exists (`A5-C163`); no retrieved work on validity of narrative creativity assessment for these children |
+| **Black, Indigenous, and other children using non-topic-centered narrative styles** | Studied in speech-language pathology (`A5-C161`, `A5-C162`); largely absent from writing-analytics and AWE validity work |
+| **K–1 (B0)** | Narrative instruments exist for preschool (NAP, `A5-C17`) and 5–7 (NSS, `A5-C14`) but are oral-language clinical tools, not writing tools |
+| **Grade 9 (upper B4)** | Peripheral in all retrieved sources; CCSS W.9-10.3 not retrieved |
+| **Non-Anglophone education systems** | Effectively absent; frameworks retrieved were US, England, Australia only |
+| **Low-resource / low-connectivity classrooms** | Absent entirely from retrieved learning-analytics work, which skews to well-resourced deployments (`A5-C59` notes weak real-classroom deployment generally) |
+| **Teachers of writing specifically** | Under-served: `A5-C58` reports ~two-thirds of elementary teachers had little college preparation to teach writing; dashboard research is overwhelmingly higher-education (`A5-C59`, `A5-C60`, `A5-C86`) |
+| **Children as research participants in learning analytics** | Retrieved LA ethics and OLM work is nearly all higher-education adult students (`A5-C86`, `A5-C87`) |
+
+---
+
+## 5. Open questions
+
+### Legal / policy (require counsel)
+1. Does the PPRA "developing, evaluating, or providing educational products or services" exception (`A5-C142`) cover training or evaluating AI models on children's creative writing?
+2. Does the 2017 FTC audio non-enforcement policy (`A5-C136`) survive the 2025 addition of voiceprints as biometric personal information (`A5-C127`)?
+3. Who owns copyright in a character a child creates in Character Studio (`A5-C152`)?
+4. In a co-created character (`RULE D-8`), how do plural ownership and individual deletion rights interact?
+5. What is the current status of state AI/student-data legislation (`A5-C151`)?
+6. Is Character Studio "mixed audience" under COPPA, or straightforwardly child-directed (`A5-C134`)?
+7. Does the ICO Children's Code apply where the service reaches UK children through a school rather than directly?
+
+### Measurement
+8. Is the retrieved figure that "as little as 11% of educators' interpretations of data are accurate" (`A5-C64`) accurate at source, and under what conditions?
+9. Does `A5-C45` (linguistic features explain much of the variance in human creativity ratings) mean machines can approximate creativity judgment, or that human creativity judgment is substantially a length-and-vocabulary judgment?
+10. Is there any defensible class-aggregate indicator of character craft that does not encode a Western narrative canon (`RULE X-4`)?
+11. What is the actual minimum number of comparable tasks and weeks for a defensible growth statement in *this* product? (`RULE A-2`'s 3 tasks / 6 weeks is invented.)
+
+### Product / empirical, answerable by Character Studio itself
+12. Does the presence of a teacher-visible dashboard change what children write? (A direct test of `A5-C70` in this context.)
+13. Do children value `manual_credit` over `auto_attribution` in a character-borrowing context, as Scratch children did for projects (`A5-C123`)?
+14. Does the `shown_by[]` pairing (Note B) actually increase dramatized-trait writing, or just add friction?
+15. Do children experience the `RULE D-4` recall panel as helpful memory or as an expectation to comply with?
+16. What is the real alert volume under `RULE M-2`'s narrow criteria, and is `RULE B-6`'s invented budget right?
+17. Does `RULE M-6`'s balanced-across-corpus default actually produce balanced output, measured?
+
+### Evidence gaps worth commissioning
+18. A study of children writing serial fiction with persistent characters (`A5-C113` — the field's gap).
+19. Validity of any character-craft assessment for grades 2–8 (`A5-C21`, `A5-C48`).
+20. Whether AI character suggestion tools change the diversity of characters children create — in either direction (`A5-C153`).
+
+---
+
+## 6. Source list
+
+**Every source below was retrieved this session via `WebSearch` (many domain-restricted). None was read as full text — `WebFetch` was blocked for all domains.** Role is given for each.
+
+### Regulatory and standards (primary domains, retrieved via domain-restricted search)
+
+| Source | URL | Role |
+|---|---|---|
+| FTC, Complying with COPPA: FAQs | https://www.ftc.gov/business-guidance/resources/complying-coppa-frequently-asked-questions | `A5-C126`, `A5-C130`–`A5-C135` |
+| FTC press release, COPPA final amendments (Jan 2025) | https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-changes-childrens-privacy-rule-limiting-companies-ability-monetize-kids-data | `A5-C127`, `A5-C128` |
+| FTC, 16 CFR Part 312 COPPA Final Rule Amendments | https://www.ftc.gov/legal-library/browse/federal-register-notices/16-cfr-part-312-coppa-final-rule-amendments | `A5-C127` |
+| FTC, COPPA guidance for ed tech and schools | https://www.ftc.gov/business-guidance/blog/2020/04/coppa-guidance-ed-tech-companies-schools-during-coronavirus | `A5-C129` |
+| FTC, To Ed Tech: protecting kids' privacy is your responsibility | https://www.ftc.gov/business-guidance/blog/2022/05/ftc-ed-tech-protecting-kids-privacy-your-responsibility | `A5-C129` |
+| FTC, Policy Statement on Education Technology (PDF) | https://www.ftc.gov/system/files/ftc_gov/pdf/Policy%20Statement%20of%20the%20Federal%20Trade%20Commission%20on%20Education%20Technology.pdf | `A5-C129` |
+| FTC, "Under COPPA, data deletion isn't just a good idea. It's the law." | https://www.ftc.gov/business-guidance/blog/2018/05/under-coppa-data-deletion-isnt-just-good-idea-its-law | `A5-C131` |
+| FTC, COPPA six-step compliance plan | https://www.ftc.gov/business-guidance/resources/childrens-online-privacy-protection-rule-six-step-compliance-plan-your-business | `A5-C130` |
+| FTC, Enforcement Policy Statement on audio recordings (PDF) | https://www.ftc.gov/system/files/documents/public_statements/1266473/coppa_policy_statement_audiorecordings.pdf | `A5-C136` |
+| FTC press release, guidance on COPPA and voice recordings (2017) | https://www.ftc.gov/news-events/news/press-releases/2017/10/ftc-provides-additional-guidance-coppa-voice-recordings | `A5-C136` |
+| FTC, approval of new VPC method (2013) | https://www.ftc.gov/news-events/news/press-releases/2013/12/ftc-grants-approval-new-coppa-verifiable-parental-consent-method | `A5-C137` |
+| FTC, denial of facial age estimation VPC application (2024) | https://www.ftc.gov/news-events/news/press-releases/2024/03/ftc-denies-application-new-parental-consent-mechanism-under-coppa | `A5-C137` |
+| US ED, What is FERPA? | https://studentprivacy.ed.gov/faq/what-ferpa | `A5-C138` |
+| US ED, PII for Education Records | https://studentprivacy.ed.gov/content/personally-identifiable-information-education-records | `A5-C138` |
+| US ED, What is an education record? | https://studentprivacy.ed.gov/faq/what-education-record | `A5-C138` |
+| US ED, Who is a "school official" under FERPA? | https://studentprivacy.ed.gov/faq/who-school-official-under-ferpa | `A5-C139` |
+| US ED, Responsibilities of Third-Party Service Providers under FERPA (PDF) | https://studentprivacy.ed.gov/sites/default/files/resource_document/file/Vendor%20FAQ.pdf | `A5-C139` |
+| US ED, FERPA FAQs | https://studentprivacy.ed.gov/frequently-asked-questions | `A5-C140` |
+| US ED, PPRA topic page | https://studentprivacy.ed.gov/topic/protection-pupil-rights-amendment-ppra | `A5-C141`, `A5-C142` |
+| US ED, SPPO-21-01 PPRA (PDF) | https://studentprivacy.ed.gov/sites/default/files/resource_document/file/20-0379.PPRA_508.pdf | `A5-C141` |
+| US ED, PPRA model notice and consent/opt-out | https://www.ed.gov/media/document/ppra-gen-not-consdoc-102017.doc | `A5-C142` |
+| California SB 1177 (SOPIPA) | https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201320140SB1177 | `A5-C143` |
+| Cooley, SOPIPA analysis | https://www.cooley.com/news/insight/2014/californias-student-online-personal-information-protection-act-is-the-first-state-law-to-comprehensively-address-student-privacy | `A5-C143` |
+| Parent Coalition for Student Privacy, state legislation list | https://studentprivacymatters.org/state-legislation/ | `A5-C143` scope note |
+| ICO, Introduction to the Children's code | https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/childrens-information/childrens-code-guidance-and-resources/introduction-to-the-childrens-code/ | `A5-C144` |
+| ICO, Code standards | https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/childrens-information/childrens-code-guidance-and-resources/age-appropriate-design-a-code-of-practice-for-online-services/code-standards/ | `A5-C144`–`A5-C146` |
+| ICO, Best interests assessment | https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/childrens-information/childrens-code-guidance-and-resources/how-to-use-our-guidance-for-standard-one-best-interests-of-the-child/best-interests-assessment/ | `A5-C144` |
+| ICO, Default settings (standard 7) | https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/childrens-information/childrens-code-guidance-and-resources/age-appropriate-design-a-code-of-practice-for-online-services/7-default-settings/ | `A5-C145` |
+| ICO, FAQs on the 15 standards | https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/childrens-information/childrens-code-guidance-and-resources/faqs-on-the-15-standards-of-the-children-s-code/ | `A5-C146` |
+| ICO, right to erasure and children | https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/childrens-information/children-and-the-uk-gdpr-old/how-does-the-right-to-erasure-apply-to-children/ | `A5-C147` |
+| ICO, children's data protection rights | https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/childrens-information/children-and-the-uk-gdpr/what-data-protection-rights-do-children-have/ | `A5-C147` |
+| GDPR Article 8 | https://gdpr-info.eu/art-8-gdpr/ | `A5-C147` |
+| GDPR Article 17 | https://gdpr-info.eu/art-17-gdpr/ | `A5-C147` |
+| OHCHR, UNCRC General Comment No. 25 (2021) | https://www.ohchr.org/en/documents/general-comments-and-recommendations/general-comment-no-25-2021-childrens-rights-relation | `A5-C148` |
+| 5Rights, UNCRC GC25 resource | https://5rightsfoundation.com/resource/uncrc-general-comment-no-25-childrens-rights-apply-online/ | `A5-C148` |
+| eSafety Commissioner, Safety by Design | https://www.esafety.gov.au/industry/safety-by-design | `A5-C149` |
+| eSafety, Safety by Design Principles (PDF) | https://www.esafety.gov.au/sites/default/files/2019-10/SBD%20-%20%20Principles.pdf | `A5-C149` |
+| US ED OET, AI and the Future of Teaching and Learning (PDF) | https://www.ed.gov/sites/ed/files/documents/ai-report/ai-report.pdf | `A5-C150` |
+| US ED, AI Guidance hub | https://www.ed.gov/about/ed-overview/artificial-intelligence-ai-guidance | `A5-C150` |
+| NTIA, Kids Online Health and Safety — recommended practices for industry | https://www.ntia.gov/report/2024/kids-online-health-and-safety/online-health-and-safety-for-children-and-youth/taskforce-guidance/recommended-practices-for-industry | `A5-C158` |
+| CCSS, Writing Grade 2 §3 | https://www.thecorestandards.org/ELA-Literacy/W/2/3/ | `A5-C89` |
+| CCSS, Writing Grade 3 | https://www.thecorestandards.org/ELA-Literacy/W/3/ | `A5-C90` |
+| CCSS, Writing Grade 4 | https://www.thecorestandards.org/ELA-Literacy/W/4/ | `A5-C91` |
+| CCSS, Writing Grade 5 | https://www.thecorestandards.org/ELA-Literacy/W/5/ | `A5-C92` |
+| CCSS, Writing Grade 8 | https://www.thecorestandards.org/ELA-Literacy/W/8/ | `A5-C93` |
+| CCSS, Speaking & Listening Grade 2 | https://www.thecorestandards.org/ELA-Literacy/SL/2/ | `A5-C95` |
+| CCSS, Speaking & Listening Grade 8 | https://www.thecorestandards.org/ELA-Literacy/SL/8/ | `A5-C96` |
+| CCSS, Language Grade 3 | https://www.thecorestandards.org/ELA-Literacy/L/3/ | `A5-C98` |
+| CCSS, Language Grade 3 §2c | https://www.thecorestandards.org/ELA-Literacy/L/3/2/c/ | `A5-C98` |
+| CCSS, Language Grade 5 | https://www.thecorestandards.org/ELA-Literacy/L/5/ | `A5-C98` |
+| CCSSO, full ELA standards (PDF) | https://learning.ccsso.org/wp-content/uploads/2022/11/ELA_Standards1.pdf | `A5-C89`–`A5-C98` |
+| GOV.UK, National curriculum in England: English programmes of study | https://www.gov.uk/government/publications/national-curriculum-in-england-english-programmes-of-study/national-curriculum-in-england-english-programmes-of-study | `A5-C99` |
+| DfE, English programmes of study KS1–2 (PDF) | https://assets.publishing.service.gov.uk/media/5a7de93840f0b62305b7f8ee/PRIMARY_national_curriculum_-_English_220714.pdf | `A5-C99` |
+| DfE, English programmes of study KS3 (PDF) | https://assets.publishing.service.gov.uk/media/5a7b8761ed915d4147620f6b/SECONDARY_national_curriculum_-_English2.pdf | `A5-C100` |
+| ACARA, V9 Australian Curriculum: English | https://www.australiancurriculum.edu.au/curriculum-information/understand-this-learning-area/english | `A5-C102`, `A5-C103` |
+| ACARA, F–6 English curriculum content download | https://www.australiancurriculum.edu.au/content/dam/en/curriculum/ac-version-9/downloads/english/english-curriculum-content-f-6-v9.docx | `A5-C102` |
+| IES WWC, ESSA tiers of evidence | https://ies.ed.gov/ncee/wwc/essa | `A5-C105` |
+| ERIC ED588503, Standards Alignment to Curriculum and Assessment (PDF) | https://files.eric.ed.gov/fulltext/ED588503.pdf | `A5-C105` |
+
+### Assessment and measurement research
+
+| Source | URL | Role |
+|---|---|---|
+| Black & Wiliam, Inside the Black Box (SAGE reprint) | https://journals.sagepub.com/doi/10.1177/003172171009200119 | `A5-C01` |
+| Black & Wiliam, Inside the Black Box (PDF mirror) | http://allianceforlearning.co.uk/wp-content/uploads/2017/03/William-and-Black-Inside-the-Black-Box.pdf | `A5-C01` |
+| Kingston & Nash, Formative Assessment: A Meta-Analysis (Wiley) | https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1745-3992.2011.00220.x | `A5-C02` |
+| Briggs et al., So Much More Is Needed (ERIC EJ1005135) | https://eric.ed.gov/?id=EJ1005135 | `A5-C03` |
+| Graham, Hebert & Harris, Formative Assessment and Writing: A Meta-Analysis | https://www.journals.uchicago.edu/doi/10.1086/681947 | `A5-C04` |
+| Kluger & DeNisi, feedback interventions meta-analysis (PDF) | https://mrbartonmaths.com/resourcesnew/8.%20Research/Marking%20and%20Feedback/The%20effects%20of%20feedback%20interventions.pdf | `A5-C05` |
+| Holistic and Analytic Scoring Rubrics (Macrothink JSEL) | https://www.macrothink.org/journal/index.php/jsel/article/download/19060/14823 | `A5-C06`, `A5-C08` |
+| Analytic vs holistic marking rubrics, retrospective cohort (PMC11359436) | https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11359436/ | `A5-C07` |
+| Panadero et al., Effects of Rubrics meta-analysis | https://link.springer.com/article/10.1007/s10648-023-09823-4 | `A5-C09`, `A5-C11` |
+| Andrade et al., Putting Rubrics to the Test | https://www.researchgate.net/publication/229518031_Putting_Rubrics_to_the_Test_The_Effect_of_a_Model_Criteria_Generation_and_Rubric-Referenced_Self-Assessment_on_Elementary_School_Students%27_Writing | `A5-C10` |
+| Rubric self-assessment, primary school (ScienceDirect) | https://www.sciencedirect.com/science/article/pii/S2666374021000017 | `A5-C11` |
+| Education Northwest, 6+1 Trait rubrics grades 3–12 (PDF) | https://educationnorthwest.org/sites/default/files/resources/traits-rubrics-3-12.pdf | `A5-C12` |
+| Boise State, validity evidence for writing rubric (PDF) | https://scholarworks.boisestate.edu/cgi/viewcontent.cgi?article=1133&context=literacy_facpubs | `A5-C12` |
+| "6-Traits Writing Rubric: Things That Make Us Smart Can Also Make Us Dumb" | https://www.academia.edu/364993/6_Traits_Writing_Rubric_Things_That_Make_Us_Smart_Can_Also_Make_Us_Dumb | `A5-C13` |
+| Properties of the Narrative Scoring Scheme (AJSLP) | https://pubs.asha.org/doi/10.1044/1058-0360(2009/08-0024) | `A5-C14` |
+| Index of Narrative Microstructure (AJSLP) | https://pubs.asha.org/doi/10.1044/1058-0360(2006/017) | `A5-C15` |
+| Online administration of TNL-2 (LSHSS) | https://pubs.asha.org/doi/10.1044/2021_LSHSS-21-00129 | `A5-C16` |
+| TNL-2 publisher page | https://www.wpspublish.com/tnl-2-test-of-narrative-languagesecond-edition | `A5-C16` |
+| Narrative Assessment Protocol (ECRQ) | https://www.sciencedirect.com/science/article/abs/pii/S0885200609000933 | `A5-C17` |
+| Videen, Deno & Marston, Correct Word Sequences (ERIC ED225112) | https://eric.ed.gov/?id=ED225112 | `A5-C18`, `A5-C19` |
+| CBM in written expression at secondary level (thesis PDF) | http://www2.uwstout.edu/content/lib/thesis/2003/2003diercksb.pdf | `A5-C19` |
+| Dunsmuir & Kyriacou, evaluation of the WAM (Assessing Writing) | https://www.sciencedirect.com/science/article/pii/S1075293514000385 | `A5-C20` |
+| WAM development and evaluation (UCL Discovery) | https://discovery.ucl.ac.uk/id/eprint/1457401/ | `A5-C20` |
+| ECRP, Applying an Analytic Writing Rubric to Children's Hypermedia Narratives | https://ecrp.illinois.edu/v5n1/mott.html | `A5-C21` |
+| Early development of narrative macrostructure K–2 (Frontiers in Education) | https://www.frontiersin.org/journals/education/articles/10.3389/feduc.2026.1848759/full | `A5-C22` |
+| Executive functions and syntactic complexity in narrative writing (PMC5247531) | https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5247531/ | `A5-C23`, `A5-C116` |
+| Writing evaluation: rater and task effects, grades 3–4 (Reading and Writing) | https://link.springer.com/article/10.1007/s11145-017-9724-6 | `A5-C24`, `A5-C25` |
+| Same, ERIC record | https://eric.ed.gov/?id=ED602716 | `A5-C24` |
+| Rater tendencies and reliability (IEJEE PDF) | https://iejee.com/index.php/IEJEE/article/download/1024/464/3844 | `A5-C26` |
+| Inter-rater reliability and severity using FACETS | https://www.academia.edu/17178887/An_Overview_of_Inter_rater_reliability_Severity_and_Consistency_in_Scoring_Compositions_using_FACETS | `A5-C26` |
+| Is a Long Essay Always a Good Essay? (Frontiers in Psychology) | https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2020.562462/full | `A5-C27` |
+| Same (PMC7544919) | https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7544919/ | `A5-C27` |
+| Zhai & Ma, AWE meta-analysis (JECR/SAGE) | https://journals.sagepub.com/doi/10.1177/07356331221127300 | `A5-C28`, `A5-C30` |
+| Automated feedback multi-level meta-analysis (Frontiers in AI) | https://www.frontiersin.org/journals/artificial-intelligence/articles/10.3389/frai.2023.1162454/full | `A5-C29` |
+| Same (PMC10351274) | https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10351274/ | `A5-C29` |
+| Assessing fairness in AI-assisted writing scoring (Assessing Writing) | https://www.sciencedirect.com/science/article/pii/S1075293526000541 | `A5-C32`, `A5-C33` |
+| Validity of automated essay scores for elementary-age ELLs (Assessing Writing) | https://www.sciencedirect.com/science/article/abs/pii/S1075293524000084 | `A5-C34` |
+| AES systematic literature review (PMC8460059) | https://pmc.ncbi.nlm.nih.gov/articles/PMC8460059/ | `A5-C35` |
+| AI Bias on English Language Learners in Automatic Scoring (Springer) | https://link.springer.com/chapter/10.1007/978-3-031-98462-4_34 | `A5-C36` |
+| Same (arXiv 2505.10643) | https://arxiv.org/abs/2505.10643 | `A5-C36` |
+| WCER, risks of AI scoring tools for multilingual learners | https://wcer.wisc.edu/news/detail/risks-of-ai-scoring-tools-for-writing-by-multilingual-learners | `A5-C36` |
+| GraideMind blog (⚠️ **vendor source**) | https://graidemind.com/blog/automated-essay-scoring-validity-research | `A5-C37` |
+| Powers et al., Stumping E-Rater (ETS RR-01-03) — **title only, content not retrieved** | https://www.ets.org/Media/Research/pdf/RR-01-03-Powers.pdf | `A5-C38` |
+| Reliability without Validity: LLM-as-a-Judge evaluation (arXiv 2606.19544) | https://arxiv.org/html/2606.19544v1 | `A5-C39` |
+| Benchmark for reliable evaluation of creative writing (arXiv 2507.00769) | https://arxiv.org/pdf/2507.00769 | `A5-C39` |
+| Automation bias in teachers' evaluation of student writing (Frontiers in Psychology) | https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2026.1889402/full | `A5-C40` |
+| PsyPost summary of same | https://www.psypost.org/teachers-say-they-distrust-ai-but-still-accept-its-harsh-grading-mistakes-study-finds/ | `A5-C40` |
+| Amabile, CAT (HBS record) | https://www.hbs.edu/faculty/Pages/item.aspx?num=7355 | `A5-C41` |
+| Amabile's CAT: why has it not been used more (SciSpace PDF) | https://scispace.com/pdf/amabile-s-consensual-assessment-technique-why-has-it-not-4o93phkmls.pdf | `A5-C41` |
+| Barth et al., Creativity Assessment over Time (JOCB/Wiley) | https://onlinelibrary.wiley.com/doi/full/10.1002/jocb.462 | `A5-C42` |
+| Evaluating Creative Short Story Generation (arXiv 2411.02316) | https://arxiv.org/pdf/2411.02316 | `A5-C43` |
+| What is creative in childhood writing? (Learning and Instruction) | https://www.sciencedirect.com/science/article/pii/S1041608025000019 | `A5-C44`, `A5-C45` |
+| What characterises creativity in narrative writing (Thinking Skills and Creativity) | https://www.sciencedirect.com/science/article/pii/S1871187121001644 | `A5-C46` |
+| Reliability/validity of frequency-based originality scores (TSC) | https://www.sciencedirect.com/science/article/abs/pii/S1871187121000663 | `A5-C47` |
+| Scoring key for creative narrative (ERIC EJ1429271 PDF) | https://files.eric.ed.gov/fulltext/EJ1429271.pdf | `A5-C48` |
+| Amabile, Social Psychology of Creativity: Effects of Evaluation (Springer chapter) | https://link.springer.com/chapter/10.1007/978-1-4615-0801-4_3 | `A5-C49` |
+| Amabile, Social Influences on Creativity: Contracted-for reward (PDF) | http://people.whitman.edu/~herbrawt/classes/390/Amabile.pdf | `A5-C49` |
+| Ruscio & Amabile, How Does Creativity Happen (PDF) | https://ruscio.pages.tcnj.edu/files/2016/08/Ruscio-Amabile-1996-How-Does-Creativity-Happen.pdf | `A5-C49` |
+| Monitoring elementary writing progress with CBM (Reading and Writing) | https://link.springer.com/article/10.1007/s11145-017-9766-9 | `A5-C50`, `A5-C51`, `A5-C53` |
+| Word dictation progress monitoring (Assessment for Effective Intervention/SAGE) | https://journals.sagepub.com/doi/10.1177/15345084231182718 | `A5-C52` |
+| Efficacy for writing self-regulation, grade 2 (Frontiers in Psychology) | https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2023.1265785/full | `A5-C53`, `A5-C54` |
+| Writing self-efficacy scale grades 4–9 (Reading and Writing) | https://link.springer.com/article/10.1007/s11145-026-10790-9 | `A5-C54` |
+| Reading and writing motivation grades 3–8, SDT (PMC7399692) | https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7399692/ | `A5-C54` |
+| Portfolio validity/reliability for academic writing (THEA PDF) | https://research.thea.ie/bitstream/handle/20.500.12065/1078/Portfolio%20Is%20it%20a%20valid%20and%20reliable%20instrument%20for%20academic%20writing%20skills.pdf | `A5-C55` |
+| Portfolio Assessment: Increasing Reliability and Validity (ERIC EJ659736) | https://eric.ed.gov/?id=EJ659736 | `A5-C55` |
+| Graham et al., meta-analysis of elementary writing instruction (ERIC EJ994038) | https://eric.ed.gov/?id=EJ994038 | `A5-C56`, `A5-C57` |
+| Meta-analysis of writing treatments grades 6–12 | https://www.researchgate.net/publication/374364086_A_meta-analysis_of_writing_treatments_for_students_in_grades_6-12 | `A5-C57` |
+| Teaching Writing to Elementary Students Grades 4–6: A National Survey | https://www.journals.uchicago.edu/doi/abs/10.1086/651193 | `A5-C58` |
+| Primary Grade Writing Instruction: A National Survey | https://www.researchgate.net/publication/232602527_Primary_Grade_Writing_Instruction_A_National_Survey | `A5-C58` |
+| Teaching writing in Australian primary education: national survey (PMC9069425) | https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9069425/ | `A5-C58` |
+
+### Learning analytics, dashboards, surveillance
+
+| Source | URL | Role |
+|---|---|---|
+| A Systematic Review of Learning Analytics (JLA) | https://learning-analytics.info/index.php/JLA/article/view/8093 | `A5-C59` |
+| Checklist for planning/designing/evaluating LADs (IJETHE) | https://educationaltechnologyjournal.springeropen.com/articles/10.1186/s41239-023-00394-6 | `A5-C59`, `A5-C62` |
+| A Closer Look at Instructor Use and Sensemaking of Analytics Dashboards (JLA) | https://learning-analytics.info/index.php/JLA/article/view/7961 | `A5-C60` |
+| Learning analytics dashboard: actionable insights to learners (IJETHE) | https://educationaltechnologyjournal.springeropen.com/articles/10.1186/s41239-021-00313-7 | `A5-C61` |
+| Review of LA opportunities and challenges for K-12 (PMC10881331) | https://pmc.ncbi.nlm.nih.gov/articles/PMC10881331/ | `A5-C63`, `A5-C64`, `A5-C69` |
+| Data-Driven Decision Making (CITE Journal) | https://citejournal.org/volume-14/issue-4-14/science/data-driven-decision-making-facilitating-teacher-use-of-student-data-to-inform-classroom-instruction/ | `A5-C65` |
+| Teachers' Use of Education Dashboards and Professional Growth (ERIC EJ1277061) | https://files.eric.ed.gov/fulltext/EJ1277061.pdf | `A5-C66` |
+| K-12 Teachers' Acceptance and Resistance Perceptions of LA (TechTrends) | https://link.springer.com/article/10.1007/s11528-025-01045-5 | `A5-C67` |
+| Elementary and Secondary Teachers' Perceptions of LA (TKL) | https://link.springer.com/article/10.1007/s10758-025-09847-5 | `A5-C67` |
+| The dashboard school (Discourse) | https://www.tandfonline.com/doi/full/10.1080/01596306.2025.2519383 | `A5-C68` |
+| CDT, Online and Observed (PDF) | https://cdt.org/wp-content/uploads/2021/09/Online-and-Observed-Student-Privacy-Implications-of-School-Issued-Devices-and-Student-Activity-Monitoring-Software.pdf | `A5-C70` |
+| CDT, Hidden Harms (PDF) | https://cdt.org/wp-content/uploads/2022/08/Hidden-Harms-The-Misleading-Promise-of-Monitoring-Students-Online-Research-Report-Final-Accessible.pdf | `A5-C70` |
+| CDT, The Chilling Effect of Student Monitoring | https://cdt.org/insights/the-chilling-effect-of-student-monitoring-disproportionate-impacts-and-mental-health-risks/ | `A5-C70`, `A5-C71`, `A5-C72` |
+| Citron, The Surveilled Student (Stanford Law Review PDF) | https://review.law.stanford.edu/wp-content/uploads/sites/3/2024/10/Citron-76-Stan.-L.-Rev.-1439.pdf | `A5-C72` |
+| ModelThinkers, Goodhart's Law | https://modelthinkers.com/mental-model/goodharts-law | `A5-C73` |
+| NN/g, Campbell's Law | https://www.nngroup.com/articles/campbells-law/ | `A5-C74` |
+| Ecological Teaching Evaluation vs the Datafication of Quality (Postdigital Sci & Ed) | https://link.springer.com/article/10.1007/s42438-020-00109-4 | `A5-C75` |
+| The datafication of teaching in Higher Education (Teaching in Higher Education) | https://www.tandfonline.com/doi/full/10.1080/13562517.2020.1748811 | `A5-C75` |
+| Datafication of student engagement and children's digital rights | https://www.sciencedirect.com/science/article/pii/S2666557324000296 | `A5-C75` |
+| Atlassian, alert fatigue | https://www.atlassian.com/incident-management/on-call/alert-fatigue | `A5-C77` |
+| Datadog, preventing alert fatigue | https://www.datadoghq.com/blog/best-practices-to-prevent-alert-fatigue/ | `A5-C77` |
+| Lightspeed Systems blog (⚠️ **vendor source**) | https://www.lightspeedsystems.com/blog/false-positives-and-the-student-safety-monitoring-gap-why-most-tools-miss-the-mark-and-what-lightspeed-does-instead/ | `A5-C78` |
+| Leaderboards reduce female students' social engagement (JCHE) | https://link.springer.com/article/10.1007/s12528-025-09438-4 | `A5-C83` |
+| Leaderboards in education: systematic review | https://www.researchgate.net/publication/384632265_The_use_of_leaderboards_in_education_A_systematic_review_of_empirical_evidence_in_higher_education | `A5-C83` |
+| LAD exposure, motivation and SRL (Computers & Education) | https://www.sciencedirect.com/science/article/abs/pii/S0360131520302839 | `A5-C85` |
+| Open learner models meta-synthesis (Frontiers in Education) | https://www.frontiersin.org/journals/education/articles/10.3389/feduc.2025.1760183/full | `A5-C86` |
+| LA and informed consent model (IJETHE) | https://educationaltechnologyjournal.springeropen.com/articles/10.1186/s41239-019-0155-0 | `A5-C87` |
+| Learning Analytics Ethical Issues and Dilemmas | https://www.researchgate.net/publication/258122968_Learning_Analytics_Ethical_Issues_and_Dilemmas | `A5-C87` |
+| Children's Mental Models of AI Reasoning (IDC 2025) | https://dl.acm.org/doi/10.1145/3713043.3728856 | `A5-C88` |
+| Informing Age-Appropriate AI (CHI 2022) | https://dl.acm.org/doi/fullHtml/10.1145/3491102.3502057 | `A5-C88` |
+| CoGrader, ESSA tiers guide | https://cograder.com/content/essa-tiers-of-evidence-explained/ | `A5-C106` |
+| Lexia, ESSA tiers vs Evidence for ESSA | https://www.lexialearning.com/blog/essa-tiers-of-evidence-vs.-evidence-for-essa-key-differences | `A5-C106` |
+
+### Episode, seriality, fan fiction, collaboration
+
+| Source | URL | Role |
+|---|---|---|
+| Mittell, Complex TV — Character | https://mcpress.media-commons.org/complextelevision/character/ | `A5-C108`, `A5-C109` |
+| Mittell, Narrative Complexity in Contemporary American Television (PDF) | https://justtv.wordpress.com/wp-content/uploads/2010/12/mittell-narrative-complexity.pdf | `A5-C108` |
+| Fiveable, character consistency across episodes | https://fiveable.me/tv-writing/unit-3/character-consistency-episodes/study-guide/eU0OyEeAbkIA0Xvw | `A5-C110`, `A5-C112` |
+| Scriptation, TV show bible and character bibles guide | https://scriptation.com/blog/tv-show-bible-and-character-bibles-guide/ | `A5-C111` |
+| Storyflow, what is a story bible | https://storyflow.so/blog/what-is-a-story-bible-complete-guide | `A5-C111` |
+| Final Draft, developing your TV show bible | https://www.finaldraft.com/blog/10-easy-steps-to-developing-your-tv-show-bible | `A5-C111` |
+| Writers on the Move, writing a successful children's series | https://www.writersonthemove.com/2021/04/writing-successful-childrens-series-3.html | `A5-C114` |
+| Kidlit, writing a children's book series | https://kidlit.com/writing-a-childrens-book-series/ | `A5-C114` |
+| Bookfox, 4 steps to write a picture book series | https://thejohnfox.com/2023/08/4-steps-to-write-a-childrens-picture-book-series/ | `A5-C114` |
+| JMLE, Beyond the episode: a case for serial literacy | https://digitalcommons.uri.edu/jmle/vol17/iss3/3/ | `A5-C115` |
+| Pedagogy (Duke UP), Episodic Storytelling: Theorizing Seriality | https://read.dukeupress.edu/pedagogy/article-abstract/22/3/395/318285/Episodic-StorytellingTheorizing-Seriality-in-the | `A5-C115` |
+| National Writing Project, Episodic Fiction | https://archive.nwp.org/cs/public/print/resource/202 | `A5-C115` |
+| Curwood & Magnifico, Writing in the Wild (JAAL/Wiley) | https://ila.onlinelibrary.wiley.com/doi/10.1002/JAAL.192 | `A5-C117` |
+| Same (Semantic Scholar) | https://www.semanticscholar.org/paper/Writing-in-the-Wild:-Writers%E2%80%99-Motivation-in-Spaces-Curwood-Magnifico/f85d0044701a38b067738954a7bdc6a887c2876e | `A5-C117`, `A5-C120` |
+| Black, Fanfiction Writing and the Construction of Space (SAGE) | https://journals.sagepub.com/doi/10.2304/elea.2007.4.4.384 | `A5-C118` |
+| Black, Adolescents and Online Fan Fiction | https://www.goodreads.com/en/book/show/4937135-adolescents-and-online-fan-fiction | `A5-C118` |
+| Magnifico, Redesigning Author Study (The Reading Teacher) | https://ila.onlinelibrary.wiley.com/doi/10.1002/trtr.2374 | `A5-C119` |
+| Transformative Works and Cultures | https://journal.transformativeworks.org/index.php/twc/article/download/1917/2693?inline=1 | `A5-C119` |
+| Children's collaborative storytelling, linear and nonlinear | https://www.researchgate.net/publication/248607063_Children's_collaborative_storytelling_with_linear_and_nonlinear_approaches | `A5-C121` |
+| Collective digital storytelling at school | https://www.researchgate.net/publication/221238437_Collective_digital_storytelling_at_school_A_whole-class_interaction | `A5-C121` |
+| Digital Storytelling in Early Childhood (Frontiers in Psychology) | https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2018.01800/full | `A5-C122` |
+| Children's Online Collaborative Storytelling during 2020 (PMC8700547) | https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8700547/ | `A5-C122` |
+| Hill & Monroy-Hernández, Computers Can't Give Credit (arXiv 1507.01285) | https://arxiv.org/pdf/1507.01285 | `A5-C123` |
+| Same (Princeton record) | https://collaborate.princeton.edu/en/publications/computers-cant-give-credit-how-automatic-attribution-falls-short-/ | `A5-C123` |
+| Remixing as a Pathway to Computational Thinking (CSCW) | https://dl.acm.org/doi/10.1145/2818048.2819984 | `A5-C123` |
+| From Words to Wonder (CHI 2025) | https://dl.acm.org/doi/10.1145/3706598.3713478 | `A5-C124` |
+| StoryPrompt (CHI EA 2024) | https://dl.acm.org/doi/10.1145/3613905.3651118 | `A5-C124` |
+| Empowering Children's AI Literacy Through Co-Creating Stories with LLM (IDC 2025) | https://dl.acm.org/doi/10.1145/3713043.3731520 | `A5-C125` |
+| Co-Constructing Literacy with AI, Grade 4 (Educ. Sci.) | https://doi.org/10.3390/educsci16081289 | `A5-C125` |
+
+### AI bias, moderation, safety
+
+| Source | URL | Role |
+|---|---|---|
+| Forbes, schools race to write AI policies (⚠️ journalism) | https://www.forbes.com/sites/sarahhernholm/2026/07/24/schools-race-to-write-ai-policies-what-about-student-data-privacy/ | `A5-C151` |
+| FPF, Vetting Generative AI Tools for Use in Schools (PDF) | https://fpf.org/wp-content/uploads/2024/10/Ed_AI_legal_compliance.pdf_FInal_OCT24.pdf | `A5-C151` |
+| Wisconsin DPI, AI policy and governance guidance | https://dpi.wi.gov/imt/ai-guidance/administrators/policy | `A5-C151` |
+| SETDA, Clarifying Ownership of Teacher-Created Digital Content (PDF) | https://www.setda.org/wp-content/uploads/2014/03/SETDA_WPTeacher-Created.final_.5.29.pdf | `A5-C152` |
+| Library of Congress, copyright concepts for K-12 students | https://blogs.loc.gov/copyright/2020/11/six-copyright-concepts-your-k-12-students-should-know/ | `A5-C152` |
+| Finkley, Li & Walsh, Neutrality Bites (arXiv 2606.07969) | https://arxiv.org/abs/2606.07969 | `A5-C153` |
+| Same (ACM FAccT 2026) | https://dl.acm.org/doi/10.1145/3805689.3812287 | `A5-C153` |
+| AI-generated faces influence gender stereotypes and racial homogenization (Sci Rep) | https://www.nature.com/articles/s41598-025-99623-3 | `A5-C154` |
+| The Digital Mirror: Gender Bias and Occupational Stereotypes (arXiv 2510.08628) | https://arxiv.org/pdf/2510.08628 | `A5-C154` |
+| Mack et al., "They only care to show us the wheelchair" (CHI 2024) | https://dl.acm.org/doi/10.1145/3613904.3642166 | `A5-C155` |
+| Disability Representations: Finding Biases in Automatic Image Generation (arXiv 2406.14993) | https://arxiv.org/pdf/2406.14993 | `A5-C155` |
+| Cultural and Topic Bias in Generating Children's Stories (EMNLP 2025) | https://aclanthology.org/2025.emnlp-main.3.pdf | `A5-C156` |
+| Stanford HAI, How Harmful Are AI's Biases on Diverse Student Populations? | https://hai.stanford.edu/news/how-harmful-are-ais-biases-on-diverse-student-populations | `A5-C157` |
+| Digital Wellness Lab, Young People, Content Effects, and Content Moderation | https://digitalwellnesslab.org/research-briefs/young-people-content-effects-and-current-content-moderation-practices/ | `A5-C158` |
+| ICMEC, The Importance of Content Moderation (PDF) | https://cdn.icmec.org/wp-content/uploads/2023/06/TP-ICMEC-Downloadable-Part-2-The-Importance-Of-Content-Moderation.pdf | `A5-C158` |
+| Beebom, Instagram sensitive content filter misclassified LGBTQ+ terms | https://beebom.com/instagram-blocked-lgbtq-hashtags-sensitive-content-mistake/ | `A5-C159` |
+| ACLU, Anti-LGBTQ Web Filtering | https://www.aclu.org/issues/lgbtq-rights/lgbtq-youth/anti-lgbtq-web-filtering | `A5-C159` |
+| GLAAD, Social Media Safety Index | https://glaad.org/social-media-safety-index-unveils-how-tech-companies-intentionally-rolled-back-lgbtq-safety-policies/ | `A5-C159` |
+| UNESCO, Ghost in the Chatbot: perils of parasocial attachment | https://www.unesco.org/en/articles/ghost-chatbot-perils-parasocial-attachment | `A5-C160` |
+| KQED, How to talk with your kids about AI companion bots | https://www.kqed.org/news/12038874/how-to-talk-with-your-kids-about-ai-companion-bots | `A5-C160` |
+| Beyond Her: Safety Dynamics in Role-play AI Companions (arXiv 2606.28968) | https://arxiv.org/pdf/2606.28968 | `A5-C160` |
+
+### Cultural narrative norms and accessibility
+
+| Source | URL | Role |
+|---|---|---|
+| African American Kindergartners' Spoken Narratives (ERIC EJ497723) | https://eric.ed.gov/?id=EJ497723 | `A5-C161` |
+| Perceptions of Black Children's Narrative Language (LSHSS) | https://pubs.asha.org/doi/10.1044/2020_LSHSS-20-00014 | `A5-C161`, `A5-C162` |
+| Supporting the Writing Process with Technology for Students with Disabilities (SAGE) | https://journals.sagepub.com/doi/abs/10.1177/1053451219837636 | `A5-C163` |
+| Understood, assistive technology for writing | https://www.understood.org/en/articles/assistive-technology-for-writing | `A5-C164` |
+| Reading Rockets, assistive technology for writing | https://www.readingrockets.org/topics/assistive-technology/articles/assistive-technology-writing | `A5-C164` |
+| IDA, instructional and assistive technology | https://dyslexiaida.org/instructional-and-assistive-technology-maximizing-the-benefits-for-students-who-struggle/ | `A5-C164` |
+
+---
+
+## Appendix — Index of DESIGN DECISIONS (invented thresholds requiring replacement)
+
+| Location | Invented value | Replace with |
+|---|---|---|
+| `RULE A-2` | 3 comparable tasks, 6 weeks minimum before any longitudinal statement | Empirical work in this product |
+| `RULE B-6` | <1 educator alert per class per week | Measured alert volume post-launch |
+| Invariant `R-3` | Suppress class aggregates derived from <5 children | Privacy/legal review |
+| `RULE D-1` | Contradiction prompt at most once per episode, dismissible forever | Usability testing |
+| `RULE D-4` | Recall panel collapsed for B3–B4, expanded for B0–B2 | Usability testing per band |
+| `RULE D-8` | Any co-owner may withdraw; record persists for remaining owners | **Legal review required** |
+| `RULE P-13` | Character/episode retention = school year + 60 days | Counsel + district contract |
+| `RULE P-13` | AI prompt/response logs ≤30 days | Counsel + security review |
+| `RULE P-13` | Moderation record retention | Counsel + school safeguarding policy |
+| Whitelist `W7` | Which character features are counted at class aggregate | Teacher-configurable; equity-checked per `RULE X-4` |
+
+---
+
+*End of Agent 5 deliverable. Claims `A5-C01` through `A5-C164`. 68 searches, 2026-08-18. `WebFetch` blocked for all domains; all claims are search-summary derived and require primary-source verification. Part E is not legal advice.*
