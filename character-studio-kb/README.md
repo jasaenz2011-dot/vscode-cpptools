@@ -10,6 +10,16 @@ The purpose of this knowledge base is not to summarize research. It is to **conv
 
 **Read [`00-shared-conventions.md`](./00-shared-conventions.md) first.** It defines the evidence tiers, claim-ID scheme, age taxonomy, and the separation contract that every module follows. Reading a module without it will cause you to over-trust some claims and under-trust others.
 
+> ### ⚠️ Provenance ceiling
+>
+> This knowledge base was researched behind an egress policy that **blocked full-text retrieval from every scholarly and governmental host** — ERIC, PubMed, IES, the FTC, the Dept. of Education, SAGE, the standards sites, even Wikipedia. Web *search* worked; web *fetch* did not.
+>
+> **No contributor read a source document end to end.** Every claim came from search-result synthesis. Modules `01` and `04` mark this per-claim as `[SNIPPET]`; modules `02` and `05` declare it blanket-wise in their headers as `[SECONDARY-SOURCED]` at the retrieval level. Same fact, two vocabularies — an unmarked claim in `02` or `05` was **not** verified more deeply.
+>
+> This is fine for shaping internal product defaults and choosing what to prototype. It is **not** sufficient for any number you put in front of a district, funder, parent, or marketing page, and **not** sufficient for any compliance or child-safety decision. Re-verify against primary sources first. See `00-shared-conventions.md` §2 for the full permitted/forbidden table.
+>
+> The knowledge base is research-*informed* at snippet provenance — not "research-backed" without qualification.
+
 ---
 
 ## Modules
@@ -39,6 +49,7 @@ This separation is deliberate. It prevents design preferences from quietly inher
 - `[E1]`–`[E6]` — evidence tier (empirical → theoretical → standard → practice → commercial → contested). See `00-shared-conventions.md` §3.
 - `[UNVERIFIED]` — no reliable source located after search. **Must not drive any product behavior.** These are a work queue, not a conclusion.
 - `[SECONDARY-SOURCED]` — confirmed only via a source describing the original, which is what's cited.
+- `[SNIPPET]` — retrieved only as search-result synthesis, never read in full. Applies *in addition* to a tier, and applies to essentially every claim here. See the provenance ceiling above.
 - **DESIGN DECISION** — a threshold or value chosen for usability/engineering reasons, *not* derived from evidence. Freely tunable.
 - `A3-C14` — a claim ID. Product rules cite these so any behavior can be traced back to its evidence.
 
@@ -75,6 +86,7 @@ Bands are **soft defaults, never gates.** No feature may be locked on age alone;
 
 Stated plainly, because they matter for how the material is used:
 
+- **No source was read in full.** See the provenance ceiling above. Numeric claims in particular are snippet-level and several modules document *conflicting* figures attributed to the same citation — left unresolved deliberately, because a conflict you can't adjudicate should be reported, not silently reconciled.
 - **Nothing here has been tested in Character Studio.** Every product rule is an informed hypothesis requiring usability testing and educator review.
 - **Research coverage is uneven.** Some areas rest on robust empirical work; others on professional practice or contested claims. The tier labels tell you which.
 - **The evidence base skews.** Underrepresented populations are named per module. Findings drawn largely from one linguistic and cultural context are flagged rather than generalized.

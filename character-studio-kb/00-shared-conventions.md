@@ -23,7 +23,46 @@ Every product rule in this knowledge base is a **proposal traced to evidence**, 
 
 ---
 
-## 2. Citation integrity rules (non-negotiable)
+## 2. Provenance ceiling — read this before trusting any number
+
+**Every module in this knowledge base was researched under a hard constraint: full-text retrieval was blocked.**
+
+The research session ran behind an organizational egress proxy that returned `403` on `CONNECT` for every scholarly and governmental host attempted — including `eric.ed.gov`, `files.eric.ed.gov`, `pubmed.ncbi.nlm.nih.gov`, `ies.ed.gov`, `www.ftc.gov`, `studentprivacy.ed.gov`, `journals.sagepub.com`, `corestandards.org`, and `en.wikipedia.org`. Web *search* remained available; web *fetch* did not. Per the proxy's own guidance, policy denials are reported rather than routed around.
+
+**Consequence:** no contributor to this knowledge base read a source document end to end. Every claim was retrieved at search-result level — titles, URLs, and the search tool's synthesis of pages it retrieved.
+
+### How modules mark it
+
+The ceiling applies **module-wide to all five modules**, whether or not an individual claim carries a marker. Two vocabularies were used for the same fact, because modules were researched in parallel:
+
+| Modules | Marker used | Meaning |
+|---|---|---|
+| `01`, `04` | `[SNIPPET]` on each claim | Retrieved only as search-tool synthesis, not from a document read directly. |
+| `02`, `05` | `[SECONDARY-SOURCED]` at the retrieval level, stated blanket-wise in the header | Identical meaning: the retrieval channel, not the underlying study, is the weakness. |
+
+Both mean the same thing: **nobody opened the paper.** A `[E1] [SNIPPET]` claim reads as *this came from empirical work and the search layer reported it as such, but the source document was never read.*
+
+**Do not infer that an unmarked claim in `02` or `05` was verified more deeply.** Those modules declare the ceiling once in their headers instead of repeating it per claim. Absence of a marker there carries no information.
+
+### What this permits and forbids
+
+| Use | Permitted? |
+|---|---|
+| Shaping internal product defaults | **Yes** — the default stance under uncertainty (§9) already biases toward neutrality, so a mis-stated number degrades gracefully. |
+| Deciding which behaviors to prototype and test | **Yes** — these are hypotheses regardless of provenance. |
+| Any number shown to a school district, funder, parent, journalist, or marketing page | **No.** Re-verify against the primary source first. |
+| Any compliance, legal, privacy, or child-safety decision | **No.** Primary sources and qualified legal review required. |
+| Claiming this knowledge base is "research-backed" without qualification | **No.** It is research-*informed* at snippet provenance. |
+
+### Why this matters more than it might sound
+
+Contributing modules found direct evidence of the hazard while working. In module `04`, three separate retrieved pages attributed three *different* headline effect sizes to the same 2012 citation, and two pages gave conflicting peer-feedback figures for overlapping literatures. Those conflicts were flagged inline and left unresolved rather than silently reconciled — which is the correct behavior, and a demonstration of why snippet-level numbers cannot be treated as settled.
+
+**Modules must not resolve a numeric conflict they cannot adjudicate.** Documenting the disagreement is the deliverable.
+
+---
+
+## 3. Citation integrity rules (non-negotiable)
 
 These rules bind every contributing agent and every future editor.
 
@@ -37,7 +76,7 @@ These rules bind every contributing agent and every future editor.
 
 ---
 
-## 3. Evidence tiers
+## 4. Evidence tiers
 
 Every substantive claim carries exactly one tier label.
 
@@ -51,11 +90,20 @@ Every substantive claim carries exactly one tier label.
 | `[E6]` | Emerging or contested claim | May inform exploration. Must not drive a default behavior. |
 | `[UNVERIFIED]` | Could not be confirmed | Must not drive any behavior. Flagged for follow-up. |
 
+Two further markers apply **in addition to** a tier, not instead of one:
+
+| Marker | Meaning |
+|---|---|
+| `[SECONDARY-SOURCED]` | Known only through a source *describing* the original. The citation is to what was actually read. In modules `02` and `05` this also carries the retrieval-level meaning below. |
+| `[SNIPPET]` | Retrieved only as search-tool synthesis (see §2). Used per-claim in modules `01` and `04`. |
+
+Given the provenance ceiling, one of these two applies to essentially every claim in this knowledge base, whether or not it is written out.
+
 **Tier is not quality.** An `[E4]` professional consensus may be excellent guidance; an `[E1]` study may be small, dated, or non-replicated. Tier records *what kind of thing the claim is*, so readers can weigh it appropriately. Module-level limitations sections carry the quality caveats.
 
 ---
 
-## 4. Claim IDs and traceability
+## 5. Claim IDs and traceability
 
 Every substantive research claim is numbered by module:
 
@@ -64,7 +112,7 @@ A1-C07   → Agent/module 1, claim 7
 A4-C22   → Agent/module 4, claim 22
 ```
 
-Every product rule cites the claim IDs supporting it, plus its own confidence. A product rule with no claim IDs behind it is either a **DESIGN DECISION** (see §6) or a defect in this knowledge base.
+Every product rule cites the claim IDs supporting it, plus its own confidence. A product rule with no claim IDs behind it is either a **DESIGN DECISION** (see §7) or a defect in this knowledge base.
 
 This makes the knowledge base auditable in both directions:
 
@@ -73,7 +121,7 @@ This makes the knowledge base auditable in both directions:
 
 ---
 
-## 5. The separation contract
+## 6. The separation contract
 
 Every topic area is split into two explicitly labelled sections that are **never blended**:
 
@@ -87,7 +135,7 @@ Prescriptive. Implementable. Every rule cites claim IDs and states confidence. C
 
 ---
 
-## 6. DESIGN DECISION flags
+## 7. DESIGN DECISION flags
 
 Product rules frequently need thresholds that research does not supply — how many suggestions before the tool goes quiet, how long a prompt may be, how many traits a character card holds.
 
@@ -101,7 +149,7 @@ A number without either a claim ID or a DESIGN DECISION flag is a defect.
 
 ---
 
-## 7. Shared age taxonomy
+## 8. Shared age taxonomy
 
 All findings normalize into these bands:
 
@@ -125,7 +173,7 @@ All findings normalize into these bands:
 
 ---
 
-## 8. Default stance under uncertainty
+## 9. Default stance under uncertainty
 
 Where evidence is thin, mixed, or context-dependent, the product default is **neutrality or gentle optionality — never prescription.**
 
@@ -141,7 +189,7 @@ In practice:
 
 ---
 
-## 9. Required closing sections
+## 10. Required closing sections
 
 Every module ends with:
 
@@ -156,21 +204,21 @@ These are not appendices. A module without them is incomplete, because the bound
 
 ---
 
-## 10. Cross-cutting commitments
+## 11. Cross-cutting commitments
 
 Four commitments bind all modules and override any individual rule that conflicts with them.
 
-**10.1 No single correct story shape.** Character Studio must not treat Western conflict-centered narrative as the definition of a story. Circular, episodic, non-conflict-centered, and culturally-specific narrative forms are valid outputs, not errors to be corrected.
+**11.1 No single correct story shape.** Character Studio must not treat Western conflict-centered narrative as the definition of a story. Circular, episodic, non-conflict-centered, and culturally-specific narrative forms are valid outputs, not errors to be corrected.
 
-**10.2 No incorrect characters.** Absence of a conventional trope is never a defect. The tool must never imply a child has built a character "wrong."
+**11.2 No incorrect characters.** Absence of a conventional trope is never a defect. The tool must never imply a child has built a character "wrong."
 
-**10.3 Developmentally normal simplification is not error.** Flat characters, external-only traits, and unresolved motivation are expected at several bands. Each module maintains an explicit *do-not-flag* list; the union of those lists is binding.
+**11.3 Developmentally normal simplification is not error.** Flat characters, external-only traits, and unresolved motivation are expected at several bands. Each module maintains an explicit *do-not-flag* list; the union of those lists is binding.
 
-**10.4 Support without stigma.** Differentiation and accessibility support are offered in ways that never visibly categorize a child. No child sees a label, a level, or a comparison to peers on creative work.
+**11.4 Support without stigma.** Differentiation and accessibility support are offered in ways that never visibly categorize a child. No child sees a label, a level, or a comparison to peers on creative work.
 
 ---
 
-## 11. Module index
+## 12. Module index
 
 | Module | Scope | Claim prefix |
 |---|---|---|
@@ -184,7 +232,7 @@ Four commitments bind all modules and override any individual rule that conflict
 
 ---
 
-## 12. Maintenance rules
+## 13. Maintenance rules
 
 1. **Sources rot.** Every claim carries a retrieval context. Re-verify before relying on a claim for a high-stakes decision.
 2. **`[UNVERIFIED]` items are a work queue,** not permanent state. They are the highest-value targets for a follow-up research pass.
