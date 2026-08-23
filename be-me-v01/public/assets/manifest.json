@@ -479,6 +479,61 @@
       "enabled": true
     },
     {
+      "id": "extra_001",
+      "name": "Aura Glow",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "extras",
+      "files": {
+        "front": "/assets/cinematic3d/boy/extras/extra_001.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "extra_002",
+      "name": "Cape",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "extras",
+      "files": {
+        "front": "/assets/cinematic3d/boy/extras/extra_002.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "extra_003",
+      "name": "Wings",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "extras",
+      "files": {
+        "front": "/assets/cinematic3d/boy/extras/extra_003.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "extra_004",
+      "name": "Sparks",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "extras",
+      "files": {
+        "front": "/assets/cinematic3d/boy/extras/extra_004.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "extra_005",
+      "name": "Halo",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "extras",
+      "files": {
+        "front": "/assets/cinematic3d/boy/extras/extra_005.png"
+      },
+      "enabled": true
+    },
+    {
       "id": "base_master",
       "name": "Cinematic 3D Girl",
       "style": "cinematic3d",
@@ -948,6 +1003,61 @@
       "category": "accessories",
       "files": {
         "front": "/assets/cinematic3d/girl/accessories/acc_005.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "extra_001",
+      "name": "Aura Glow",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "extras",
+      "files": {
+        "front": "/assets/cinematic3d/girl/extras/extra_001.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "extra_002",
+      "name": "Cape",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "extras",
+      "files": {
+        "front": "/assets/cinematic3d/girl/extras/extra_002.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "extra_003",
+      "name": "Wings",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "extras",
+      "files": {
+        "front": "/assets/cinematic3d/girl/extras/extra_003.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "extra_004",
+      "name": "Sparks",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "extras",
+      "files": {
+        "front": "/assets/cinematic3d/girl/extras/extra_004.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "extra_005",
+      "name": "Halo",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "extras",
+      "files": {
+        "front": "/assets/cinematic3d/girl/extras/extra_005.png"
       },
       "enabled": true
     }

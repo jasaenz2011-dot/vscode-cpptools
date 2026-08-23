@@ -36,7 +36,7 @@ await page.getByRole('button', { name: 'Randomize' }).click();
 await page.waitForTimeout(500);
 s = await store();
 const filled = Object.entries(s.current.selection).filter(([, v]) => v !== null);
-pass('randomize fills slots', filled.length >= 6, `${filled.length}/8 filled`);
+pass('randomize fills slots', filled.length >= 7, `${filled.length}/9 filled`);
 
 /* 3. Save. */
 await page.getByRole('button', { name: 'Save Avatar' }).click();
@@ -55,10 +55,8 @@ s = await store();
 const allNull = Object.values(s.current.selection).every((v) => v === null);
 pass('reset clears selection', allNull);
 
-/* 5. Load restores the saved build exactly. */
-await page.getByRole('button', { name: /My Avatars/i }).click();
-await page.waitForTimeout(350);
-await page.getByRole('button', { name: /^Test Build One/ }).first().click();
+/* 5. Load restores the saved build exactly, from the Your Creations panel. */
+await page.getByRole('button', { name: 'Load Test Build One' }).click();
 await page.waitForTimeout(450);
 s = await store();
 pass('load restores selection', JSON.stringify(s.current.selection) === savedSelection);
@@ -75,25 +73,52 @@ pass('boy master loads', boySrc?.includes('/boy/base/master.png'), boySrc ?? 'no
 
 /* 7. Every composited layer occupies the identical box — the canvas contract.
       Stack several slots first so there is more than one layer to compare. */
-for (const [cat, option] of [['Hair', 'Waves'], ['Tops', 'Hoodie'], ['Shoes', 'Boots'], ['Extras', 'Backpack']]) {
+for (const [cat, option] of [['Hair', 'Waves'], ['Tops', 'Hoodie'], ['Shoes', 'Boots'], ['Accessories', 'Backpack'], ['Extras', 'Cape']]) {
   await page.getByRole('button', { name: cat, exact: true }).click();
   await page.waitForTimeout(180);
   await page.getByRole('button', { name: new RegExp(`^${option}\\b`) }).first().click();
   await page.waitForTimeout(180);
 }
 await page.waitForTimeout(400);
-const boxes = await page.evaluate(() => {
-  const imgs = [...document.querySelectorAll('img[alt*=":"]')].filter((i) =>
-    i.closest('[data-master-canvas]'),
-  );
-  return imgs.map((i) => {
-    const r = i.getBoundingClientRect();
-    return { alt: i.alt, x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height) };
+// There are now several independent stages on screen (orb, preview strip,
+// saved slots). The contract is per stage: within ONE stage every layer must
+// occupy an identical box. Group by stage and assert that for each.
+const stages = await page.evaluate(() => {
+  return [...document.querySelectorAll('[data-master-canvas]')].map((stage) => {
+    const imgs = [...stage.querySelectorAll('img[alt*=":"]')];
+    return imgs.map((i) => {
+      const r = i.getBoundingClientRect();
+      return {
+        alt: i.alt,
+        x: Math.round(r.x),
+        y: Math.round(r.y),
+        w: Math.round(r.width),
+        h: Math.round(r.height),
+      };
+    });
   });
 });
+const multi = stages.filter((layers) => layers.length > 1);
 const identical =
-  boxes.length > 0 && boxes.every((b) => b.x === boxes[0].x && b.y === boxes[0].y && b.w === boxes[0].w && b.h === boxes[0].h);
-pass('all layers share one box', identical, `${boxes.length} layers @ ${boxes[0]?.w}x${boxes[0]?.h}`);
+  multi.length > 0 &&
+  multi.every((layers) =>
+    layers.every(
+      (b) => b.x === layers[0].x && b.y === layers[0].y && b.w === layers[0].w && b.h === layers[0].h,
+    ),
+  );
+const biggest = multi.reduce((a, b) => (b.length > a.length ? b : a), multi[0] ?? []);
+pass(
+  'every stage aligns its layers',
+  identical,
+  `${stages.length} stages, ${multi.length} multi-layer, largest ${biggest.length} layers @ ${biggest[0]?.w}x${biggest[0]?.h}`,
+);
+
+/* 7b. The style rail must not borrow another style's art for a locked tile. */
+const lockedTilesHaveNoArt = await page.evaluate(() => {
+  const tiles = [...document.querySelectorAll('button[aria-label*="coming soon"]')];
+  return tiles.length > 0 && tiles.every((t) => t.querySelector('img') === null);
+});
+pass('locked styles show no borrowed art', lockedTilesHaveNoArt);
 
 /* 8. Persistence across a reload. */
 await page.reload({ waitUntil: 'networkidle' });

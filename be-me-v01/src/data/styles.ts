@@ -1,46 +1,57 @@
 import type { ArtStyle, BodyBase, ViewDefinition } from './types';
 
 /**
- * ART STYLES
+ * GENESIS STYLE CATALOG
  *
- * All five exist in the data model from day one. Only Cinematic 3D is
- * operational; the rest are architecturally complete and marked COMING SOON so
- * that enabling one is a single `enabled: true` plus its asset directory.
+ * Numbering follows the supplied UI reference (01 Watercolor, 02 Cinematic 3D,
+ * 04 Photorealistic, 09 Anime Battle, 13 Storybook 3D, 19 Comic Hero). The gaps
+ * are intentional: the catalog is sparse because only the styles the client has
+ * named are declared. No styles were invented to fill the numbering.
+ *
+ * Only Cinematic 3D has artwork. Every other entry is architecturally complete
+ * and marked COMING SOON — enabling one is `enabled: true` plus its assets.
  */
 export const ART_STYLES: ArtStyle[] = [
   {
-    id: 'cinematic3d',
-    index: '01',
-    name: 'Cinematic 3D',
-    descriptor: 'Rendered · volumetric · hero lighting',
-    enabled: true,
-  },
-  {
     id: 'watercolor',
-    index: '02',
+    index: '01',
     name: 'Watercolor',
     descriptor: 'Soft wash · paper grain',
     enabled: false,
   },
   {
-    id: 'comic',
-    index: '03',
-    name: 'Comic',
-    descriptor: 'Inked line · flat colour',
-    enabled: false,
+    id: 'cinematic3d',
+    index: '02',
+    name: 'Cinematic 3D',
+    descriptor: 'Rendered · volumetric · hero lighting',
+    enabled: true,
   },
   {
-    id: 'anime',
+    id: 'photorealistic',
     index: '04',
-    name: 'Anime',
-    descriptor: 'Cel shaded · expressive',
+    name: 'Photorealistic',
+    descriptor: 'Studio capture · true skin',
     enabled: false,
   },
   {
-    id: 'realistic',
-    index: '05',
-    name: 'Realistic',
-    descriptor: 'Photoreal · studio capture',
+    id: 'animebattle',
+    index: '09',
+    name: 'Anime Battle',
+    descriptor: 'Cel shaded · high energy',
+    enabled: false,
+  },
+  {
+    id: 'storybook3d',
+    index: '13',
+    name: 'Storybook 3D',
+    descriptor: 'Warm · illustrated · gentle',
+    enabled: false,
+  },
+  {
+    id: 'comichero',
+    index: '19',
+    name: 'Comic Hero',
+    descriptor: 'Inked line · bold colour',
     enabled: false,
   },
 ];
@@ -53,21 +64,15 @@ export const BODY_BASES: Array<{ id: BodyBase; label: string }> = [
 /**
  * VIEWS
  *
- * FRONT is the only operational view in v0.1. The others are declared so the
- * switcher, the store and the manifest already speak in terms of views.
+ * FRONT is the only operational view. The others are declared so the switcher,
+ * the store and the manifest already speak in terms of views.
  *
  * The turntable is deliberately NOT implemented by rotating the flat front PNG.
- * A real turntable requires a rendered image sequence; until that exists the
- * control states plainly what it needs.
+ * A real 360 requires a rendered image sequence; until that exists the control
+ * states what it needs rather than pretending.
  */
 export const VIEWS: ViewDefinition[] = [
-  {
-    id: 'front',
-    label: 'Front',
-    short: 'F',
-    enabled: true,
-    requirement: '',
-  },
+  { id: 'front', label: 'Front', short: 'F', enabled: true, requirement: '' },
   {
     id: 'left',
     label: 'Left',
@@ -98,3 +103,8 @@ export const VIEWS: ViewDefinition[] = [
       'A true 360 needs a rendered turntable sequence. This will not be faked by spinning the flat front artwork.',
   },
 ];
+
+/** Style tile preview. Cinematic 3D borrows its own master; others have none. */
+export function stylePreview(styleId: string, bodyBase: BodyBase): string | null {
+  return styleId === 'cinematic3d' ? `/assets/cinematic3d/${bodyBase}/base/master.png` : null;
+}

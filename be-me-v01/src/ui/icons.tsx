@@ -153,6 +153,82 @@ export const RotateIcon = ({ className }: IconProps) => (
   </Svg>
 );
 
+export const ExtrasIcon = ({ className }: IconProps) => (
+  <Svg className={className}>
+    <circle cx={12} cy={12} r={4.2} />
+    <path d="M12 2.6v3M12 18.2v3.2M2.6 12h3M18.4 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1" />
+  </Svg>
+);
+
+export const ChevronIcon = ({ className }: IconProps) => (
+  <Svg className={className}>
+    <path d="m9.5 5.5 6.5 6.5-6.5 6.5" />
+  </Svg>
+);
+
+export const GemIcon = ({ className }: IconProps) => (
+  <Svg className={className}>
+    <path d="M6.2 3.4h11.6l3.4 5.2L12 20.6 2.8 8.6Z" />
+    <path d="M2.8 8.6h18.4M9 3.4 7.2 8.6 12 20.6l4.8-12L15 3.4" />
+  </Svg>
+);
+
+export const BookIcon = ({ className }: IconProps) => (
+  <Svg className={className}>
+    <path d="M3.6 4.6h5.6A2.8 2.8 0 0 1 12 7.4v12a2.4 2.4 0 0 0-2.4-2.4H3.6Z" />
+    <path d="M20.4 4.6h-5.6A2.8 2.8 0 0 0 12 7.4v12a2.4 2.4 0 0 1 2.4-2.4h6Z" />
+  </Svg>
+);
+
+export const GearIcon = ({ className }: IconProps) => (
+  <Svg className={className}>
+    <circle cx={12} cy={12} r={3.2} />
+    <path d="M19.2 13.4a7.6 7.6 0 0 0 0-2.8l2-1.6-2-3.4-2.4.9a7.5 7.5 0 0 0-2.4-1.4L14 2.4h-4l-.4 2.7a7.5 7.5 0 0 0-2.4 1.4L4.8 5.6l-2 3.4 2 1.6a7.6 7.6 0 0 0 0 2.8l-2 1.6 2 3.4 2.4-.9a7.5 7.5 0 0 0 2.4 1.4l.4 2.7h4l.4-2.7a7.5 7.5 0 0 0 2.4-1.4l2.4.9 2-3.4Z" />
+  </Svg>
+);
+
+export const GridIcon = ({ className }: IconProps) => (
+  <Svg className={className}>
+    <rect x={3.4} y={3.4} width={7} height={7} rx={1.4} />
+    <rect x={13.6} y={3.4} width={7} height={7} rx={1.4} />
+    <rect x={3.4} y={13.6} width={7} height={7} rx={1.4} />
+    <rect x={13.6} y={13.6} width={7} height={7} rx={1.4} />
+  </Svg>
+);
+
+export const AvatarNavIcon = ({ className }: IconProps) => (
+  <Svg className={className}>
+    <circle cx={12} cy={8} r={4} />
+    <path d="M4.6 20.4a7.4 7.4 0 0 1 14.8 0" />
+  </Svg>
+);
+
+export const LoadoutIcon = ({ className }: IconProps) => (
+  <Svg className={className}>
+    <rect x={3.4} y={6.4} width={17.2} height={13.2} rx={2} />
+    <path d="M8.6 6.4V4.8a1.4 1.4 0 0 1 1.4-1.4h4a1.4 1.4 0 0 1 1.4 1.4v1.6M3.4 12h17.2" />
+  </Svg>
+);
+
+export const WorldsIcon = ({ className }: IconProps) => (
+  <Svg className={className}>
+    <circle cx={12} cy={12} r={8.6} />
+    <path d="M3.4 12h17.2M12 3.4c2.4 2.6 3.6 5.6 3.6 8.6s-1.2 6-3.6 8.6c-2.4-2.6-3.6-5.6-3.6-8.6s1.2-6 3.6-8.6Z" />
+  </Svg>
+);
+
+export const AnimationsIcon = ({ className }: IconProps) => (
+  <Svg className={className}>
+    <path d="M2.6 12h3l2-6 3 13 3-9.5 2 2.5h5.8" />
+  </Svg>
+);
+
+export const ArrowIcon = ({ className }: IconProps) => (
+  <Svg className={className}>
+    <path d="M4.6 12h14.8M13.4 6l6 6-6 6" />
+  </Svg>
+);
+
 export const CATEGORY_ICONS = {
   skin: SkinIcon,
   hair: HairIcon,
@@ -162,4 +238,5 @@ export const CATEGORY_ICONS = {
   bottom: BottomIcon,
   shoes: ShoesIcon,
   accessories: AccessoriesIcon,
+  extras: ExtrasIcon,
 } as const;

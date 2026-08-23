@@ -1,15 +1,16 @@
-# realistic
+# storybook3d
 
-Asset directory for the **realistic** art style.
+Asset directory for the **storybook3d** art style.
 
 Every PNG in here must be authored on the master canvas defined in
-`src/config/canvas.ts` (currently 1024 x 1536, set from the delivered masters) with the character in the exact
+`src/config/canvas.ts` (currently 1024 x 1536, taken from the delivered
+masters) with the character in the exact
 position the master base places them. The engine composites layers by exact
 canvas alignment: it does not crop, re-centre, or scale-to-fit individual
 assets.
 
 ```
-realistic/
+storybook3d/
   boy/
     base/          master.png            <- the master avatar for this body base
     skin/          skin_001.png ...
@@ -20,6 +21,7 @@ realistic/
     bottoms/       bottom_001.png ...
     shoes/         shoes_001.png ...
     accessories/   acc_001.png ...
+    extras/        extra_001.png ...
   girl/
     (same structure)
 ```

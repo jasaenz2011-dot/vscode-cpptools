@@ -7,6 +7,16 @@ A working local prototype of the Be Me modular avatar creator. This is the engin
 and the UI architecture, built so that professionally prepared artwork drops in
 and displays at exactly the scale and position it was authored at.
 
+The screen follows the supplied Be Me UI reference: numbered sections
+**01 Art Style · 02 Customize Everything · 03 Live Preview · 04 Your Creations**
+around a central holographic orb stage, over a suite navigation bar.
+
+> **Naming note.** The most recent UI reference is titled *AVATAR MAKER*. The
+> written brief says the application must say **BE ME**, not Avatar Maker, so the
+> BE ME branding is what ships. Everything else in that reference — layout,
+> hex style tiles, orb stage, gold framing, section numbering, bottom nav — is
+> implemented.
+
 ---
 
 ## Launch
@@ -102,7 +112,7 @@ with the exact path to drop the file at, and substitutes nothing.
 
 ## Asset manifest
 
-**`public/assets/manifest.json`** — 84 entries. It lives beside the artwork, and
+**`public/assets/manifest.json`** — 94 entries. It lives beside the artwork, and
 the Customize panel is generated entirely from it. No customisation option is
 hard-coded in any component.
 
@@ -130,13 +140,20 @@ That is all. No UI code changes, no rebuild — the manifest is fetched at runti
 ```
 public/assets/
   manifest.json
-  cinematic3d/ | watercolor/ | comic/ | anime/ | realistic/
-    boy/  base/ skin/ eyes/ eyebrows/ hair/ tops/ bottoms/ shoes/ accessories/
-    girl/ base/ skin/ eyes/ eyebrows/ hair/ tops/ bottoms/ shoes/ accessories/
+  cinematic3d/ | watercolor/ | photorealistic/ | animebattle/ | storybook3d/ | comichero/
+    boy/  base/ skin/ eyes/ eyebrows/ hair/ tops/ bottoms/ shoes/ accessories/ extras/
+    girl/ base/ skin/ eyes/ eyebrows/ hair/ tops/ bottoms/ shoes/ accessories/ extras/
   reference/            <- supplied reference imagery, not production assets
 ```
 
-All five style trees exist. Enabling a style is `enabled: true` in
+### Genesis style catalog
+
+Numbering follows the supplied reference — 01 Watercolor, **02 Cinematic 3D**,
+04 Photorealistic, 09 Anime Battle, 13 Storybook 3D, 19 Comic Hero. The gaps in
+the numbering are intentional: only the styles the client has named are
+declared, and no styles were invented to fill them.
+
+All six trees exist on disk. Enabling a style is `enabled: true` in
 `src/data/styles.ts` plus its artwork.
 
 ---
@@ -146,7 +163,7 @@ All five style trees exist. Enabling a style is `enabled: true` in
 Bottom to top, defined once in `src/config/layers.ts`:
 
 ```
-base → skin → bottom → top → shoes → eyes → eyebrows → hair → accessories
+base → skin → bottom → top → shoes → eyes → eyebrows → hair → accessories → extras
 ```
 
 Re-ordering the stack is a one-line change to that array.
@@ -162,12 +179,15 @@ interchangeable overlays, which is exactly what this stack expects.
 - **Boy / Girl** switching — swaps the master avatar, verified against both files
 - **Live layer compositing** on the master canvas contract (verified: 5 stacked
   layers occupy an identical box to the pixel)
-- **All 8 customise categories** — Skin, Hair, Eyes, Eyebrows, Tops, Bottoms,
-  Shoes, Accessories — generated from the manifest
+- **All 9 customise categories** — Skin, Hair, Eyes, Eyebrows, Tops, Bottoms,
+  Shoes, Accessories, Extras — generated from the manifest, shown as stacked
+  labelled rows with a category rail, as in the reference
 - **Instant updates** on selection, no reload; gold/cyan active states
 - **Reset**, **Randomize** (enabled assets only), **New Avatar**
-- **Save / Load / Delete** avatars to `localStorage`, persisting across reloads
-- **FRONT** view
+- **Save / Load / Delete** avatars to `localStorage`, persisting across reloads.
+  Panel 04 renders each saved slot through the real compositor, so a thumbnail
+  is the actual avatar rather than a stored screenshot
+- **FRONT** view, plus a live-preview turnaround strip in panel 03
 - **Off-canvas asset detection** with a visible, non-destructive warning
 - **MASTER AVATAR ASSET REQUIRED** failure state
 - Self-hosted typography, `prefers-reduced-motion` support, 1920×1080-first
@@ -175,14 +195,20 @@ interchangeable overlays, which is exactly what this stack expects.
 
 ## What is placeholder
 
-- **All non-base artwork.** 82 of 84 manifest entries point at PNGs that do not
+- **All non-base artwork.** 92 of 94 manifest entries point at PNGs that do not
   exist yet. Each renders as an explicitly labelled **EMPTY SLOT** chip whose
   tooltip gives the exact path to drop the file at. **Nothing has been invented
   to fill them.**
-- **Watercolor, Comic, Anime, Realistic** — present in the data model, shown as
-  COMING SOON, not selectable.
+- **Watercolor, Photorealistic, Anime Battle, Storybook 3D, Comic Hero** —
+  present in the data model, shown as locked hex tiles, not selectable. A locked
+  tile shows a padlock, never another style's character.
+- **EXPLORE ALL GENESIS STYLES**, the top-right shelf icons (Premium / Codex /
+  Settings) and the bottom-nav destinations other than AVATAR are declared and
+  visibly disabled. **LAUNCH AVATAR** reports that its destination is v0.2
+  rather than pretending to navigate.
 - **LEFT / BACK / RIGHT views** — architecturally supported; each states the
-  artwork it needs.
+  artwork it needs. In the panel-03 turnaround strip the other angles are empty
+  bays, **not** the front artwork mirrored or skewed.
 - **360** — deliberately not implemented. A real turntable needs a rendered image
   sequence; this will not be faked by spinning the flat front PNG, and the
   control says so.
@@ -227,6 +253,8 @@ be-me-v01/
 │   ├── brand/           Be ME! logo, prepared from the supplied screenshot
 │   └── fonts/           self-hosted Chakra Petch + Inter
 ├── src/
+│   ├── ui/              TopBar, StylePanel(01), OrbStage, CustomizePanel(02),
+│   │                    PreviewPanel(03), CreationsPanel(04), BottomNav
 │   ├── config/
 │   │   ├── canvas.ts    MASTER CANVAS CONTRACT + anchor metadata
 │   │   └── layers.ts    layer stack order + categories
@@ -238,7 +266,6 @@ be-me-v01/
 │   │   ├── LayerImage.tsx   ONE LAYER — the whole engine
 │   │   └── AvatarStage.tsx  the layer stack + failure states
 │   ├── state/store.ts   avatar config, save/load, persistence
-│   ├── ui/              TopBar, LeftPanel, CenterStage, RightPanel, SavedDrawer
 │   └── styles/globals.css   the black/gold/cyan visual system
 └── tools/
     ├── prepare-supplied-art.mjs   logo crop + key, reference copy
@@ -255,7 +282,9 @@ npm run build        typecheck + production build, clean
 node tools/interact.mjs
 ```
 
-The interaction suite covers: selection updates, randomize, save, reset, load,
-both masters, **the master-canvas contract across 5 stacked layers**, persistence
-across reload, and new-avatar. All ten pass with a clean browser console and no
-failed network requests.
+The interaction suite covers: selection updates, randomize, save, reset, load
+from panel 04, both masters, **the master-canvas contract asserted separately for
+every stage on screen** (orb, preview strip and saved slots — each must align its
+own layers to the pixel), that locked style tiles borrow no artwork, persistence
+across reload, and new-avatar. All eleven pass with a clean browser console and
+no failed network requests.

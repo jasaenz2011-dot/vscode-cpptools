@@ -16,7 +16,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 
 const ROOT = 'public/assets';
-const STYLES = ['cinematic3d', 'watercolor', 'comic', 'anime', 'realistic'];
+const STYLES = ['cinematic3d', 'watercolor', 'photorealistic', 'animebattle', 'storybook3d', 'comichero'];
 const BASES = ['boy', 'girl'];
 const DIRS = [
   'base',
@@ -28,6 +28,7 @@ const DIRS = [
   'bottoms',
   'shoes',
   'accessories',
+  'extras',
 ];
 
 const SLOT_DIR = {
@@ -40,6 +41,7 @@ const SLOT_DIR = {
   bottom: 'bottoms',
   shoes: 'shoes',
   accessories: 'accessories',
+  extras: 'extras',
 };
 
 /* ------------------------------ seed catalog ------------------------------ */
@@ -128,6 +130,14 @@ const ACCESSORIES = [
   ['acc_005', 'Watch'],
 ];
 
+const EXTRAS = [
+  ['extra_001', 'Aura Glow'],
+  ['extra_002', 'Cape'],
+  ['extra_003', 'Wings'],
+  ['extra_004', 'Sparks'],
+  ['extra_005', 'Halo'],
+];
+
 /* ------------------------------ tree creation ----------------------------- */
 
 for (const style of STYLES) {
@@ -143,7 +153,8 @@ const styleReadme = (style) => `# ${style}
 Asset directory for the **${style}** art style.
 
 Every PNG in here must be authored on the master canvas defined in
-\`src/config/canvas.ts\` (currently 2048 x 2048) with the character in the exact
+\`src/config/canvas.ts\` (currently 1024 x 1536, taken from the delivered
+masters) with the character in the exact
 position the master base places them. The engine composites layers by exact
 canvas alignment: it does not crop, re-centre, or scale-to-fit individual
 assets.
@@ -160,6 +171,7 @@ ${style}/
     bottoms/       bottom_001.png ...
     shoes/         shoes_001.png ...
     accessories/   acc_001.png ...
+    extras/        extra_001.png ...
   girl/
     (same structure)
 \`\`\`
@@ -213,11 +225,19 @@ for (const base of BASES) {
   for (const [id, name] of BOTTOMS[base]) push(style, base, 'bottom', id, name);
   for (const [id, name] of SHOES) push(style, base, 'shoes', id, name);
   for (const [id, name] of ACCESSORIES) push(style, base, 'accessories', id, name);
+  for (const [id, name] of EXTRAS) push(style, base, 'extras', id, name);
 }
+
+/**
+ * Taken from the delivered master artwork, not from a guess. Must stay in step
+ * with MASTER_CANVAS in src/config/canvas.ts — the app surfaces a mismatch in
+ * the footer rather than silently preferring one over the other.
+ */
+const MASTER_CANVAS = { width: 1024, height: 1536 };
 
 const manifest = {
   version: 1,
-  masterCanvas: { width: 2048, height: 2048 },
+  masterCanvas: MASTER_CANVAS,
   assets,
 };
 

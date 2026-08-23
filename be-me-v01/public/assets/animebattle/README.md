@@ -1,6 +1,6 @@
-# cinematic3d
+# animebattle
 
-Asset directory for the **cinematic3d** art style.
+Asset directory for the **animebattle** art style.
 
 Every PNG in here must be authored on the master canvas defined in
 `src/config/canvas.ts` (currently 1024 x 1536, taken from the delivered
@@ -10,7 +10,7 @@ canvas alignment: it does not crop, re-centre, or scale-to-fit individual
 assets.
 
 ```
-cinematic3d/
+animebattle/
   boy/
     base/          master.png            <- the master avatar for this body base
     skin/          skin_001.png ...

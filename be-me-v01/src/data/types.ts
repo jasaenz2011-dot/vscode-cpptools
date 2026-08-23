@@ -1,7 +1,13 @@
 import type { LayerSlot } from '../config/layers';
 
 /** Art styles. Only `cinematic3d` is operational in v0.1. */
-export type ArtStyleId = 'cinematic3d' | 'watercolor' | 'comic' | 'anime' | 'realistic';
+export type ArtStyleId =
+  | 'cinematic3d'
+  | 'watercolor'
+  | 'photorealistic'
+  | 'animebattle'
+  | 'storybook3d'
+  | 'comichero';
 
 export type BodyBase = 'boy' | 'girl';
 

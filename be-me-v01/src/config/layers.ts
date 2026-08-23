@@ -19,6 +19,7 @@ export const LAYER_SLOTS = [
   'eyebrows',
   'hair',
   'accessories',
+  'extras',
 ] as const;
 
 export type LayerSlot = (typeof LAYER_SLOTS)[number];
@@ -36,6 +37,7 @@ export const CUSTOMIZE_CATEGORIES = [
   'bottom',
   'shoes',
   'accessories',
+  'extras',
 ] as const satisfies readonly LayerSlot[];
 
 export type CustomizeCategory = (typeof CUSTOMIZE_CATEGORIES)[number];
@@ -49,6 +51,7 @@ export const CATEGORY_LABELS: Record<CustomizeCategory, string> = {
   bottom: 'Bottoms',
   shoes: 'Shoes',
   accessories: 'Accessories',
+  extras: 'Extras',
 };
 
 /** Compact labels for the icon rail, where the full name will not fit. */
@@ -60,7 +63,8 @@ export const CATEGORY_SHORT: Record<CustomizeCategory, string> = {
   top: 'Tops',
   bottom: 'Bottoms',
   shoes: 'Shoes',
-  accessories: 'Extras',
+  accessories: 'Accessories',
+  extras: 'Extras',
 };
 
 /** Directory name on disk for each slot, under `assets/<style>/<bodyBase>/`. */
@@ -74,9 +78,11 @@ export const SLOT_DIRECTORIES: Record<LayerSlot, string> = {
   bottom: 'bottoms',
   shoes: 'shoes',
   accessories: 'accessories',
+  extras: 'extras',
 };
 
 /** Slots the student may leave empty. `base` and `skin` are never optional. */
 export const OPTIONAL_SLOTS: ReadonlySet<LayerSlot> = new Set<LayerSlot>([
   'accessories',
+  'extras',
 ]);
