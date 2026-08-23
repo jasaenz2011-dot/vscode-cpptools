@@ -1,4 +1,5 @@
 import { BookIcon, DiceIcon, GemIcon, GearIcon, PlusIcon, ResetIcon, SaveIcon } from './icons';
+import { BezelPill } from './Bezel';
 
 interface TopBarProps {
   onNew: () => void;
@@ -11,11 +12,15 @@ export function TopBar({ onNew, onReset, onRandomize, onSave }: TopBarProps) {
   return (
     <header className="relative shrink-0">
       {/* Suite strapline, centred across the top as in the reference. */}
-      <p className="pointer-events-none absolute inset-x-0 top-1.5 hidden text-center font-display text-[8px] tracking-[0.42em] text-gold/45 uppercase lg:block">
-        31st Century <span className="mx-2 text-gold/25">•</span> Next Generation Creation Suite
-      </p>
+      <div className="pointer-events-none absolute inset-x-0 top-1.5 hidden justify-center lg:flex">
+        <BezelPill className="pointer-events-auto">
+          <p className="px-6 py-1 font-display text-[8px] tracking-[0.42em] whitespace-nowrap text-gold/70 uppercase">
+            31st Century <span className="mx-2 text-cyan/50">•</span> Next Generation Creation Suite
+          </p>
+        </BezelPill>
+      </div>
 
-      <div className="flex items-center justify-between gap-4 px-4 pt-4 pb-2.5 xl:px-5">
+      <div className="flex items-center justify-between gap-4 px-4 pt-5 pb-2.5 xl:px-5">
         {/* Brand — the supplied Be ME! logo, used as delivered. */}
         <div className="flex min-w-0 items-center gap-3.5">
           <img
@@ -43,34 +48,56 @@ export function TopBar({ onNew, onReset, onRandomize, onSave }: TopBarProps) {
           <button
             type="button"
             onClick={onSave}
-            className="btn-key cut-corner-sm flex items-center gap-2 px-4 py-2.5 text-[10.5px]"
+            className="btn-key notch-sm flex items-center gap-2 px-4 py-2.5 text-[10.5px]"
           >
             <SaveIcon className="text-[14px]" />
             <span className="hidden sm:inline">Save Avatar</span>
           </button>
 
-          <span className="mx-1 hidden h-8 w-px bg-gold/18 xl:block" aria-hidden="true" />
-
           {/* Creator block, mirroring the reference's top-right identity area. */}
-          <div className="hidden text-right xl:block">
-            <p className="font-display text-[8px] tracking-[0.26em] text-white/32 uppercase">
-              Welcome, Creator
-            </p>
-            <p className="font-display text-[12px] font-700 tracking-[0.18em] text-gold-bright uppercase">
-              Visionary
-            </p>
-          </div>
+          <BezelPill className="hidden xl:block">
+            <div className="flex items-center gap-3 px-3.5 py-1.5">
+              <span className="text-right">
+                <span className="block font-display text-[8px] tracking-[0.26em] text-white/38 uppercase">
+                  Welcome, Creator
+                </span>
+                <span className="block font-display text-[12px] font-700 tracking-[0.18em] text-gold-bright uppercase">
+                  Visionary
+                </span>
+              </span>
+              <Crest />
+            </div>
+          </BezelPill>
 
-          <div className="hidden items-center gap-1 xl:flex">
-            <Shelf label="Premium" icon={<GemIcon />} />
-            <Shelf label="Codex" icon={<BookIcon />} />
-            <Shelf label="Settings" icon={<GearIcon />} />
-          </div>
+          <BezelPill className="hidden xl:block">
+            <div className="flex items-center gap-0.5 px-1.5 py-1">
+              <Shelf label="Premium" icon={<GemIcon />} />
+              <Shelf label="Codex" icon={<BookIcon />} />
+              <Shelf label="Settings" icon={<GearIcon />} />
+            </div>
+          </BezelPill>
         </div>
       </div>
 
       <div className="rule-gold" />
     </header>
+  );
+}
+
+/** The creator crest from the reference's top-right corner. */
+function Crest() {
+  return (
+    <svg viewBox="0 0 32 32" aria-hidden="true" className="h-7 w-7 shrink-0">
+      <path
+        d="M16 2.6 27.4 9v14L16 29.4 4.6 23V9Z"
+        fill="none"
+        stroke="var(--color-gold)"
+        strokeWidth={1.2}
+        opacity={0.55}
+      />
+      <path d="M16 8.4 22.6 21H9.4Z" fill="var(--color-gold)" opacity={0.9} />
+      <path d="M16 14.2 19.4 21h-6.8Z" fill="#0d1119" />
+    </svg>
   );
 }
 
@@ -89,7 +116,7 @@ function Action({
       onClick={onClick}
       aria-label={label}
       title={label}
-      className="btn-ghost cut-corner-sm flex items-center gap-2 px-3.5 py-2.5 text-[10.5px]"
+      className="btn-ghost notch-sm flex items-center gap-2 px-3.5 py-2.5 text-[10.5px]"
     >
       <span className="text-[14px]">{icon}</span>
       <span className="hidden lg:inline">{label}</span>
@@ -108,7 +135,7 @@ function Shelf({ label, icon }: { label: string; icon: React.ReactNode }) {
       disabled
       aria-label={`${label} — coming soon`}
       title={`${label} — coming soon`}
-      className="grid h-9 w-9 place-items-center border border-gold/18 text-[15px] text-gold/40 transition-colors hover:text-gold/60 disabled:cursor-not-allowed"
+      className="grid h-8 w-8 place-items-center text-[15px] text-gold/45 transition-colors hover:text-gold-bright disabled:cursor-not-allowed"
     >
       {icon}
     </button>

@@ -11,11 +11,31 @@ The screen follows the supplied Be Me UI reference: numbered sections
 **01 Art Style · 02 Customize Everything · 03 Live Preview · 04 Your Creations**
 around a central holographic orb stage, over a suite navigation bar.
 
-> **Naming note.** The most recent UI reference is titled *AVATAR MAKER*. The
-> written brief says the application must say **BE ME**, not Avatar Maker, so the
-> BE ME branding is what ships. Everything else in that reference — layout,
-> hex style tiles, orb stage, gold framing, section numbering, bottom nav — is
-> implemented.
+> **Naming note.** One of the supplied UI references is titled *AVATAR MAKER*.
+> The written brief says the application must say **BE ME**, not Avatar Maker, so
+> the BE ME branding is what ships. Everything else in that reference — layout,
+> style tiles, orb stage, gold framing, section numbering, bottom nav — is
+> implemented. **This is the one open question in the build:** if the reference
+> title is the intended product name rather than a working label, say so and it
+> is a one-line change.
+
+Three references were supplied in sequence. The third specifies the chrome, and
+the build follows it:
+
+- **Notched gold bezels** (`.bezel` / `.bezel-in` in `globals.css`, wrapped by
+  `src/ui/Bezel.tsx`) — a gradient metal plate around an inset dark panel, with
+  octagonal `clip-path` corner cuts, framing panels 01–04.
+- **Rounded-rectangle style tiles**, not hexagons. An earlier pass built these
+  as hex tiles from reference #2; reference #3 shows rounded rects, and they
+  were corrected. The hex silhouette is retained only where the reference uses
+  it: the **360°** badge beside the orb.
+- **Paging chevrons** either side of the style grid (6 per page).
+- **A mechanical projector platform** under the avatar: stacked machined decks,
+  concentric light rings, and a tapered projection cone rising into the stage.
+- **A rig readout** at the foot of panel 03 — base, view, master canvas, live
+  layer count, anchor calibration state, off-canvas asset count. Every row is
+  read from the running compositor; none of it is decorative. It is dropped
+  below 1536px wide rather than being clipped by the frame.
 
 ---
 
@@ -177,8 +197,9 @@ interchangeable overlays, which is exactly what this stack expects.
 
 - **Cinematic 3D** art style, fully operational
 - **Boy / Girl** switching — swaps the master avatar, verified against both files
-- **Live layer compositing** on the master canvas contract (verified: 5 stacked
-  layers occupy an identical box to the pixel)
+- **Live layer compositing** on the master canvas contract (verified by
+  `tools/interact.mjs`: across 3 simultaneous stages, every layer of a 10-layer
+  stack occupies an identical box to the pixel)
 - **All 9 customise categories** — Skin, Hair, Eyes, Eyebrows, Tops, Bottoms,
   Shoes, Accessories, Extras — generated from the manifest, shown as stacked
   labelled rows with a category rail, as in the reference
@@ -200,7 +221,7 @@ interchangeable overlays, which is exactly what this stack expects.
   tooltip gives the exact path to drop the file at. **Nothing has been invented
   to fill them.**
 - **Watercolor, Photorealistic, Anime Battle, Storybook 3D, Comic Hero** —
-  present in the data model, shown as locked hex tiles, not selectable. A locked
+  present in the data model, shown as locked tiles, not selectable. A locked
   tile shows a padlock, never another style's character.
 - **EXPLORE ALL GENESIS STYLES**, the top-right shelf icons (Premium / Codex /
   Settings) and the bottom-nav destinations other than AVATAR are declared and
@@ -222,7 +243,7 @@ interchangeable overlays, which is exactly what this stack expects.
 | Cinematic 3D Boy master | Installed verbatim at `boy/base/master.png` |
 | Cinematic 3D Girl master | Installed verbatim at `girl/base/master.png` |
 | Be ME! logo (phone screenshot) | Cropped out of the screenshot chrome and white page keyed to transparency by `tools/prepare-supplied-art.mjs`. Pixels were removed, never repainted. Used as the header brand mark. |
-| Be Me UI reference | `public/assets/reference/be-me-ui-reference.png` — visual target |
+| Be Me UI references (×3) | `public/assets/reference/` — visual targets. The third, `be-me-ui-reference-03-chrome.png`, specifies the frame/chrome system and is the one the current build follows. |
 | Two K–8 character contact sheets | `public/assets/reference/` — reference only. They are contact sheets of many separate characters, not modular bases, so they were **not** sliced into avatar assets. |
 
 ---

@@ -2,10 +2,10 @@ import { useMemo } from 'react';
 import { AvatarStage } from '../engine/AvatarStage';
 import type { LayerReport } from '../engine/LayerImage';
 import type { ManifestIndex } from '../engine/manifest';
-import { ART_STYLES, VIEWS } from '../data/styles';
+import { VIEWS } from '../data/styles';
 import type { ArtStyleId, BodyBase, ViewId } from '../data/types';
 import type { CustomizeCategory } from '../config/layers';
-import { AlertIcon, ArrowIcon, RotateIcon } from './icons';
+import { AlertIcon, ArrowIcon, ChevronIcon, RotateIcon } from './icons';
 
 interface OrbStageProps {
   manifest: ManifestIndex;
@@ -31,7 +31,6 @@ export function OrbStage({
   onLaunch,
 }: OrbStageProps) {
   const current = VIEWS.find((v) => v.id === view) ?? VIEWS[0]!;
-  const styleName = ART_STYLES.find((s) => s.id === style)?.name ?? style;
   const mismatches = useMemo(() => reports.filter((r) => r.sizeMismatch), [reports]);
   const turntable = VIEWS.find((v) => v.id === 'turntable')!;
 
@@ -40,32 +39,34 @@ export function OrbStage({
       <div className="relative flex min-h-0 flex-1 items-center justify-center">
         <OrbBackdrop />
 
-        {/* Technical readout, left of the orb — reads the live rig, invents nothing. */}
-        <dl
-          className="pointer-events-none absolute top-[16%] left-0 hidden w-[124px] space-y-1 2xl:block"
-          aria-hidden="true"
-        >
-          <Readout k="STYLE" v={styleName} />
-          <Readout k="BASE" v={bodyBase} />
-          <Readout k="VIEW" v={current.label} />
-          <Readout k="LAYERS" v={String(reports.filter((r) => r.status === 'ready').length)} />
-        </dl>
-
-        {/* 360 control, right of the orb. Disabled and says why. */}
-        <div className="absolute top-[18%] right-0 hidden text-right 2xl:block">
+        {/* 360 widget — the hex badge from the reference. Disabled, and says why.
+            The rig telemetry that used to float here now lives inside panel 03,
+            where it is framed rather than loose on the backdrop. */}
+        <div className="absolute top-[16%] right-0 hidden 2xl:block">
           <button
             type="button"
             onClick={() => onView('turntable')}
             title={turntable.requirement}
+            aria-label={`360 view — ${turntable.requirement}`}
             className="group block"
           >
-            <span className="block font-display text-[26px] font-700 tracking-[0.04em] text-white/72 transition-colors group-hover:text-gold-bright">
-              360°
-            </span>
-            <span className="mt-0.5 flex items-center justify-end gap-1 text-cyan/55">
-              <RotateIcon className="text-[11px]" />
-              <span className="font-display text-[8px] tracking-[0.2em] uppercase">
-                Assets required
+            <span className="bezel hex block h-[92px] w-[82px] !p-[2px]">
+              <span className="bezel-in hex grid h-full w-full place-items-center px-2 text-center">
+                <span>
+                  <span className="block font-display text-[19px] font-700 tracking-[0.02em] text-gold-bright">
+                    360°
+                  </span>
+                  <span className="mx-auto my-1 flex items-center justify-center gap-1 text-cyan/60">
+                    <ChevronIcon className="rotate-180 text-[9px]" />
+                    <RotateIcon className="text-[10px]" />
+                    <ChevronIcon className="text-[9px]" />
+                  </span>
+                  <span className="block font-display text-[6.5px] leading-tight tracking-[0.14em] text-white/34 uppercase">
+                    Assets
+                    <br />
+                    required
+                  </span>
+                </span>
               </span>
             </span>
           </button>
@@ -101,7 +102,7 @@ export function OrbStage({
         <button
           type="button"
           onClick={onLaunch}
-          className="btn-launch cut-corner group relative w-full max-w-[430px] px-6 py-3.5"
+          className="btn-launch notch group relative w-full max-w-[440px] px-6 py-3.5"
         >
           <span className="flex items-center justify-center gap-3 font-display text-[17px] font-700 tracking-[0.22em] uppercase">
             Launch Avatar
@@ -111,17 +112,6 @@ export function OrbStage({
         <p className="label-dim mt-2">Take your creation into the future</p>
       </div>
     </section>
-  );
-}
-
-function Readout({ k, v }: { k: string; v: string }) {
-  return (
-    <div className="flex items-baseline justify-between gap-2 border-b border-white/6 pb-0.5">
-      <dt className="font-display text-[8px] tracking-[0.2em] text-white/25 uppercase">{k}</dt>
-      <dd className="truncate font-display text-[9px] tracking-[0.1em] text-cyan/70 uppercase">
-        {v}
-      </dd>
-    </div>
   );
 }
 
@@ -169,28 +159,46 @@ function OrbGlass() {
   );
 }
 
-/** The mechanical platform with concentric light rings. */
+/**
+ * The projector platform: stacked machined decks with concentric light rings and
+ * a beam rising into the stage, as in the supplied chrome reference.
+ */
 function Platform() {
   return (
     <span
-      className="pointer-events-none absolute bottom-[-6%] left-1/2 -translate-x-1/2"
+      className="pointer-events-none absolute bottom-[-9%] left-1/2 -translate-x-1/2"
       aria-hidden="true"
-      style={{ width: '130%', aspectRatio: '3 / 1' }}
+      style={{ width: '138%', aspectRatio: '2.5 / 1' }}
     >
-      {/* Ambient bloom */}
-      <span className="motion-safe:animate-breathe absolute inset-[-14%] rounded-[50%] bg-[radial-gradient(ellipse_at_center,rgba(79,214,255,0.26),transparent_62%)]" />
-      {/* Machined deck */}
-      <span className="absolute inset-[4%] rounded-[50%] bg-[radial-gradient(ellipse_at_center,#1b2130_0%,#0d111a_58%,#070a10_100%)] shadow-[0_18px_40px_-14px_#000]" />
-      <span className="absolute inset-[4%] rounded-[50%] border-2 border-gold/55 shadow-[0_0_34px_-6px_var(--color-gold),inset_0_0_28px_-10px_var(--color-gold)]" />
-      {/* Concentric light rings */}
-      <span className="motion-safe:animate-drift ring inset-[15%] border-dashed border-cyan/34" />
+      {/* Projection beam: a cone widening down onto the deck, not a hard bar. */}
       <span
-        className="motion-safe:animate-drift ring inset-[25%] border-gold/28"
+        className="absolute bottom-[44%] left-1/2 h-[540%] w-[78%] -translate-x-1/2 blur-[3px]"
+        style={{
+          clipPath: 'polygon(38% 0, 62% 0, 100% 100%, 0 100%)',
+          background:
+            'linear-gradient(to top, rgba(243,205,117,0.20), rgba(79,214,255,0.09) 44%, transparent 82%)',
+        }}
+      />
+
+      {/* Ambient bloom */}
+      <span className="motion-safe:animate-breathe absolute inset-[-16%] rounded-[50%] bg-[radial-gradient(ellipse_at_center,rgba(79,214,255,0.24),transparent_62%)]" />
+
+      {/* Lower deck */}
+      <span className="absolute inset-x-[6%] bottom-0 h-[52%] rounded-[50%] bg-[linear-gradient(180deg,#2a313d,#12161e_58%,#080a0f)] shadow-[0_16px_40px_-14px_#000]" />
+      <span className="absolute inset-x-[6%] bottom-[16%] h-[42%] rounded-[50%] border border-cyan/30 shadow-[0_0_26px_-8px_var(--color-cyan)]" />
+
+      {/* Upper deck */}
+      <span className="absolute inset-x-[14%] bottom-[26%] h-[52%] rounded-[50%] bg-[linear-gradient(180deg,#333b48,#161b25_60%,#0b0e14)]" />
+      <span className="absolute inset-x-[14%] bottom-[26%] h-[52%] rounded-[50%] border-2 border-gold/50 shadow-[0_0_32px_-8px_var(--color-gold),inset_0_0_26px_-10px_var(--color-gold)]" />
+
+      {/* Emitter face */}
+      <span className="absolute inset-x-[20%] bottom-[40%] h-[40%] rounded-[50%] bg-[radial-gradient(ellipse_at_center,#1d2530_0%,#0d1119_62%,#080b10_100%)]" />
+      <span className="motion-safe:animate-drift ring inset-x-[24%] bottom-[44%] top-auto h-[32%] border-dashed border-cyan/38" />
+      <span
+        className="motion-safe:animate-drift ring inset-x-[30%] bottom-[48%] top-auto h-[24%] border-gold/34"
         style={{ animationDuration: '34s', animationDirection: 'reverse' }}
       />
-      <span className="ring inset-[36%] border-cyan/40 shadow-[0_0_20px_-6px_var(--color-cyan)]" />
-      {/* Core emitter */}
-      <span className="absolute inset-[45%] rounded-[50%] bg-[radial-gradient(ellipse_at_center,rgba(243,205,117,0.55),rgba(79,214,255,0.20)_55%,transparent_75%)]" />
+      <span className="absolute inset-x-[36%] bottom-[52%] h-[16%] rounded-[50%] bg-[radial-gradient(ellipse_at_center,rgba(243,205,117,0.62),rgba(79,214,255,0.22)_58%,transparent_78%)]" />
     </span>
   );
 }

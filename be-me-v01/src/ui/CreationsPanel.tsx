@@ -2,6 +2,7 @@ import { AvatarStage } from '../engine/AvatarStage';
 import type { ManifestIndex } from '../engine/manifest';
 import type { SavedAvatar } from '../state/store';
 import { SectionHeader } from './SectionHeader';
+import { Bezel } from './Bezel';
 import { PlusIcon, TrashIcon } from './icons';
 
 interface CreationsPanelProps {
@@ -33,7 +34,7 @@ export function CreationsPanel({
   const overflow = saved.length - shown.length;
 
   return (
-    <section className="plate-gold cut-corner flex shrink-0 flex-col">
+    <Bezel className="shrink-0">
       <SectionHeader
         number="04"
         title="Your Creations"
@@ -57,7 +58,7 @@ export function CreationsPanel({
           <div
             key={`empty-${i}`}
             aria-hidden="true"
-            className="cut-corner-sm grid aspect-[3/4] place-items-center border border-dashed border-white/10 bg-black/25"
+            className="slot-tile notch-sm grid aspect-[3/4] place-items-center opacity-70"
           >
             <span className="font-display text-[7px] tracking-[0.14em] text-white/18 uppercase">
               Empty
@@ -70,7 +71,7 @@ export function CreationsPanel({
           onClick={onNewSlot}
           aria-label="Save the current build into a new slot"
           title="Save the current build into a new slot"
-          className="cut-corner-sm group grid aspect-[3/4] place-items-center border border-gold/30 bg-gradient-to-b from-gold/10 to-transparent transition-all duration-200 ease-[var(--ease-soft)] hover:border-gold/70 hover:from-gold/20"
+          className="slot-tile notch-sm group grid aspect-[3/4] place-items-center transition-all duration-200 ease-[var(--ease-soft)] hover:border-gold/70"
         >
           <span className="text-center">
             <PlusIcon className="mx-auto text-[16px] text-gold/70 transition-colors group-hover:text-gold-bright" />
@@ -86,7 +87,7 @@ export function CreationsPanel({
           +{overflow} more stored
         </p>
       ) : null}
-    </section>
+    </Bezel>
   );
 }
 
@@ -105,10 +106,8 @@ function SavedSlot({
 }) {
   return (
     <div
-      className={`cut-corner-sm group relative aspect-[3/4] overflow-hidden border transition-all duration-200 ease-[var(--ease-soft)] ${
-        active
-          ? 'border-gold bg-gradient-to-b from-gold/16 to-transparent shadow-[0_0_18px_-6px_var(--color-gold)]'
-          : 'border-white/9 bg-black/35 hover:border-cyan/50'
+      className={`slot-tile notch-sm group relative aspect-[3/4] overflow-hidden transition-all duration-200 ease-[var(--ease-soft)] ${
+        active ? 'slot-tile-active' : 'hover:border-cyan/50'
       }`}
     >
       <button

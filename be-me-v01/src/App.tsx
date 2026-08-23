@@ -71,14 +71,14 @@ export default function App() {
   if (error) {
     return (
       <div className="circuitry grid h-full place-items-center p-8">
-        <div className="plate-gold cut-corner max-w-md p-6 text-center">
+        <div className="bezel notch max-w-md"><div className="bezel-in notch p-6 text-center">
           <p className="label text-red-300">Manifest Error</p>
           <div className="rule-gold my-3" />
           <p className="text-[12.5px] leading-relaxed text-white/60">{error}</p>
           <code className="mt-3 block font-mono text-[11px] text-white/40">
             public/assets/manifest.json
           </code>
-        </div>
+        </div></div>
       </div>
     );
   }
@@ -121,6 +121,7 @@ export default function App() {
             bodyBase={config.bodyBase}
             view={view}
             selection={config.selection}
+            reports={reports}
             onView={setView}
           />
         </div>
@@ -177,7 +178,7 @@ export default function App() {
           className="motion-safe:animate-rise pointer-events-none fixed bottom-16 left-1/2 z-40 -translate-x-1/2"
         >
           <p
-            className={`cut-corner-sm border px-4 py-2 font-display text-[10.5px] tracking-[0.16em] uppercase backdrop-blur-sm ${
+            className={`notch-sm border px-4 py-2 font-display text-[10.5px] tracking-[0.16em] uppercase backdrop-blur-sm ${
               toast.tone === 'ok'
                 ? 'border-gold/50 bg-black/88 text-gold-bright'
                 : 'border-amber-400/50 bg-black/88 text-amber-300'

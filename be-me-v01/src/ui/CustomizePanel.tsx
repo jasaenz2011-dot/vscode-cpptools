@@ -8,6 +8,7 @@ import {
 import type { ArtStyleId, AssetEntry, BodyBase, ViewId } from '../data/types';
 import type { ManifestIndex } from '../engine/manifest';
 import { SectionHeader } from './SectionHeader';
+import { Bezel } from './Bezel';
 import { BanIcon, CATEGORY_ICONS, CheckIcon, ChevronIcon } from './icons';
 
 interface CustomizePanelProps {
@@ -51,7 +52,7 @@ export function CustomizePanel({
   );
 
   return (
-    <section className="plate-gold cut-corner flex min-h-0 flex-1 flex-col">
+    <Bezel className="min-h-0 flex-1">
       <SectionHeader number="02" title="Customize" accent="Everything" />
 
       <div className="grid min-h-0 flex-1 grid-cols-[104px_minmax(0,1fr)] xl:grid-cols-[122px_minmax(0,1fr)]">
@@ -82,7 +83,15 @@ export function CustomizePanel({
                     isActive ? 'bg-gold shadow-[0_0_10px_var(--color-gold)]' : 'bg-transparent'
                   }`}
                 />
-                <Icon className="shrink-0 text-[14px]" />
+                <span
+                  className={`grid h-6 w-6 shrink-0 place-items-center rounded-full border transition-colors duration-200 ${
+                    isActive
+                      ? 'border-gold/80 bg-gold/16 text-gold-bright'
+                      : 'border-white/14 text-white/45 group-hover:border-cyan/45'
+                  }`}
+                >
+                  <Icon className="text-[12px]" />
+                </span>
                 <span className="min-w-0 flex-1 truncate font-display text-[8.5px] font-600 tracking-[0.04em] uppercase">
                   {CATEGORY_LABELS[category]}
                 </span>
@@ -148,7 +157,7 @@ export function CustomizePanel({
           })}
         </div>
       </div>
-    </section>
+    </Bezel>
   );
 }
 
@@ -182,13 +191,11 @@ function OptionChip({
         state === 'missing' ? `${asset.name} — empty slot, artwork not yet supplied` : asset.name
       }
       title={state === 'missing' && src ? `Empty slot — drop art at ${src}` : asset.name}
-      className={`cut-corner-sm group relative overflow-hidden transition-all duration-200 ease-[var(--ease-soft)] ${
-        selected
-          ? 'border border-gold bg-gradient-to-b from-gold/20 to-transparent shadow-[0_0_18px_-5px_var(--color-gold)]'
-          : 'border border-white/9 bg-white/[0.02] hover:border-cyan/50 hover:bg-white/[0.05]'
+      className={`slot-tile notch-sm group relative overflow-hidden transition-all duration-200 ease-[var(--ease-soft)] ${
+        selected ? 'slot-tile-active' : 'hover:border-cyan/55'
       }`}
     >
-      <span className="relative block aspect-square w-full overflow-hidden bg-black/50">
+      <span className="relative block aspect-square w-full overflow-hidden">
         {src ? (
           <img
             src={src}
@@ -254,13 +261,11 @@ function NoneChip({
       aria-pressed={selected}
       aria-label={`No ${label.toLowerCase()}`}
       title={`Leave ${label.toLowerCase()} empty`}
-      className={`cut-corner-sm overflow-hidden transition-all duration-200 ease-[var(--ease-soft)] ${
-        selected
-          ? 'border border-gold bg-gradient-to-b from-gold/20 to-transparent'
-          : 'border border-white/9 bg-white/[0.02] hover:border-cyan/50'
+      className={`slot-tile notch-sm overflow-hidden transition-all duration-200 ease-[var(--ease-soft)] ${
+        selected ? 'slot-tile-active' : 'hover:border-cyan/55'
       }`}
     >
-      <span className="grid aspect-square w-full place-items-center bg-black/50 text-white/26">
+      <span className="grid aspect-square w-full place-items-center text-white/26">
         <BanIcon className="text-[16px]" />
       </span>
       <span
