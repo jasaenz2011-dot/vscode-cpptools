@@ -1,0 +1,955 @@
+{
+  "version": 1,
+  "masterCanvas": {
+    "width": 1024,
+    "height": 1536
+  },
+  "assets": [
+    {
+      "id": "base_master",
+      "name": "Cinematic 3D Boy",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "base",
+      "files": {
+        "front": "/assets/cinematic3d/boy/base/master.png"
+      },
+      "enabled": true,
+      "notes": "Supplied master artwork. Place the delivered PNG at this exact path."
+    },
+    {
+      "id": "skin_001",
+      "name": "Porcelain",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "skin",
+      "files": {
+        "front": "/assets/cinematic3d/boy/skin/skin_001.png"
+      },
+      "enabled": true,
+      "swatch": "#f2d3bd"
+    },
+    {
+      "id": "skin_002",
+      "name": "Sand",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "skin",
+      "files": {
+        "front": "/assets/cinematic3d/boy/skin/skin_002.png"
+      },
+      "enabled": true,
+      "swatch": "#e7bb98"
+    },
+    {
+      "id": "skin_003",
+      "name": "Honey",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "skin",
+      "files": {
+        "front": "/assets/cinematic3d/boy/skin/skin_003.png"
+      },
+      "enabled": true,
+      "swatch": "#d09b6a"
+    },
+    {
+      "id": "skin_004",
+      "name": "Amber",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "skin",
+      "files": {
+        "front": "/assets/cinematic3d/boy/skin/skin_004.png"
+      },
+      "enabled": true,
+      "swatch": "#b3784b"
+    },
+    {
+      "id": "skin_005",
+      "name": "Umber",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "skin",
+      "files": {
+        "front": "/assets/cinematic3d/boy/skin/skin_005.png"
+      },
+      "enabled": true,
+      "swatch": "#8a5636"
+    },
+    {
+      "id": "skin_006",
+      "name": "Ebony",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "skin",
+      "files": {
+        "front": "/assets/cinematic3d/boy/skin/skin_006.png"
+      },
+      "enabled": true,
+      "swatch": "#5c3722"
+    },
+    {
+      "id": "hair_001",
+      "name": "Close Crop",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "hair",
+      "files": {
+        "front": "/assets/cinematic3d/boy/hair/hair_001.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "hair_002",
+      "name": "Textured Crop",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "hair",
+      "files": {
+        "front": "/assets/cinematic3d/boy/hair/hair_002.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "hair_003",
+      "name": "Curl Top",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "hair",
+      "files": {
+        "front": "/assets/cinematic3d/boy/hair/hair_003.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "hair_004",
+      "name": "Waves",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "hair",
+      "files": {
+        "front": "/assets/cinematic3d/boy/hair/hair_004.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "hair_005",
+      "name": "Twists",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "hair",
+      "files": {
+        "front": "/assets/cinematic3d/boy/hair/hair_005.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "hair_006",
+      "name": "Mid Fade",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "hair",
+      "files": {
+        "front": "/assets/cinematic3d/boy/hair/hair_006.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "eyes_001",
+      "name": "Warm Brown",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "eyes",
+      "files": {
+        "front": "/assets/cinematic3d/boy/eyes/eyes_001.png"
+      },
+      "enabled": true,
+      "swatch": "#6b4423"
+    },
+    {
+      "id": "eyes_002",
+      "name": "Deep Brown",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "eyes",
+      "files": {
+        "front": "/assets/cinematic3d/boy/eyes/eyes_002.png"
+      },
+      "enabled": true,
+      "swatch": "#3b2416"
+    },
+    {
+      "id": "eyes_003",
+      "name": "Hazel",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "eyes",
+      "files": {
+        "front": "/assets/cinematic3d/boy/eyes/eyes_003.png"
+      },
+      "enabled": true,
+      "swatch": "#8a6b3d"
+    },
+    {
+      "id": "eyes_004",
+      "name": "Green",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "eyes",
+      "files": {
+        "front": "/assets/cinematic3d/boy/eyes/eyes_004.png"
+      },
+      "enabled": true,
+      "swatch": "#4a6b45"
+    },
+    {
+      "id": "brow_001",
+      "name": "Soft",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "eyebrows",
+      "files": {
+        "front": "/assets/cinematic3d/boy/eyebrows/brow_001.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "brow_002",
+      "name": "Straight",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "eyebrows",
+      "files": {
+        "front": "/assets/cinematic3d/boy/eyebrows/brow_002.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "brow_003",
+      "name": "Arched",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "eyebrows",
+      "files": {
+        "front": "/assets/cinematic3d/boy/eyebrows/brow_003.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "brow_004",
+      "name": "Bold",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "eyebrows",
+      "files": {
+        "front": "/assets/cinematic3d/boy/eyebrows/brow_004.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "top_001",
+      "name": "Crew Tee",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "top",
+      "files": {
+        "front": "/assets/cinematic3d/boy/tops/top_001.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "top_002",
+      "name": "Hoodie",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "top",
+      "files": {
+        "front": "/assets/cinematic3d/boy/tops/top_002.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "top_003",
+      "name": "Flannel Shirt",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "top",
+      "files": {
+        "front": "/assets/cinematic3d/boy/tops/top_003.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "top_004",
+      "name": "Track Jacket",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "top",
+      "files": {
+        "front": "/assets/cinematic3d/boy/tops/top_004.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "top_005",
+      "name": "Polo",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "top",
+      "files": {
+        "front": "/assets/cinematic3d/boy/tops/top_005.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "top_006",
+      "name": "Knit Sweater",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "top",
+      "files": {
+        "front": "/assets/cinematic3d/boy/tops/top_006.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "bottom_001",
+      "name": "Denim Jeans",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "bottom",
+      "files": {
+        "front": "/assets/cinematic3d/boy/bottoms/bottom_001.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "bottom_002",
+      "name": "Cargo Pants",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "bottom",
+      "files": {
+        "front": "/assets/cinematic3d/boy/bottoms/bottom_002.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "bottom_003",
+      "name": "Shorts",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "bottom",
+      "files": {
+        "front": "/assets/cinematic3d/boy/bottoms/bottom_003.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "bottom_004",
+      "name": "Joggers",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "bottom",
+      "files": {
+        "front": "/assets/cinematic3d/boy/bottoms/bottom_004.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "bottom_005",
+      "name": "Track Pants",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "bottom",
+      "files": {
+        "front": "/assets/cinematic3d/boy/bottoms/bottom_005.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "shoes_001",
+      "name": "Sneakers",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "shoes",
+      "files": {
+        "front": "/assets/cinematic3d/boy/shoes/shoes_001.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "shoes_002",
+      "name": "Hi-Tops",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "shoes",
+      "files": {
+        "front": "/assets/cinematic3d/boy/shoes/shoes_002.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "shoes_003",
+      "name": "Boots",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "shoes",
+      "files": {
+        "front": "/assets/cinematic3d/boy/shoes/shoes_003.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "shoes_004",
+      "name": "Runners",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "shoes",
+      "files": {
+        "front": "/assets/cinematic3d/boy/shoes/shoes_004.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "shoes_005",
+      "name": "Slip-Ons",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "shoes",
+      "files": {
+        "front": "/assets/cinematic3d/boy/shoes/shoes_005.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "acc_001",
+      "name": "Backpack",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "accessories",
+      "files": {
+        "front": "/assets/cinematic3d/boy/accessories/acc_001.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "acc_002",
+      "name": "Glasses",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "accessories",
+      "files": {
+        "front": "/assets/cinematic3d/boy/accessories/acc_002.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "acc_003",
+      "name": "Headphones",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "accessories",
+      "files": {
+        "front": "/assets/cinematic3d/boy/accessories/acc_003.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "acc_004",
+      "name": "Cap",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "accessories",
+      "files": {
+        "front": "/assets/cinematic3d/boy/accessories/acc_004.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "acc_005",
+      "name": "Watch",
+      "style": "cinematic3d",
+      "bodyBase": "boy",
+      "category": "accessories",
+      "files": {
+        "front": "/assets/cinematic3d/boy/accessories/acc_005.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "base_master",
+      "name": "Cinematic 3D Girl",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "base",
+      "files": {
+        "front": "/assets/cinematic3d/girl/base/master.png"
+      },
+      "enabled": true,
+      "notes": "Supplied master artwork. Place the delivered PNG at this exact path."
+    },
+    {
+      "id": "skin_001",
+      "name": "Porcelain",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "skin",
+      "files": {
+        "front": "/assets/cinematic3d/girl/skin/skin_001.png"
+      },
+      "enabled": true,
+      "swatch": "#f2d3bd"
+    },
+    {
+      "id": "skin_002",
+      "name": "Sand",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "skin",
+      "files": {
+        "front": "/assets/cinematic3d/girl/skin/skin_002.png"
+      },
+      "enabled": true,
+      "swatch": "#e7bb98"
+    },
+    {
+      "id": "skin_003",
+      "name": "Honey",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "skin",
+      "files": {
+        "front": "/assets/cinematic3d/girl/skin/skin_003.png"
+      },
+      "enabled": true,
+      "swatch": "#d09b6a"
+    },
+    {
+      "id": "skin_004",
+      "name": "Amber",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "skin",
+      "files": {
+        "front": "/assets/cinematic3d/girl/skin/skin_004.png"
+      },
+      "enabled": true,
+      "swatch": "#b3784b"
+    },
+    {
+      "id": "skin_005",
+      "name": "Umber",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "skin",
+      "files": {
+        "front": "/assets/cinematic3d/girl/skin/skin_005.png"
+      },
+      "enabled": true,
+      "swatch": "#8a5636"
+    },
+    {
+      "id": "skin_006",
+      "name": "Ebony",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "skin",
+      "files": {
+        "front": "/assets/cinematic3d/girl/skin/skin_006.png"
+      },
+      "enabled": true,
+      "swatch": "#5c3722"
+    },
+    {
+      "id": "hair_001",
+      "name": "Long Straight",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "hair",
+      "files": {
+        "front": "/assets/cinematic3d/girl/hair/hair_001.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "hair_002",
+      "name": "High Bun",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "hair",
+      "files": {
+        "front": "/assets/cinematic3d/girl/hair/hair_002.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "hair_003",
+      "name": "Twin Braids",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "hair",
+      "files": {
+        "front": "/assets/cinematic3d/girl/hair/hair_003.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "hair_004",
+      "name": "Natural Curls",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "hair",
+      "files": {
+        "front": "/assets/cinematic3d/girl/hair/hair_004.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "hair_005",
+      "name": "Ponytail",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "hair",
+      "files": {
+        "front": "/assets/cinematic3d/girl/hair/hair_005.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "hair_006",
+      "name": "Shoulder Bob",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "hair",
+      "files": {
+        "front": "/assets/cinematic3d/girl/hair/hair_006.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "eyes_001",
+      "name": "Warm Brown",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "eyes",
+      "files": {
+        "front": "/assets/cinematic3d/girl/eyes/eyes_001.png"
+      },
+      "enabled": true,
+      "swatch": "#6b4423"
+    },
+    {
+      "id": "eyes_002",
+      "name": "Deep Brown",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "eyes",
+      "files": {
+        "front": "/assets/cinematic3d/girl/eyes/eyes_002.png"
+      },
+      "enabled": true,
+      "swatch": "#3b2416"
+    },
+    {
+      "id": "eyes_003",
+      "name": "Hazel",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "eyes",
+      "files": {
+        "front": "/assets/cinematic3d/girl/eyes/eyes_003.png"
+      },
+      "enabled": true,
+      "swatch": "#8a6b3d"
+    },
+    {
+      "id": "eyes_004",
+      "name": "Green",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "eyes",
+      "files": {
+        "front": "/assets/cinematic3d/girl/eyes/eyes_004.png"
+      },
+      "enabled": true,
+      "swatch": "#4a6b45"
+    },
+    {
+      "id": "brow_001",
+      "name": "Soft",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "eyebrows",
+      "files": {
+        "front": "/assets/cinematic3d/girl/eyebrows/brow_001.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "brow_002",
+      "name": "Straight",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "eyebrows",
+      "files": {
+        "front": "/assets/cinematic3d/girl/eyebrows/brow_002.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "brow_003",
+      "name": "Arched",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "eyebrows",
+      "files": {
+        "front": "/assets/cinematic3d/girl/eyebrows/brow_003.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "brow_004",
+      "name": "Bold",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "eyebrows",
+      "files": {
+        "front": "/assets/cinematic3d/girl/eyebrows/brow_004.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "top_001",
+      "name": "Crew Tee",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "top",
+      "files": {
+        "front": "/assets/cinematic3d/girl/tops/top_001.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "top_002",
+      "name": "Hoodie",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "top",
+      "files": {
+        "front": "/assets/cinematic3d/girl/tops/top_002.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "top_003",
+      "name": "Flannel Shirt",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "top",
+      "files": {
+        "front": "/assets/cinematic3d/girl/tops/top_003.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "top_004",
+      "name": "Track Jacket",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "top",
+      "files": {
+        "front": "/assets/cinematic3d/girl/tops/top_004.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "top_005",
+      "name": "Polo",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "top",
+      "files": {
+        "front": "/assets/cinematic3d/girl/tops/top_005.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "top_006",
+      "name": "Knit Sweater",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "top",
+      "files": {
+        "front": "/assets/cinematic3d/girl/tops/top_006.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "bottom_001",
+      "name": "Denim Jeans",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "bottom",
+      "files": {
+        "front": "/assets/cinematic3d/girl/bottoms/bottom_001.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "bottom_002",
+      "name": "Cargo Pants",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "bottom",
+      "files": {
+        "front": "/assets/cinematic3d/girl/bottoms/bottom_002.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "bottom_003",
+      "name": "Shorts",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "bottom",
+      "files": {
+        "front": "/assets/cinematic3d/girl/bottoms/bottom_003.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "bottom_004",
+      "name": "Leggings",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "bottom",
+      "files": {
+        "front": "/assets/cinematic3d/girl/bottoms/bottom_004.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "bottom_005",
+      "name": "Pleated Skirt",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "bottom",
+      "files": {
+        "front": "/assets/cinematic3d/girl/bottoms/bottom_005.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "shoes_001",
+      "name": "Sneakers",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "shoes",
+      "files": {
+        "front": "/assets/cinematic3d/girl/shoes/shoes_001.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "shoes_002",
+      "name": "Hi-Tops",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "shoes",
+      "files": {
+        "front": "/assets/cinematic3d/girl/shoes/shoes_002.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "shoes_003",
+      "name": "Boots",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "shoes",
+      "files": {
+        "front": "/assets/cinematic3d/girl/shoes/shoes_003.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "shoes_004",
+      "name": "Runners",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "shoes",
+      "files": {
+        "front": "/assets/cinematic3d/girl/shoes/shoes_004.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "shoes_005",
+      "name": "Slip-Ons",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "shoes",
+      "files": {
+        "front": "/assets/cinematic3d/girl/shoes/shoes_005.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "acc_001",
+      "name": "Backpack",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "accessories",
+      "files": {
+        "front": "/assets/cinematic3d/girl/accessories/acc_001.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "acc_002",
+      "name": "Glasses",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "accessories",
+      "files": {
+        "front": "/assets/cinematic3d/girl/accessories/acc_002.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "acc_003",
+      "name": "Headphones",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "accessories",
+      "files": {
+        "front": "/assets/cinematic3d/girl/accessories/acc_003.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "acc_004",
+      "name": "Cap",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "accessories",
+      "files": {
+        "front": "/assets/cinematic3d/girl/accessories/acc_004.png"
+      },
+      "enabled": true
+    },
+    {
+      "id": "acc_005",
+      "name": "Watch",
+      "style": "cinematic3d",
+      "bodyBase": "girl",
+      "category": "accessories",
+      "files": {
+        "front": "/assets/cinematic3d/girl/accessories/acc_005.png"
+      },
+      "enabled": true
+    }
+  ]
+}
