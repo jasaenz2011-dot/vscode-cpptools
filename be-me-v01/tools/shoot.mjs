@@ -1,0 +1,18 @@
+import { chromium } from 'playwright';
+const OUT = '/tmp/claude-0/-home-user-vscode-cpptools/419eb09f-30e5-5366-a284-7012ae2bb3da/scratchpad';
+const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
+const problems = [];
+page.on('console', (m) => { if (m.type()==='error'||m.type()==='warning') problems.push(`[${m.type()}] ${m.text().slice(0,200)}`); });
+page.on('pageerror', (e) => problems.push(`[pageerror] ${e.message}`));
+page.on('response', (r) => { if (r.status() >= 400) problems.push(`[${r.status()}] ${r.url()}`); });
+await page.goto('http://127.0.0.1:5173/', { waitUntil: 'networkidle' });
+await page.waitForTimeout(1800);
+await page.screenshot({ path: `${OUT}/v2-1920.png` });
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.waitForTimeout(800);
+await page.screenshot({ path: `${OUT}/v2-1440.png` });
+const o = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth, sh: document.documentElement.scrollHeight, ch: document.documentElement.clientHeight }));
+console.log(`1440 overflow: x ${o.sw}/${o.cw} y ${o.sh}/${o.ch}`);
+console.log(problems.length ? [...new Set(problems)].join('\n') : '(clean)');
+await browser.close();
