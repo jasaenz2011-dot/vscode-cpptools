@@ -131,3 +131,76 @@ kids' product — your call, not a blocker for the build.
 2. Add or flip `enabled` on its entry in `public/assets/manifest.json`.
 
 No code change, no rebuild. The manifest is fetched at runtime.
+
+---
+
+# UI art — what to make
+
+Everything below is currently drawn in CSS/SVG by hand. It reads as "coded",
+not rendered. Anything here replaced with real artwork is a straight upgrade.
+
+**Format for all of it:** PNG-24, real alpha, no baked background, exported at
+**2× the display size** listed (I downscale; never upscale). If you paint glows
+on black instead of on alpha, say so — I'll composite with `screen` blend
+instead of `normal`. Both work, I just need to know which.
+
+## Tier 1 — biggest visual lift
+
+**1. Projector dais / platform** — `ui/platform.png` — **1600 × 700**
+The machined stage the avatar stands on. Right now it's stacked CSS ellipses and
+it's the weakest thing on screen against your reference. Stacked decks, concentric
+gold light rings on the top face, blue LED strip on the rim, segmented metal
+sides. Transparent around it. Top face should read as emitting light.
+
+**2. Holographic orb — as TWO pieces**
+`ui/orb-back.png` and `ui/orb-front.png` — **1400 × 1400** each
+The sphere around the character. Split it so the avatar sits *inside*: back half
+renders behind the figure, front half over it with low opacity. That one trick
+sells the whole shot and CSS cannot do it. Gyroscope bands, rim light, specular
+hit, faint starfield inside.
+
+**3. Projection beam** — `ui/beam.png` — **600 × 1400**
+The light cone from orb down onto the deck. Soft, vertical, fading out at the
+top. Currently a clipped CSS gradient and it looks like a clipped CSS gradient.
+
+## Tier 2 — chrome
+
+**4. Frame set (9-slice)** — gold bezel with the blue LED channel
+- `ui/frame-corner.png` — **96 × 96** (one corner; I mirror the other three)
+- `ui/frame-edge-h.png` — **96 × 24** (tileable horizontally)
+- `ui/frame-edge-v.png` — **24 × 96** (tileable vertically)
+
+Cut as 9-slice so panels of any size use the same art with no stretching.
+
+**5. LAUNCH AVATAR bar (3-slice)**
+- `ui/btn-cap-left.png` — **120 × 112**
+- `ui/btn-tile.png` — **40 × 112** (tileable)
+- `ui/btn-cap-right.png` — **120 × 112**
+
+Plus a `-hover` variant of each if you want a lit state.
+
+**6. 360° badge** — `ui/badge-360.png` — **164 × 184**
+Hex housing, currently CSS.
+
+## Tier 3 — cuteness / polish
+
+**7. Sparkle sprite sheet** — `ui/sparkle.png` — **1024 × 128** (8 frames of 128²)
+Fires when a kid picks an item. This is the single best "delight" win and there
+is no good CSS version of it.
+
+**8. Category icons** — `ui/icons/*.png` — **64 × 64** each, 9 of them:
+skin · hair · eyes · eyebrows · tops · bottoms · shoes · accessories · extras
+Currently my hand-drawn line SVGs. Yours will be better.
+
+**9. Suite crest** — `ui/crest.png` — **120 × 90**
+Bottom-centre emblem. Mine currently reads as a hazard triangle.
+
+**10. Empty-slot placeholder** — `ui/slot-empty.png` — **200 × 260**
+Shown in every unfilled wardrobe slot — 92 of them right now, so it is the most
+repeated graphic in the app.
+
+## Not worth your time
+
+The background gradient, the panel fills, the scrollbars and the text styling
+are fine as CSS — they scale cleanly and cost nothing. Don't spend art hours
+there.
