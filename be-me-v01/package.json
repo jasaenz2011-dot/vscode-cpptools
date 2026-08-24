@@ -9,7 +9,8 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "assets": "node tools/generate-manifest.mjs"
+    "assets": "node tools/generate-manifest.mjs",
+    "validate:assets": "node tools/validate-assets.mjs"
   },
   "keywords": [],
   "author": "",
