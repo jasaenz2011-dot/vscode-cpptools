@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ART_STYLES, BODY_BASES, stylePreview } from '../data/styles';
 import type { ArtStyle, ArtStyleId, BodyBase } from '../data/types';
-import { ArrowIcon, ChevronIcon, LockIcon } from './icons';
+import { ArrowIcon, LockIcon, TriangleIcon } from './icons';
 import { SectionHeader } from './SectionHeader';
 import { Bezel } from './Bezel';
 
@@ -117,9 +117,9 @@ function PageArrow({
       disabled={disabled}
       aria-label={dir === 'prev' ? 'Previous styles' : 'More styles'}
       title={dir === 'prev' ? 'Previous styles' : 'More styles'}
-      className="grid h-9 w-5 shrink-0 place-items-center text-gold/55 transition-colors hover:text-gold-bright disabled:cursor-not-allowed disabled:text-white/12"
+      className="grid h-10 w-6 shrink-0 place-items-center text-gold/70 transition-colors hover:text-gold-bright disabled:cursor-not-allowed disabled:text-white/12"
     >
-      <ChevronIcon className={`text-[15px] ${dir === 'prev' ? 'rotate-180' : ''}`} />
+      <TriangleIcon className={`text-[17px] ${dir === 'prev' ? 'rotate-180' : ''}`} />
     </button>
   );
 }

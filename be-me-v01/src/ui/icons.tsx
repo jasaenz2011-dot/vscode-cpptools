@@ -160,6 +160,22 @@ export const ExtrasIcon = ({ className }: IconProps) => (
   </Svg>
 );
 
+/**
+ * Solid gold paging triangle from the finished reference, which uses a filled
+ * arrowhead rather than the thin stroked chevron used elsewhere.
+ */
+export const TriangleIcon = ({ className }: IconProps) => (
+  <svg
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    className={`h-[1.05em] w-[1.05em] ${className ?? ''}`}
+    fill="currentColor"
+    stroke="none"
+  >
+    <path d="M8.5 3.4 19.2 11a1.2 1.2 0 0 1 0 2l-10.7 7.6A1 1 0 0 1 7 19.8V4.2a1 1 0 0 1 1.5-.8Z" />
+  </svg>
+);
+
 export const ChevronIcon = ({ className }: IconProps) => (
   <Svg className={className}>
     <path d="m9.5 5.5 6.5 6.5-6.5 6.5" />

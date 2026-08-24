@@ -172,24 +172,40 @@ function Platform() {
     >
       {/* Projection beam: a cone widening down onto the deck, not a hard bar. */}
       <span
-        className="absolute bottom-[44%] left-1/2 h-[540%] w-[78%] -translate-x-1/2 blur-[3px]"
+        className="absolute bottom-[44%] left-1/2 h-[380%] w-[68%] -translate-x-1/2 blur-[3px]"
         style={{
-          clipPath: 'polygon(38% 0, 62% 0, 100% 100%, 0 100%)',
+          clipPath: 'polygon(41% 0, 59% 0, 100% 100%, 0 100%)',
           background:
-            'linear-gradient(to top, rgba(243,205,117,0.20), rgba(79,214,255,0.09) 44%, transparent 82%)',
+            'linear-gradient(to top, rgba(243,205,117,0.26), rgba(79,214,255,0.10) 38%, transparent 68%)',
         }}
       />
 
       {/* Ambient bloom */}
       <span className="motion-safe:animate-breathe absolute inset-[-16%] rounded-[50%] bg-[radial-gradient(ellipse_at_center,rgba(79,214,255,0.24),transparent_62%)]" />
 
+      {/* Base deck — the widest, darkest plinth. */}
+      <span className="absolute inset-x-[2%] bottom-[-6%] h-[50%] rounded-[50%] bg-[linear-gradient(180deg,#20262f,#0d1015_60%,#05070a)] shadow-[0_20px_46px_-12px_#000]" />
+
       {/* Lower deck */}
       <span className="absolute inset-x-[6%] bottom-0 h-[52%] rounded-[50%] bg-[linear-gradient(180deg,#2a313d,#12161e_58%,#080a0f)] shadow-[0_16px_40px_-14px_#000]" />
       <span className="absolute inset-x-[6%] bottom-[16%] h-[42%] rounded-[50%] border border-cyan/30 shadow-[0_0_26px_-8px_var(--color-cyan)]" />
 
+      {/* Machined segmentation around the lower deck rim, as in the reference. */}
+      <span
+        className="absolute inset-x-[6%] bottom-[4%] h-[34%] rounded-[50%] opacity-70"
+        style={{
+          background:
+            'repeating-conic-gradient(from 0deg at 50% 50%, rgba(150,170,195,0.22) 0deg 3deg, transparent 3deg 11deg)',
+          maskImage: 'radial-gradient(ellipse at center, transparent 58%, #000 72%, #000 100%)',
+        }}
+      />
+
       {/* Upper deck */}
       <span className="absolute inset-x-[14%] bottom-[26%] h-[52%] rounded-[50%] bg-[linear-gradient(180deg,#333b48,#161b25_60%,#0b0e14)]" />
       <span className="absolute inset-x-[14%] bottom-[26%] h-[52%] rounded-[50%] border-2 border-gold/50 shadow-[0_0_32px_-8px_var(--color-gold),inset_0_0_26px_-10px_var(--color-gold)]" />
+
+      {/* Blue LED strip along the upper deck's leading edge. */}
+      <span className="absolute inset-x-[18%] bottom-[30%] h-[36%] rounded-[50%] border-b-2 border-cyan/55 shadow-[0_6px_20px_-6px_var(--color-cyan)]" />
 
       {/* Emitter face */}
       <span className="absolute inset-x-[20%] bottom-[40%] h-[40%] rounded-[50%] bg-[radial-gradient(ellipse_at_center,#1d2530_0%,#0d1119_62%,#080b10_100%)]" />

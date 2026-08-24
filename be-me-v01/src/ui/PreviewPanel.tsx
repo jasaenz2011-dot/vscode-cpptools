@@ -7,7 +7,7 @@ import type { CustomizeCategory } from '../config/layers';
 import { MASTER_CANVAS, UNCALIBRATED_ANCHORS, isCalibrated } from '../config/canvas';
 import { SectionHeader } from './SectionHeader';
 import { Bezel } from './Bezel';
-import { ChevronIcon, LockIcon } from './icons';
+import { LockIcon, TriangleIcon } from './icons';
 
 interface PreviewPanelProps {
   manifest: ManifestIndex;
@@ -62,9 +62,9 @@ export function PreviewPanel({
           <div className="relative flex items-end justify-center gap-1.5">
             <span
               aria-hidden="true"
-              className="grid h-9 w-5 shrink-0 place-items-center text-gold/38"
+              className="grid h-9 w-5 shrink-0 place-items-center text-gold/55"
             >
-              <ChevronIcon className="rotate-180 text-[14px]" />
+              <TriangleIcon className="rotate-180 text-[15px]" />
             </span>
 
             {VIEWS.filter((v) => v.id !== 'turntable').map((v) => {
@@ -118,9 +118,9 @@ export function PreviewPanel({
 
             <span
               aria-hidden="true"
-              className="grid h-9 w-5 shrink-0 place-items-center text-gold/38"
+              className="grid h-9 w-5 shrink-0 place-items-center text-gold/55"
             >
-              <ChevronIcon className="text-[14px]" />
+              <TriangleIcon className="text-[15px]" />
             </span>
           </div>
 
