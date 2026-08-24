@@ -5,27 +5,41 @@ sheets (kept in `public/assets/reference/supplied-*`).
 
 ---
 
-## 1. Transparency — 3 files to fix
+## 1. Transparency — status
 
-Tested every sheet for a real alpha channel and for an actually-clear
-background (border + interior sampled, not just eyeballed).
+Verified by rendering each sheet's alpha channel and looking at it, not by
+sampling statistics. (An earlier pass of mine called some of these "backdrop
+painted in" on the strength of an opaque-pixel ratio — that was wrong. A
+densely packed sheet reads mostly-opaque simply because it is full of artwork.)
 
-**Fix these three. They are JPEGs with the transparency checkerboard painted
-into the pixels — no alpha channel at all:**
+**Clean — real alpha, tight cutouts, nothing to do:**
 
-| Sheet | Format | Alpha |
+| Sheet | Format | Size |
 | --- | --- | --- |
-| tops (NINJA / DRAGON / SLAM / MECH …) | JPEG | none |
-| bottoms (10 shorts) | JPEG | none |
-| tees-white (GOKU / WWE / HEROIC …) | JPEG | none |
+| combined master sheet (shorts / tees / dresses / hair / eyes / glasses / shoes) | PNG | 1536 × 1024 |
+| shoes | PNG | 1536 × 1024 |
+| tees-graphic | PNG | 1536 × 1024 |
+| eyes-boy | PNG | 1536 × 1024 |
+| eyes-girl | PNG | 1536 × 1024 |
+| mouths | PNG | 1536 × 1024 |
+| hair-girl | PNG | 1536 × 1024 |
+| hair-boy | PNG | 1536 × 1024 |
 
-→ Re-export as PNG with real alpha.
+**No alpha channel — JPEG with the checkerboard painted into the pixels:**
 
-**These seven are already clean — no action needed:**
-shoes · tees-graphic · eyes-boy · eyes-girl · mouths · hair-girl · hair-boy
-(all PNG, borders 100% clear, backgrounds transparent between items)
+- tops (NINJA / DRAGON / SLAM / MECH …)
+- bottoms (10 shorts)
+- tees-white (GOKU / WWE / HEROIC …)
 
----
+These three look superseded by the combined master sheet, which carries shorts,
+tees, hoodies and dresses with correct alpha. Only re-export them if they hold
+designs the combined sheet does not.
+
+**Transfer-damaged — arrived at 440 × 293 JPEG, flattened onto black:**
+a batch of five (eyes, heads-with-glasses, hair-boy, mouths, hair-girl). The
+same files had already come through clean at full size, so this was the upload
+re-encoding them, not the export. Resend as PNG only if they contain something
+the combined sheet does not.
 
 ## 2. Canvas — the one rule that matters
 
