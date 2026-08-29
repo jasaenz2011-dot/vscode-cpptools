@@ -7,6 +7,7 @@
     dlg standards 5.3K 5.3E        show the district's exact wording
     dlg search "comparing fractions"
     dlg generate --grade 5 --subject math --week 6
+    dlg week --grade 8 --subject math --unit 10 --days 7
     dlg serve                      the click-a-grade web interface
 """
 
@@ -25,6 +26,7 @@ from .ingest import ingest
 from .llm import get_client
 from .models import LessonRequest
 from .pipeline import Pipeline
+from .agents.curriculum_mapper import CurriculumMapper
 from .render import to_markdown, write_all
 from .retrieval import Store
 from .util import get_logger, truncate_words
@@ -83,6 +85,16 @@ def build_parser() -> argparse.ArgumentParser:
     generate_parser.add_argument("--out", default="", help="output directory")
     generate_parser.add_argument("--stdout", action="store_true", help="print markdown instead of writing files")
 
+    week_parser = sub.add_parser("week", help="build the week-at-a-glance overview for a unit")
+    week_parser.add_argument("--grade", required=True)
+    week_parser.add_argument("--subject", required=True)
+    week_parser.add_argument("--unit", required=True, help="unit name or number")
+    week_parser.add_argument("--days", type=int, default=0,
+                             help="instructional days (default: the pacing guide's own count)")
+    week_parser.add_argument("--introduce", default="",
+                             help="pin standards to days, e.g. '1:8.6C,3:8.7C,5:8.7D'")
+    week_parser.add_argument("--out", default="", help="output directory")
+
     serve_parser = sub.add_parser("serve", help="run the local web interface")
     serve_parser.add_argument("--port", type=int, default=0)
     serve_parser.add_argument("--host", default="")
@@ -107,7 +119,7 @@ def main(argv: list[str] | None = None) -> int:
         "init": cmd_init, "ingest": cmd_ingest, "status": cmd_status, "doctor": cmd_doctor,
         "rules": cmd_rules,
         "units": cmd_units, "standards": cmd_standards, "search": cmd_search,
-        "generate": cmd_generate, "serve": cmd_serve,
+        "generate": cmd_generate, "week": cmd_week, "serve": cmd_serve,
     }
     try:
         return handlers[args.command](args, config)
@@ -353,6 +365,58 @@ def cmd_generate(args: argparse.Namespace, config: Config) -> int:
     for label, path in written.items():
         print(f"  {label:<9} {path}")
     return 0 if result.report.ok else 1
+
+
+def cmd_week(args: argparse.Namespace, config: Config) -> int:
+    """Build the one-page week glance for a unit."""
+    from .render_week import week_to_markdown, write_week
+    from .week import scaffold_week, validate_week
+
+    store = Store.load(config.index_path)
+    units = [u for u in store.units_for(args.grade, args.subject)
+             if CurriculumMapper._unit_matches(u, args.unit)]
+    if not units:
+        print(f"No unit matched {args.unit!r} for grade {args.grade} {args.subject}.",
+              file=sys.stderr)
+        return 1
+    unit = units[0]
+
+    introduce: dict[int, str] = {}
+    for pair in (args.introduce or "").split(","):
+        if ":" in pair:
+            day, code = pair.split(":", 1)
+            if day.strip().isdigit():
+                introduce[int(day.strip())] = code.strip()
+
+    glance = scaffold_week(unit, args.days, introduce)
+    # Fill the verbatim standard wording from the index.
+    found, _ = store.lookup_standards(
+        [s["code"] for s in glance.standards], args.grade, args.subject
+    )
+    text = {s.code.upper(): s.text for s in found}
+    for entry in glance.standards:
+        entry["text"] = text.get(entry["code"].upper(), "")
+
+    report = validate_week(glance, config)
+    print(f"unit:   {glance.unit}")
+    print(f"source: {glance.source}")
+    print(f"days:   {glance.days_total}")
+    for day in glance.days:
+        print(f"  day {day.day}: focus={', '.join(day.focus_standards) or '-'}"
+              f"  spiral={', '.join(day.spiraled_standards) or '-'}")
+    print(f"\nchecks: {len(report.checked)}  errors: {len(report.errors)}")
+    for violation in report.violations[:20]:
+        print(f"  {violation}")
+
+    if args.out:
+        written = write_week(glance, args.out)
+        print("\nwrote:")
+        for label, path in written.items():
+            print(f"  {label:<9} {path}")
+    else:
+        print()
+        print(week_to_markdown(glance))
+    return 0 if report.ok else 1
 
 
 def cmd_serve(args: argparse.Namespace, config: Config) -> int:

@@ -48,7 +48,18 @@ Prefer the command line?
 python3 -m dlg generate --grade 5 --subject math --week 9
 python3 -m dlg generate --grade 5 --subject math --unit 3 \
         --material intervention --tier tier2 --minutes 30
+
+# the one-page week glance for a multi-day unit
+python3 -m dlg week --grade 8 --subject math --unit 10 --days 7 \
+        --introduce "1:8.6C,3:8.7C,5:8.7D"
 ```
+
+A multi-day unit is one complete package per day **plus** a one-page week
+glance: the sheet a teacher pins above the desk. Each day row carries its own
+Part D, so the media for the week can be queued in one sitting. NotebookLM packs
+sit at unit level and days point at them by id — a narrated explainer is
+grounded on a *concept*, not a calendar day, so both days teaching 8.6C share
+one pack.
 
 ### Adding a local model
 
@@ -319,7 +330,7 @@ pip install -r requirements-optional.txt
 python3 -m unittest discover -s tests -t tests
 ```
 
-164 tests, no network, no model, no third-party packages. They cover the PDF
+188 tests, no network, no model, no third-party packages. They cover the PDF
 extractor (against PDFs built byte by byte in the test), column-alias parsing,
 chunk boundaries, JSON recovery from malformed model output, the context
 budget, every validation rule, and the full repair loop against a scripted

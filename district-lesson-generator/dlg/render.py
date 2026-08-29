@@ -449,8 +449,13 @@ def _or_blank(value: Any) -> str:
 # Markdown
 # ----------------------------------------------------------------------
 def to_markdown(result: GenerationResult) -> str:
+    return to_markdown_blocks(blocks_for(result))
+
+
+def to_markdown_blocks(blocks: list[Block]) -> str:
+    """Render a block list as Markdown. Shared with the week glance."""
     lines: list[str] = []
-    for block in blocks_for(result):
+    for block in blocks:
         if block.kind == "h1":
             lines += [f"# {block.text}", ""]
         elif block.kind == "h2":
@@ -524,10 +529,14 @@ hr { border: none; border-top: 1px solid #e2e2dd; margin: 2.5rem 0 1rem; }
 
 
 def to_html(result: GenerationResult) -> str:
-    title = str(result.document.get("title") or "Lesson")
+    return to_html_blocks(blocks_for(result), str(result.document.get("title") or "Lesson"))
+
+
+def to_html_blocks(blocks: list[Block], title: str = "Lesson") -> str:
+    """Render a block list as a self-contained printable page."""
     parts: list[str] = []
     first_paragraph = True
-    for block in blocks_for(result):
+    for block in blocks:
         if block.kind == "h1":
             parts.append(f"<h1>{_esc(block.text)}</h1>")
         elif block.kind == "h2":
@@ -614,9 +623,14 @@ _STYLES = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
 
 def to_docx(result: GenerationResult, path: str | Path) -> Path:
+    return to_docx_blocks(blocks_for(result), path)
+
+
+def to_docx_blocks(blocks: list[Block], path: str | Path) -> Path:
+    """Write a block list as Office Open XML. Shared with the week glance."""
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)
-    body = "".join(_docx_block(block) for block in blocks_for(result))
+    body = "".join(_docx_block(block) for block in blocks)
     document = (
         '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
         '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
