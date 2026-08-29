@@ -352,6 +352,8 @@ def apply_deterministic_fixes(
     pack: StandardsPack,
     intervention: bool,
     store: Any = None,
+    grade: str = "",
+    subject: str = "",
 ) -> list[str]:
     """Repair what does not need a model. Returns a list of what changed.
 
@@ -366,7 +368,9 @@ def apply_deterministic_fixes(
     changes: list[str] = []
     key = "target_standards" if intervention else "standards"
     by_key = {normalize_code(s.code): s for s in pack.standards}
-    district = store.standards_by_code() if store is not None else {}
+    # Narrowed to the lesson's own grade and subject, so adopting a writer's
+    # extra code cannot pull in another subject's identically numbered standard.
+    district = store.standards_by_code(grade, subject) if store is not None else {}
     cited = document.get(key) or []
     if not isinstance(cited, list):
         return changes

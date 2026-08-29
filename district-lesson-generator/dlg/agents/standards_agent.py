@@ -74,7 +74,7 @@ class StandardsAgent(Agent):
             pack.notes.append("no index available; standards could not be resolved")
             return pack
 
-        found, missing = self.store.lookup_standards(codes)
+        found, missing = self.store.lookup_standards(codes, grade, subject)
         pack.standards = found
 
         for code in missing:

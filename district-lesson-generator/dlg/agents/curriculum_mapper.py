@@ -124,13 +124,13 @@ class CurriculumMapper(Agent):
         wanted = wanted.strip().lower()
         if not wanted:
             return False
-        if wanted.isdigit() and unit.sequence == int(wanted):
-            return True
+        # A number means the unit number and nothing else. Falling through to a
+        # substring search makes "7" match "Covey's 7 Habits".
+        number = re.fullmatch(r"(?:unit\s*)?(\d+)", wanted)
+        if number:
+            return unit.sequence == int(number.group(1))
         name = unit.unit_name.lower()
-        if wanted == name or wanted in name:
-            return True
-        match = re.fullmatch(r"unit\s*(\d+)", wanted)
-        return bool(match and unit.sequence == int(match.group(1)))
+        return wanted == name or wanted in name
 
     @classmethod
     def _window_contains(cls, unit: PacingUnit, when: str) -> bool:

@@ -79,6 +79,31 @@ Column names are matched loosely: `Student Expectation Code`, `TEKS`, `Standard
 ID`, and `Code` all resolve to the same field. A PDF pacing guide works, but a
 spreadsheet parses into clean rows and produces better citations.
 
+### What it copes with in real exports
+
+Validated against a K–8 district's full 2026-27 scope and sequence — 42
+spreadsheets across Math, ELAR, Science, Social Studies, CTE and Algebra I —
+which parsed to 624 units and 901 standards in about six seconds:
+
+- **Headers that are not on the first row.** A title banner, a copyright line
+  and a merged date row above the real header are normal; the header is found
+  by scanning, and rows of prose are rejected as candidates.
+- **Standards packed into one cell.** A `TEKS` column reading
+  `5.3B Multiply with fluency… 5.3C Solve with proficiency…` is split back into
+  separate standards, each keeping the district's exact wording — so a scope
+  and sequence doubles as a standards source and the codes resolve to real text.
+- **Every filename convention.** `5th Grade Math`, `grade5_math`, `Kinder`,
+  `Kindergarten`, `Algebra I (8th-VT)` all resolve to a grade.
+- **Codes that repeat across subjects.** TEKS `3.4A` is a real standard in both
+  grade 3 math and grade 3 science; lookups are grade- and subject-aware so one
+  cannot be served in the other's place.
+- **Spreadsheet noise.** Unit numbers arriving as `3.0`, named blocks such as
+  `First 8 Days` that precede unit 1, and `Duration` columns holding `"8 days"`.
+
+If a file does not parse the way you expect, `dlg units` and `dlg standards`
+show exactly what was understood, and every record cites its file, sheet and
+row so you can check it against the source.
+
 Check what it understood before you trust it:
 
 ```bash
@@ -251,11 +276,15 @@ pip install -r requirements-optional.txt
 python3 -m unittest discover -s tests -t tests
 ```
 
-93 tests, no network, no model, no third-party packages. They cover the PDF
+108 tests, no network, no model, no third-party packages. They cover the PDF
 extractor (against PDFs built byte by byte in the test), column-alias parsing,
 chunk boundaries, JSON recovery from malformed model output, the context
 budget, every validation rule, and the full repair loop against a scripted
 model backend.
+
+`tests/test_district_formats.py` is the regression suite for real exports.
+Every case in it is a bug found by running against an actual district's files
+and reproduced from a rebuilt fixture — no district data is committed.
 
 ---
 

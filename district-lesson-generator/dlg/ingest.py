@@ -144,13 +144,13 @@ def ingest(config: Config, force: bool = False) -> IngestReport:
         chunks = chunk_document(document, loaded, config.chunk_tokens, config.chunk_overlap_tokens)
         store.chunks.extend(chunks)
 
-        if kind == "standards":
-            store.standards.extend(parsers.extract_standards(document, loaded))
-        elif kind == "pacing":
+        if kind == "pacing":
             store.units.extend(parsers.extract_pacing_units(document, loaded))
-        else:
-            # Resource and assessment files often embed a standards table too.
-            store.standards.extend(parsers.extract_standards(document, loaded))
+        # Always look for standards, whatever the file was classified as. A scope
+        # and sequence carries the standards' own wording in its TEKS column, and
+        # resource and assessment files often embed a standards table -- skipping
+        # them leaves the district with codes it cannot resolve to text.
+        store.standards.extend(parsers.extract_standards(document, loaded))
 
     store.standards = parsers.dedupe_standards(store.standards)
 

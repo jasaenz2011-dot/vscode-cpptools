@@ -176,12 +176,44 @@ class Store:
         return store
 
     # -- lookups ------------------------------------------------------
-    def standards_by_code(self) -> dict[str, Standard]:
-        return {normalize_code(s.code): s for s in self.standards if normalize_code(s.code)}
+    def standards_by_code(self, grade: str = "", subject: str = "") -> dict[str, Standard]:
+        """Code -> standard, optionally narrowed to one grade and subject.
 
-    def lookup_standards(self, codes: Iterable[str]) -> tuple[list[Standard], list[str]]:
-        """Resolve codes to verbatim standards. Returns (found, missing)."""
-        table = self.standards_by_code()
+        Codes are only unique *within* a subject: TEKS 3.4A exists in both
+        grade 3 math and grade 3 science. Keying on the code alone lets one
+        subject silently overwrite the other, which is how a science standard
+        ends up in a math lesson. Callers that know the grade and subject
+        should say so.
+        """
+        want_grade, want_subject = grade_key(grade), subject_key(subject)
+        table: dict[str, Standard] = {}
+        for standard in self.standards:
+            key = normalize_code(standard.code)
+            if not key:
+                continue
+            if want_grade and standard.grade and grade_key(standard.grade) != want_grade:
+                continue
+            if want_subject and standard.subject and subject_key(standard.subject) != want_subject:
+                continue
+            existing = table.get(key)
+            # Prefer the fullest wording when a code appears more than once.
+            if existing is None or len(standard.text) > len(existing.text):
+                table[key] = standard
+        return table
+
+    def lookup_standards(
+        self, codes: Iterable[str], grade: str = "", subject: str = ""
+    ) -> tuple[list[Standard], list[str]]:
+        """Resolve codes to verbatim standards. Returns (found, missing).
+
+        Tried most specific first: this grade and subject, then this subject at
+        any grade, then anything in the district.
+        """
+        tables = [
+            self.standards_by_code(grade, subject),
+            self.standards_by_code("", subject),
+            self.standards_by_code(),
+        ]
         found: list[Standard] = []
         missing: list[str] = []
         seen: set[str] = set()
@@ -190,9 +222,11 @@ class Store:
             if not key or key in seen:
                 continue
             seen.add(key)
-            standard = table.get(key)
-            if standard:
-                found.append(standard)
+            for table in tables:
+                standard = table.get(key)
+                if standard:
+                    found.append(standard)
+                    break
             else:
                 missing.append(code)
         return found, missing

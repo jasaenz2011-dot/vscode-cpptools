@@ -96,7 +96,9 @@ class Pipeline:
         except ContextOverflow as exc:
             raise AgentError(str(exc)) from exc
 
-        fixes = apply_deterministic_fixes(document, pack, intervention, self.store)
+        fixes = apply_deterministic_fixes(
+            document, pack, intervention, self.store, request.grade, request.subject
+        )
         report = self.validator.run(document, request, pack)
         attempts = 1
 
@@ -115,7 +117,11 @@ class Pipeline:
             except AgentError as exc:
                 log.warning("repair pass failed (%s); keeping the previous draft", exc)
                 break
-            fixes.extend(apply_deterministic_fixes(document, pack, intervention, self.store))
+            fixes.extend(
+                apply_deterministic_fixes(
+                    document, pack, intervention, self.store, request.grade, request.subject
+                )
+            )
             report = self.validator.run(document, request, pack)
             attempts += 1
 

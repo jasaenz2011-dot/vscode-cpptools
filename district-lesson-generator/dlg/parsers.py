@@ -19,6 +19,7 @@ from pathlib import Path
 from .loaders import Loaded, Table
 from .models import Document, PacingUnit, Standard
 from .util import (
+    STRICT_CODE_RE,
     clean_text,
     find_standard_codes,
     grade_key,
@@ -45,23 +46,33 @@ STANDARD_COLUMNS: dict[str, tuple[str, ...]] = {
 
 PACING_COLUMNS: dict[str, tuple[str, ...]] = {
     "sequence": ("unit number", "unit no", "unit num", "unit", "seq", "sequence", "order", "no"),
-    "unit_name": ("unit name", "unit title", "title", "unit", "topic", "module", "bundle",
-                  "instructional unit"),
+    "unit_name": ("topic of study", "unit name", "unit title", "title", "unit", "topic", "module",
+                  "bundle", "instructional unit"),
     "grade": ("grade", "grade level", "gr"),
     "subject": ("subject", "content area", "course", "discipline", "content"),
-    "weeks": ("weeks", "week", "timeline", "time frame", "timeframe", "pacing", "duration",
+    # "duration" belongs to days, not weeks: districts that publish a Duration column
+    # overwhelmingly fill it with "8 days", and _to_int reads the number either way.
+    "days": ("days", "duration", "instructional days", "number of days", "days of instruction",
+             "class days"),
+    "weeks": ("weeks", "week", "timeline", "time frame", "timeframe", "pacing",
               "window", "grading period", "six weeks", "nine weeks"),
     "start_date": ("start date", "begin date", "start", "from"),
     "end_date": ("end date", "finish date", "end", "to"),
-    "days": ("days", "instructional days", "number of days", "days of instruction", "class days"),
-    "standard_codes": ("standards", "teks", "standard codes", "aligned standards",
+    "standard_codes": ("teks", "standards", "standard codes", "aligned standards",
                        "teks covered", "student expectations", "ses", "se", "codes"),
     "focus": ("focus", "description", "big idea", "big ideas", "concepts", "essential question",
               "essential questions", "learning outcomes", "unit overview", "overview"),
     "assessments": ("assessment", "assessments", "common assessment", "cba", "checkpoint",
                     "evidence of learning", "assessment plan"),
-    "resources": ("resources", "materials", "resource", "curriculum resources", "adopted resource"),
+    "resources": ("recommended manipulatives", "manipulatives", "resources", "materials",
+                  "resource", "curriculum resources", "adopted resource"),
+    "vocabulary": ("academic vocabulary", "vocabulary", "key vocabulary", "terms"),
 }
+
+# How far down a sheet to look for the real header row. District spreadsheets
+# routinely open with a title banner, a copyright line, and a blank row before
+# the columns start, so assuming row 0 finds nothing at all.
+MAX_HEADER_SCAN = 12
 
 _FILENAME_KIND_HINTS: tuple[tuple[str, str], ...] = (
     ("scope", "pacing"), ("sequence", "pacing"), ("pacing", "pacing"),
@@ -76,7 +87,17 @@ _FILENAME_KIND_HINTS: tuple[tuple[str, str], ...] = (
 _SUBJECT_HINTS = ("math", "mathematics", "ela", "english", "reading", "science",
                   "social studies", "history", "writing")
 
-_GRADE_IN_NAME_RE = re.compile(r"(?:grade[_\s-]*|gr[_\s-]*|g)(\d{1,2}|k)\b", re.IGNORECASE)
+# Districts name files every possible way round: "grade5", "Grade 5", "5th Grade",
+# "Kinder", "Kindergarten", "Algebra I (8th-VT)". All of these have to land on a
+# grade, or every unit in the file indexes with no grade and never matches a request.
+_GRADE_PATTERNS = (
+    re.compile(r"\bkinder(?:garten)?\b", re.IGNORECASE),                  # -> K
+    re.compile(r"\bpre[-\s]?k\b", re.IGNORECASE),                         # -> PK
+    re.compile(r"(\d{1,2})\s*(?:st|nd|rd|th)\b", re.IGNORECASE),          # 5th Grade
+    re.compile(r"\bgrades?[_\s-]*(\d{1,2}|k)\b", re.IGNORECASE),          # Grade 5 / grade_5
+    re.compile(r"\bgr[_\s-]*(\d{1,2}|k)\b", re.IGNORECASE),               # gr5
+    re.compile(r"\bg(\d{1,2})\b", re.IGNORECASE),                         # g5
+)
 _LINE_STANDARD_RE = re.compile(
     r"^\s*(?P<code>(?:[A-Z]{1,6}\.)?\d{1,3}(?:\.\d{1,3})+(?:\s*\(?[A-Za-z]\)?)?)"
     r"\s*[).:\-–]?\s+(?P<text>\S.*)$"
@@ -113,25 +134,31 @@ def classify(path: Path, loaded: Loaded) -> str:
 
 
 def _kind_from_tables(tables: list[Table]) -> str:
+    """Score both readings of every sheet and take the strongest.
+
+    A scope-and-sequence sheet can look weakly like a standards table, so
+    returning on the first match picks whichever was checked first rather than
+    whichever fits better.
+    """
+    best_kind, best_score = "", 0
     for table in tables:
-        mapping = _map_columns(table.header, STANDARD_COLUMNS)
-        if "code" in mapping and "text" in mapping:
-            return "standards"
-        mapping = _map_columns(table.header, PACING_COLUMNS)
-        if "unit_name" in mapping and (
+        index, mapping = locate_header(table, STANDARD_COLUMNS, ("code", "text"))
+        if index >= 0 and len(mapping) > best_score:
+            best_kind, best_score = "standards", len(mapping)
+
+        index, mapping = locate_header(table, PACING_COLUMNS, ("unit_name",))
+        if index >= 0 and (
             "weeks" in mapping or "standard_codes" in mapping or "days" in mapping
         ):
-            return "pacing"
-    return ""
+            if len(mapping) > best_score:
+                best_kind, best_score = "pacing", len(mapping)
+    return best_kind
 
 
 def infer_grade_subject(path: Path, loaded: Loaded) -> tuple[str, str]:
     """Best-effort grade/subject for a whole file, used as a fallback for rows."""
     haystack = f"{path.parent.name} {path.stem}".lower().replace("_", " ").replace("-", " ")
-    grade = ""
-    match = _GRADE_IN_NAME_RE.search(haystack)
-    if match:
-        grade = grade_key(match.group(1))
+    grade = _grade_from_text(haystack)
     subject = ""
     for hint in _SUBJECT_HINTS:
         if hint in haystack:
@@ -139,16 +166,26 @@ def infer_grade_subject(path: Path, loaded: Loaded) -> tuple[str, str]:
             break
     if not (grade and subject):
         head = " ".join((loaded.text or "").split()[:150]).lower()
-        if not grade:
-            match = _GRADE_IN_NAME_RE.search(head)
-            if match:
-                grade = grade_key(match.group(1))
+        grade = grade or _grade_from_text(head)
         if not subject:
             for hint in _SUBJECT_HINTS:
                 if hint in head:
                     subject = subject_key(hint)
                     break
     return grade, subject
+
+
+def _grade_from_text(text: str) -> str:
+    for index, pattern in enumerate(_GRADE_PATTERNS):
+        match = pattern.search(text)
+        if not match:
+            continue
+        if index == 0:
+            return "K"
+        if index == 1:
+            return "PK"
+        return grade_key(match.group(1))
+    return ""
 
 
 # --------------------------------------------------------------------------
@@ -192,11 +229,95 @@ def _map_columns(header: list[str], aliases: dict[str, tuple[str, ...]]) -> dict
     return mapping
 
 
+def locate_header(
+    table: Table, aliases: dict[str, tuple[str, ...]], required: tuple[str, ...]
+) -> tuple[int, dict[str, int]]:
+    """Find the row that is actually the header, and its column mapping.
+
+    Returns ``(-1, {})`` when no row in range carries the required fields. Real
+    district exports put a title, a copyright line, and sometimes a merged
+    banner above the columns, so the header is rarely row 0.
+    """
+    best_index, best_mapping, best_score = -1, {}, 0
+    for index, row in enumerate(table.rows[:MAX_HEADER_SCAN]):
+        if not _is_header_row(row):
+            continue
+        mapping = _map_columns(row, aliases)
+        if not all(field in mapping for field in required):
+            continue
+        # Prefer the richest header, and on a tie the earliest one.
+        if len(mapping) > best_score:
+            best_index, best_mapping, best_score = index, mapping, len(mapping)
+    return best_index, best_mapping
+
+
+def _is_header_row(row: list[str]) -> bool:
+    """Reject data rows that alias matching would otherwise mistake for headers.
+
+    Substring matching is permissive by design -- it has to be, to cope with
+    "Student Expectation Code" -- which means a row of prose can accidentally
+    satisfy any alias set. Column headings are short labels, they do not run to
+    paragraphs, and they never contain a standard code.
+    """
+    cells = [cell.strip() for cell in row if cell and cell.strip()]
+    if len(cells) < 2:
+        return False
+    for cell in cells:
+        if len(cell) > 60 or len(cell.split()) > 6:
+            return False
+        if STRICT_CODE_RE.search(cell):
+            return False
+    return True
+
+
+def split_code_text_pairs(cell: str) -> list[tuple[str, str]]:
+    """Split a packed standards cell into ``(code, text)`` pairs.
+
+    District scope-and-sequence sheets put several standards in one cell::
+
+        5.3B Multiply with fluency a three-digit number by a two-digit number...
+        5.3C Solve with proficiency for quotients of up to a four-digit dividend...
+
+    The strict code pattern is used deliberately, so a decimal inside the
+    standard's own text ("to the hundredths") never starts a new record.
+    """
+    cell = (cell or "").strip()
+    if not cell:
+        return []
+    matches = list(STRICT_CODE_RE.finditer(cell))
+    pairs: list[tuple[str, str]] = []
+    for position, match in enumerate(matches):
+        start = match.end()
+        end = matches[position + 1].start() if position + 1 < len(matches) else len(cell)
+        text = " ".join(cell[start:end].split()).strip(" .;:-–—")
+        if len(text.split()) >= 3:
+            pairs.append((match.group(0).strip(), text))
+    return pairs
+
+
 def _cell(row: list[str], mapping: dict[str, int], field: str) -> str:
     index = mapping.get(field)
     if index is None or index >= len(row):
         return ""
     return clean_text(row[index])
+
+
+def _sequence_from_cell(value: str, fallback: int) -> int:
+    """Only a cell that is genuinely a number is a unit number.
+
+    "First 8 Days" is a unit name, not unit 8 -- reading a digit out of it
+    silently reorders the whole year.
+    """
+    cleaned = (value or "").strip()
+    if not cleaned:
+        return fallback
+    cleaned = re.sub(r"^(?:unit|module)\s*", "", cleaned, flags=re.IGNORECASE).strip()
+    cleaned = re.sub(r"\.0+$", "", cleaned)          # xlsx numerics arrive as "3.0"
+    if cleaned.isdigit():
+        return int(cleaned)
+    # A named block such as "First 8 Days" precedes unit 1; giving it a
+    # positional number would collide with the real unit 1.
+    return 0
 
 
 # --------------------------------------------------------------------------
@@ -209,10 +330,10 @@ def extract_standards(doc: Document, loaded: Loaded) -> list[Standard]:
     out: list[Standard] = []
 
     for table in loaded.tables:
-        mapping = _map_columns(table.header, STANDARD_COLUMNS)
-        if "code" not in mapping or "text" not in mapping:
+        header_index, mapping = locate_header(table, STANDARD_COLUMNS, ("code", "text"))
+        if header_index < 0:
             continue
-        for row_no, row in enumerate(table.rows[1:], start=2):
+        for row_no, row in enumerate(table.rows[header_index + 1 :], start=header_index + 2):
             code = _cell(row, mapping, "code")
             text = _cell(row, mapping, "text")
             if not code or not text or not normalize_code(code):
@@ -230,9 +351,41 @@ def extract_standards(doc: Document, loaded: Loaded) -> list[Standard]:
                 )
             )
 
+    # A scope and sequence usually carries the standards' own wording inside its
+    # TEKS column. That is the district's text, so mine it rather than leaving
+    # the codes unresolved.
+    out.extend(_standards_from_code_column(doc, loaded, default_grade, default_subject))
+
     if not out:
         out.extend(_standards_from_prose(doc, loaded, default_grade, default_subject))
     return dedupe_standards(out)
+
+
+def _standards_from_code_column(
+    doc: Document, loaded: Loaded, default_grade: str, default_subject: str
+) -> list[Standard]:
+    """Pull ``(code, text)`` pairs out of a pacing sheet's standards column."""
+    out: list[Standard] = []
+    for table in loaded.tables:
+        header_index, mapping = locate_header(table, PACING_COLUMNS, ("standard_codes",))
+        if header_index < 0:
+            continue
+        for row_no, row in enumerate(table.rows[header_index + 1 :], start=header_index + 2):
+            cell = _cell(row, mapping, "standard_codes")
+            grade = grade_key(_cell(row, mapping, "grade")) or default_grade
+            subject = subject_key(_cell(row, mapping, "subject")) or default_subject
+            for code, text in split_code_text_pairs(cell):
+                out.append(
+                    Standard(
+                        code=code,
+                        text=text,
+                        grade=grade,
+                        subject=subject,
+                        source_path=doc.path,
+                        locator=f"{table.name}, row {row_no}",
+                    )
+                )
+    return out
 
 
 def _standards_from_prose(
@@ -288,10 +441,10 @@ def extract_pacing_units(doc: Document, loaded: Loaded) -> list[PacingUnit]:
     out: list[PacingUnit] = []
 
     for table in loaded.tables:
-        mapping = _map_columns(table.header, PACING_COLUMNS)
-        if "unit_name" not in mapping:
+        header_index, mapping = locate_header(table, PACING_COLUMNS, ("unit_name",))
+        if header_index < 0:
             continue
-        for row_no, row in enumerate(table.rows[1:], start=2):
+        for row_no, row in enumerate(table.rows[header_index + 1 :], start=header_index + 2):
             unit_name = _cell(row, mapping, "unit_name")
             if not unit_name:
                 continue
@@ -305,8 +458,8 @@ def extract_pacing_units(doc: Document, loaded: Loaded) -> list[PacingUnit]:
                     unit_id=stable_id(doc.path, table.name, row_no, unit_name),
                     grade=grade,
                     subject=subject,
-                    unit_name=unit_name,
-                    sequence=_to_int(_cell(row, mapping, "sequence")) or (len(out) + 1),
+                    unit_name=" ".join(unit_name.split()),
+                    sequence=_sequence_from_cell(_cell(row, mapping, "sequence"), len(out) + 1),
                     weeks=_cell(row, mapping, "weeks"),
                     start_date=_cell(row, mapping, "start_date"),
                     end_date=_cell(row, mapping, "end_date"),
@@ -315,6 +468,7 @@ def extract_pacing_units(doc: Document, loaded: Loaded) -> list[PacingUnit]:
                     focus=_cell(row, mapping, "focus"),
                     assessments=_cell(row, mapping, "assessments"),
                     resources=_cell(row, mapping, "resources"),
+                    vocabulary=_cell(row, mapping, "vocabulary"),
                     source_path=doc.path,
                     locator=f"{table.name}, row {row_no}",
                 )
@@ -323,17 +477,32 @@ def extract_pacing_units(doc: Document, loaded: Loaded) -> list[PacingUnit]:
 
 
 def _split_codes(value: str) -> list[str]:
+    """Codes listed in a standards cell.
+
+    A district's TEKS column often holds the standards' full text as well as
+    their codes, so anything that is not code-shaped must be dropped -- treating
+    a leftover fragment as a code puts "of 10" in the lesson's standards list.
+    """
     if not value:
         return []
-    parts = re.split(r"[,;/\n]+|\s{2,}", value)
     codes: list[str] = []
     seen: set[str] = set()
-    for part in parts:
-        for code in find_standard_codes(part) or ([part.strip()] if part.strip() else []):
-            key = normalize_code(code)
-            if key and key not in seen:
-                seen.add(key)
-                codes.append(code.strip())
+    for code in find_standard_codes(value):
+        key = normalize_code(code)
+        if key and key not in seen:
+            seen.add(key)
+            codes.append(code.strip())
+    if codes:
+        return codes
+
+    # Nothing matched the code shape: accept only short, digit-bearing tokens
+    # (a district using a private code scheme), never sentences.
+    for part in re.split(r"[,;/\n]+|\s{2,}", value):
+        part = part.strip()
+        key = normalize_code(part)
+        if part and len(part) <= 12 and any(ch.isdigit() for ch in part) and key not in seen:
+            seen.add(key)
+            codes.append(part)
     return codes
 
 

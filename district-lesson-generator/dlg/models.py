@@ -101,6 +101,7 @@ class PacingUnit:
     focus: str = ""
     assessments: str = ""
     resources: str = ""
+    vocabulary: str = ""
     source_path: str = ""
     locator: str = ""
 
