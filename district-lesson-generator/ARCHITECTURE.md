@@ -146,17 +146,23 @@ input_budget = context_tokens − max_output_tokens − prompt_reserve_tokens
 
 | Rule | Severity | What it checks |
 |---|---|---|
-| `required_sections` | error | the sections a teacher cannot teach without are non-empty |
+| `required_sections` | error | the sections a teacher cannot teach without are filled |
 | `standards_grounded` | error | every cited code resolves to a district standard |
-| `no_invented_codes` | error | no standard-shaped token is unknown to the district |
+| `no_invented_codes` | error | no standard-shaped code is unknown to the district |
 | `no_invented_codes` | warning | a real district code cited outside this lesson's scope |
-| `no_placeholders` | error | no `TBD`, `[insert …]`, `<text>`, or template debris |
-| `answer_keys` | error | every assessment item has a key |
-| `duration_sum` | error | phase minutes sum to the requested length (±5) |
+| `no_placeholders` | error | no `TBD`, `[insert ...]`, or template debris |
+| `hunter_complete` | error | all 8 Hunter steps carry teacher moves |
+| `duration_sum` | error | step minutes total the period (±5) |
+| `objective_form` | error | the objective states how mastery is shown |
+| `vocabulary_bounds` | error | 4-8 academic vocabulary terms |
+| `vocabulary_woven` | error | each term is used in Input, Modeling, Guided Practice or CFU |
+| `high_order_questions` | error | no bare recall stem without a reasoning demand |
+| `manipulatives` | error | a math lesson names manipulatives |
+| `student_pages` | error | a page exists, with evidence space, a because line, and keys |
+| `exit_ticket_staar` | error | 2+ STAAR items, a constructed item, model + justification + 0/1/2 rubric |
+| `ell_support` | error | language load and concept gap diagnosed separately, all 4 motion-movie beats |
 | `verbatim_standards` | warning | standard text matches district wording |
-| `phase_coverage` | warning | the 5E phases are present |
 | `objective_form` | warning | the objective is student-facing |
-| `vocabulary_bounds` | warning | term count is sane and each has a definition |
 | `citations_resolve` | warning | cited filenames exist in the corpus |
 | `sentence_length` | warning | student-facing text has no 28-word sentences |
 | `distinct_diagnostics` | warning | intervention items separate different causes |
@@ -180,7 +186,7 @@ This is asserted in `tests/test_pipeline.py`.
 
 `OfflineClient` makes the whole pipeline runnable with no model: the writers
 assemble a draft by mechanical transform of district text (the objective is the
-standard's own wording turned student-facing; each 5E phase carries real
+standard's own wording turned student-facing; each Hunter step carries real
 excerpts from materials that cite the standard) and leave the genuinely
 generative fields empty. The validator then flags those fields honestly. This
 keeps the system demonstrable, testable, and truthful about what it did.

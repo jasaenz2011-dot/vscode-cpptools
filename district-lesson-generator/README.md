@@ -4,9 +4,15 @@ A local-first system that turns **your district's own** scope and sequence,
 standards export, and resource library into standards-aligned lesson plans and
 intervention materials.
 
-Pick a grade and a subject. Get a lesson that cites the exact row of your pacing
-guide it came from, quotes your standards verbatim, and tells you which of its
-own alignment checks it failed.
+Pick a grade and a subject. Get a **complete printable package** — cited to the
+exact row of your pacing guide, quoting your standards verbatim, and telling you
+which of its own quality checks it failed.
+
+Every output has three parts, enforced by the validator, never optional:
+
+- **Part A** — a full Madeline Hunter lesson, all 8 steps, never skipped or merged
+- **Part B** — student pages the children actually write on
+- **Part C** — a STAAR-level exit ticket with a teacher answer key
 
 Nothing leaves the machine. Nothing is required beyond Python 3.9+.
 
@@ -45,8 +51,9 @@ python3 -m dlg generate --grade 5 --subject math --unit 3 \
 ### Adding a local model
 
 Everything above runs with no model at all, in **scaffold mode**: real
-standards, real pacing, real district excerpts laid into a 5E frame, with the
-generative sections left blank and flagged. To fill them in:
+standards, real pacing, and real district excerpts laid into the 8-step Hunter
+frame, with the generative sections left blank and every one of them flagged by
+the quality gate. To fill them in:
 
 ```bash
 # https://ollama.com
@@ -117,6 +124,29 @@ python3 -m dlg search "adding fractions"       # what retrieval actually returns
 ```
 
 ---
+
+## The instructional standard is enforced, not suggested
+
+Prompt wording alone does not stop a model from handing back a tidy outline with
+no student pages. So the district's own quality gate runs as code on every
+draft, and a failure sends the draft back to the model:
+
+| Check | Fails when |
+|---|---|
+| `hunter_complete` | any of the 8 steps has no teacher moves |
+| `duration_sum` | step minutes do not total the period |
+| `objective_form` | the objective does not say how mastery is shown |
+| `vocabulary_bounds` | fewer than 4 or more than 8 terms |
+| `vocabulary_woven` | a term is listed but never used in Input, Modeling, Guided Practice or CFU |
+| `high_order_questions` | a question is a bare *who / what / define / show* with no reasoning demand |
+| `manipulatives` | a math lesson names none (everyday objects preferred) |
+| `student_pages` | no page, or a page with no evidence space, no because line, or an unkeyed item |
+| `exit_ticket_staar` | fewer than 2 STAAR-style items, no constructed item, or a missing model / justification / 0-1-2 rubric |
+| `ell_support` | the class has multilingual learners but language load and concept gap are not diagnosed separately, or a motion-movie beat is missing |
+
+Vocabulary has to appear **in the plan and on the kid page**. A "3-2-1
+reflection" cannot stand in for the exit ticket. A teacher plan with no student
+pages is reported as incomplete rather than quietly shipped.
 
 ## The two problems this design is actually about
 
@@ -279,7 +309,7 @@ pip install -r requirements-optional.txt
 python3 -m unittest discover -s tests -t tests
 ```
 
-114 tests, no network, no model, no third-party packages. They cover the PDF
+137 tests, no network, no model, no third-party packages. They cover the PDF
 extractor (against PDFs built byte by byte in the test), column-alias parsing,
 chunk boundaries, JSON recovery from malformed model output, the context
 budget, every validation rule, and the full repair loop against a scripted

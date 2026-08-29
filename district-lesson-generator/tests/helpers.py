@@ -45,6 +45,131 @@ class FakeClient:
         return self.responses.pop(0)
 
 
+_HUNTER_MINUTES = {
+    "purpose": 3, "anticipatory_set": 6, "input": 9, "modeling": 12,
+    "guided_practice": 12, "checking_for_understanding": 6,
+    "independent_practice": 9, "closure": 3,
+}
+
+# Terms appear in the teaching steps AND on the student page, as the standard
+# requires -- a fixture that skipped that would fail vocabulary_woven.
+_VOCAB = ("denominator", "equivalent", "benchmark", "sum")
+
+
+def hunter_lesson(
+    standards: list[tuple[str, str]],
+    *,
+    minutes: dict[str, int] | None = None,
+    bad_code: str = "",
+    answer: str = "7/12",
+    student_pages: bool = True,
+) -> dict:
+    """A complete, valid three-part package for tests to mutate."""
+    minutes = minutes or _HUNTER_MINUTES
+    woven = (
+        "Name the denominator, then find an equivalent fraction using a benchmark "
+        "so the sum is exact."
+    )
+    step = lambda extra="": {  # noqa: E731
+        "minutes": 0,
+        "teacher_moves": [f"{woven} {extra}".strip()],
+        "student_actions": ["Build the sum with fraction strips."],
+        "questions": ["Explain how you know the denominator makes the pieces equal."],
+        "look_fors": ["Equal-sized parts in the model."],
+    }
+    hunter = {}
+    for name, value in minutes.items():
+        node = step()
+        node["minutes"] = value
+        hunter[name] = node
+
+    return {
+        "title": "Adding Fractions with Unlike Denominators",
+        "grade": "5",
+        "subject": "math",
+        "standards": [
+            {"code": code, "text": text, "emphasis": "primary focus" if i == 0 else "supporting"}
+            for i, (code, text) in enumerate(standards)
+        ],
+        "objective": {
+            "student_friendly": "I can add fractions with unlike denominators using a model.",
+            "mastery_evidence": "I rename both fractions and justify the sum on the exit ticket.",
+        },
+        "academic_vocabulary": [
+            {"term": term, "student_definition": f"what {term} means in kid words",
+             "cognate": "", "gesture_or_object": "fraction strips"}
+            for term in _VOCAB
+        ],
+        "hunter": hunter,
+        "materials": ["fraction strips", "number line strips"],
+        "manipulatives": ["paper plates cut into halves and thirds", "beans"],
+        "differentiation": {
+            "below_level": ["Start with halves, fourths and eighths."],
+            "on_level": ["Use thirds and sixths."],
+            "above_level": ["Add three fractions."],
+            "special_education": ["Pre-cut the strips; reduce to four problems."],
+        },
+        "ell_support": {
+            "language_load": "'of' in fractions reads as multiplication, not possession.",
+            "concept_gap": "Part-whole meaning of the denominator is not yet stable.",
+            "motion_movie": {
+                "scene": "Paper plates are one whole each.",
+                "move": "Fold one plate into halves and one into thirds, then cover.",
+                "freeze_frame": "The moment both plates show sixths.",
+                "talk_back": "'I renamed ___ as ___ because ___.'",
+            },
+            "thinking_stems": ["I renamed ___ as ___ because ___."],
+        },
+        "timing_overview": [{"segment": k, "minutes": v} for k, v in minutes.items()],
+        "student_pages": ([
+            {
+                "title": "Renaming to a Common Denominator",
+                "directions": "Fold, cover, then write the equation you see.",
+                "vocabulary_or_stems": list(_VOCAB) + ["I renamed ___ because ___."],
+                "evidence_space": "Draw the two plates and label the equivalent sum.",
+                "items": [
+                    {"prompt": "Add 1/2 + 1/3 with your model.", "answer": "5/6"},
+                    {"prompt": "Add 1/4 + 1/3 with your model.", "answer": "7/12"},
+                ],
+                "because_line": "I know my answer is correct because ___.",
+            }
+        ] if student_pages else []),
+        "exit_ticket": {
+            "minutes": 9,
+            "teks_posted": [code for code, _ in standards],
+            "items": [
+                {
+                    "prompt": "Which model shows 1/2 + 1/3 renamed correctly?",
+                    "choices": ["Sixths, 5 shaded", "Fifths, 2 shaded", "Sixths, 2 shaded",
+                                "Thirds, 1 shaded"],
+                    "answer": "Sixths, 5 shaded",
+                    "distractor_rationale": "Fifths shows adding denominators.",
+                },
+                {
+                    "prompt": "Compare 1/2 + 1/4 to one whole. Justify your choice.",
+                    "choices": ["Less than 1", "Equal to 1", "Greater than 1", "Cannot tell"],
+                    "answer": "Less than 1",
+                    "distractor_rationale": "'Equal to 1' means benchmark reasoning is missing.",
+                },
+            ],
+            "constructed_item": {
+                "prompt": "Mia ate 1/3 of a pizza and Sam ate 1/4. How much did they eat?",
+                "exemplar_model": "One whole partitioned into twelfths, 4 and 3 shaded.",
+                "exemplar_equation": "1/3 + 1/4 = 4/12 + 3/12 = 7/12",
+                "exemplar_justification": "Twelfths let both pieces be the same size.",
+                "scoring": {
+                    "zero": "Blank, or adds denominators.",
+                    "one": f"Answer {answer} with no model, or a model with no answer.",
+                    "two": "Model, answer and justification all present.",
+                },
+            },
+            "success_line": "I can rename fractions and justify my sum.",
+        },
+        "teacher_notes": (f"Also review {bad_code} first." if bad_code
+                          else "Fraction strips are in the back cabinet."),
+    }
+
+
 _CT = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
 <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>

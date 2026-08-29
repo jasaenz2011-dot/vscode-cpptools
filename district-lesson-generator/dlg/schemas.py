@@ -1,5 +1,12 @@
 """Output shapes the agents must produce.
 
+The lesson shape implements the district's instructional standard: every output
+is a complete printable package in three parts.
+
+    Part A  Full Madeline Hunter lesson, all 8 steps, never skipped or merged
+    Part B  Student-facing pages the children actually write on
+    Part C  A STAAR-level exit ticket with a teacher answer key
+
 These are deliberately not JSON Schema. A local 8B model does a better job with
 a short worked example than with a formal schema, and what actually enforces
 the shape is :func:`dlg.jsonio.coerce`, which runs on whatever comes back. The
@@ -12,35 +19,93 @@ from __future__ import annotations
 import json
 from typing import Any
 
+# The eight Hunter steps, in order. The keys are the schema fields; the labels
+# are what a teacher and a walkthrough observer expect to see on the page.
+HUNTER_STEPS: tuple[tuple[str, str], ...] = (
+    ("purpose", "Purpose / Objective"),
+    ("anticipatory_set", "Anticipatory Set"),
+    ("input", "Input"),
+    ("modeling", "Modeling"),
+    ("guided_practice", "Guided Practice"),
+    ("checking_for_understanding", "Checking for Understanding (CFU)"),
+    ("independent_practice", "Independent Practice"),
+    ("closure", "Closure"),
+)
+
+# The steps the standard requires academic vocabulary to be woven through.
+VOCAB_BEARING_STEPS = ("input", "modeling", "guided_practice", "checking_for_understanding")
+
+_STEP: dict[str, Any] = {
+    "minutes": "int",
+    "teacher_moves": ["str"],
+    "student_actions": ["str"],
+    "questions": ["str"],
+    "look_fors": ["str"],
+}
+
 LESSON_SCHEMA: dict[str, Any] = {
     "title": "str",
-    "essential_question": "str",
-    "learning_objective": "str",
-    "language_objective": "str",
-    "success_criteria": ["str"],
+    "grade": "str",
+    "subject": "str",
     "standards": [{"code": "str", "text": "str", "emphasis": "str"}],
-    "vocabulary": [{"term": "str", "student_friendly_definition": "str", "spanish_cognate": "str"}],
+    "objective": {"student_friendly": "str", "mastery_evidence": "str"},
+    "academic_vocabulary": [
+        {"term": "str", "student_definition": "str", "cognate": "str", "gesture_or_object": "str"}
+    ],
+    # --- Part A: the eight Hunter steps -------------------------------
+    "hunter": {step: dict(_STEP) for step, _ in HUNTER_STEPS},
     "materials": ["str"],
-    "prior_knowledge": "str",
-    "misconceptions": [{"misconception": "str", "teacher_response": "str"}],
-    "lesson_flow": [
+    "manipulatives": ["str"],
+    "differentiation": {
+        "below_level": ["str"],
+        "on_level": ["str"],
+        "above_level": ["str"],
+        "special_education": ["str"],
+    },
+    "ell_support": {
+        "language_load": "str",
+        "concept_gap": "str",
+        "motion_movie": {
+            "scene": "str",
+            "move": "str",
+            "freeze_frame": "str",
+            "talk_back": "str",
+        },
+        "thinking_stems": ["str"],
+    },
+    "timing_overview": [{"segment": "str", "minutes": "int"}],
+    # --- Part B: what the children hold -------------------------------
+    "student_pages": [
         {
-            "phase": "str",
-            "minutes": "int",
-            "teacher_moves": ["str"],
-            "student_actions": ["str"],
-            "check_for_understanding": "str",
+            "title": "str",
+            "directions": "str",
+            "vocabulary_or_stems": ["str"],
+            "evidence_space": "str",
+            "items": [{"prompt": "str", "answer": "str"}],
+            "because_line": "str",
         }
     ],
-    "differentiation": {
-        "tier2_support": ["str"],
-        "emergent_bilingual": ["str"],
-        "special_education": ["str"],
-        "extension": ["str"],
+    # --- Part C: the STAAR-level ticket -------------------------------
+    "exit_ticket": {
+        "minutes": "int",
+        "teks_posted": ["str"],
+        "items": [
+            {
+                "prompt": "str",
+                "choices": ["str"],
+                "answer": "str",
+                "distractor_rationale": "str",
+            }
+        ],
+        "constructed_item": {
+            "prompt": "str",
+            "exemplar_model": "str",
+            "exemplar_equation": "str",
+            "exemplar_justification": "str",
+            "scoring": {"zero": "str", "one": "str", "two": "str"},
+        },
+        "success_line": "str",
     },
-    "formative_assessment": {"task": "str", "exemplar_response": "str", "scoring_notes": "str"},
-    "exit_ticket": {"prompt": "str", "answer_key": "str"},
-    "independent_practice": "str",
     "teacher_notes": "str",
 }
 
@@ -71,15 +136,18 @@ INTERVENTION_SCHEMA: dict[str, Any] = {
     "teacher_notes": "str",
 }
 
-# Fields that must be non-empty for the document to be usable in a classroom.
+# Fields that must be non-empty for the package to be printable tonight.
 LESSON_REQUIRED = (
     "title",
-    "learning_objective",
-    "success_criteria",
     "standards",
-    "lesson_flow",
-    "formative_assessment.task",
-    "exit_ticket.prompt",
+    "objective.student_friendly",
+    "objective.mastery_evidence",
+    "academic_vocabulary",
+    "materials",
+    "student_pages",
+    "exit_ticket.items",
+    "exit_ticket.constructed_item.prompt",
+    "exit_ticket.success_line",
 )
 
 INTERVENTION_REQUIRED = (
@@ -91,8 +159,25 @@ INTERVENTION_REQUIRED = (
     "progress_monitoring.probe",
 )
 
-# The 5E phases, used to seed the offline scaffold and to check coverage.
-FIVE_E_PHASES = ("Engage", "Explore", "Explain", "Elaborate", "Evaluate")
+# Stems that are recall unless a deeper demand is attached in the same question.
+LOW_ORDER_STEMS = (
+    "who", "what", "when", "where", "why", "choose", "define", "select", "show",
+    "name", "list", "identify", "circle",
+)
+
+# Evidence that a question asks for reasoning rather than retrieval.
+HIGH_ORDER_MARKERS = (
+    "explain", "justify", "compare", "contrast", "represent", "apply", "prove",
+    "how do you know", "because", "evidence", "model", "predict", "defend",
+    "what would happen", "which strategy", "convince", "support your",
+)
+
+# Everyday objects the standard wants reached for before commercial kits.
+EVERYDAY_MANIPULATIVES = (
+    "coin", "bottle cap", "bean", "paper plate", "egg carton", "string",
+    "sticky note", "cereal", "paper clip", "button", "straw", "index card",
+    "counter", "cube", "tile", "fraction strip", "number line",
+)
 
 
 def schema_example(schema: dict[str, Any]) -> str:
@@ -120,3 +205,13 @@ def get(document: dict[str, Any], dotted: str) -> Any:
             return None
         node = node.get(part)
     return node
+
+
+def step_text(document: dict[str, Any], step: str) -> str:
+    """All prose in one Hunter step, for vocabulary and question checks."""
+    node = get(document, f"hunter.{step}") or {}
+    parts: list[str] = []
+    for key in ("teacher_moves", "student_actions", "questions", "look_fors"):
+        value = node.get(key) or []
+        parts.extend(str(item) for item in value)
+    return " ".join(parts)

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import unittest
 
-from helpers import FakeClient, make_project  # noqa: E402
+from helpers import FakeClient, hunter_lesson, make_project  # noqa: E402
 
 from dlg.agents import CurriculumMapper, StandardsAgent, Validator
 from dlg.agents.curriculum_mapper import _week_ranges
@@ -122,36 +122,7 @@ class TestValidator(unittest.TestCase):
         self.request = LessonRequest(grade="5", subject="math", duration_minutes=60)
 
     def _document(self, **overrides) -> dict:
-        document = {
-            "title": "Adding Fractions",
-            "essential_question": "How do we add fractions with unlike denominators?",
-            "learning_objective": "I can add fractions with unlike denominators.",
-            "language_objective": "I can explain my model using the word denominator.",
-            "success_criteria": ["I can rename fractions using a common denominator."],
-            "standards": [
-                {"code": s.code, "text": s.text, "emphasis": "primary focus"}
-                for s in self.pack.standards
-            ],
-            "vocabulary": [{"term": "denominator", "student_friendly_definition":
-                            "the number of equal parts in one whole", "spanish_cognate": "denominador"}],
-            "materials": ["fraction tiles"],
-            "prior_knowledge": "Students can name equivalent fractions.",
-            "misconceptions": [{"misconception": "adding denominators",
-                                "teacher_response": "model with fraction tiles"}],
-            "lesson_flow": [
-                {"phase": phase, "minutes": minutes, "teacher_moves": ["ask a question"],
-                 "student_actions": ["build a model"], "check_for_understanding": "show me"}
-                for phase, minutes in
-                [("Engage", 10), ("Explore", 15), ("Explain", 15), ("Elaborate", 12), ("Evaluate", 8)]
-            ],
-            "differentiation": {"tier2_support": ["use tiles"], "emergent_bilingual": ["stems"],
-                                "special_education": ["reduce items"], "extension": ["three addends"]},
-            "formative_assessment": {"task": "Solve 1/2 + 1/3.", "exemplar_response": "5/6",
-                                     "scoring_notes": "look for a common denominator"},
-            "exit_ticket": {"prompt": "Add 1/4 + 1/3.", "answer_key": "7/12"},
-            "independent_practice": "Textbook page 214, problems 1-8.",
-            "teacher_notes": "Fraction tiles are in the cabinet.",
-        }
+        document = hunter_lesson([(s.code, s.text) for s in self.pack.standards])
         document.update(overrides)
         return document
 
@@ -166,36 +137,38 @@ class TestValidator(unittest.TestCase):
         self.assertTrue(any(v.rule == "no_invented_codes" for v in report.errors))
 
     def test_real_district_code_out_of_scope_is_only_a_warning(self) -> None:
-        document = self._document(prior_knowledge="Builds on 5.2A from Unit 1.")
+        document = self._document(teacher_notes="Builds on 5.2A from Unit 1.")
         report = self.validator.run(document, self.request, self.pack)
         self.assertTrue(report.ok, [str(v) for v in report.errors])
         self.assertTrue(any(v.rule == "no_invented_codes" for v in report.warnings))
 
     def test_decimals_in_math_content_are_not_flagged(self) -> None:
-        document = self._document(independent_practice="Compare 3.5 and 3.25, then round 7.849.")
+        document = self._document(teacher_notes="Compare 3.5 and 3.25, then round 7.849.")
         report = self.validator.run(document, self.request, self.pack)
         self.assertTrue(report.ok, [str(v) for v in report.errors])
 
     def test_minutes_that_do_not_add_up_are_an_error(self) -> None:
-        flow = self._document()["lesson_flow"]
-        flow[0]["minutes"] = 40
-        report = self.validator.run(self._document(lesson_flow=flow), self.request, self.pack)
+        hunter = self._document()["hunter"]
+        hunter["modeling"]["minutes"] = 40
+        report = self.validator.run(self._document(hunter=hunter), self.request, self.pack)
         self.assertTrue(any(v.rule == "duration_sum" for v in report.errors))
 
     def test_placeholders_are_an_error(self) -> None:
-        document = self._document(exit_ticket={"prompt": "TBD", "answer_key": "TBD"})
+        document = self._document(teacher_notes="TBD")
         report = self.validator.run(document, self.request, self.pack)
         self.assertTrue(any(v.rule == "no_placeholders" for v in report.errors))
 
-    def test_missing_answer_key_is_an_error(self) -> None:
-        document = self._document(exit_ticket={"prompt": "Add 1/4 + 1/3.", "answer_key": ""})
+    def test_exit_ticket_item_without_a_key_is_an_error(self) -> None:
+        document = self._document()
+        document["exit_ticket"]["items"][0]["answer"] = ""
         report = self.validator.run(document, self.request, self.pack)
-        self.assertTrue(any(v.rule == "answer_keys" for v in report.errors))
+        self.assertTrue(any(v.rule == "exit_ticket_staar" for v in report.errors))
 
     def test_objective_not_student_facing_is_a_warning_only(self) -> None:
-        document = self._document(learning_objective="Add fractions with unlike denominators.")
+        document = self._document()
+        document["objective"]["student_friendly"] = "Add fractions with unlike denominators."
         report = self.validator.run(document, self.request, self.pack)
-        self.assertTrue(report.ok)
+        self.assertTrue(report.ok, [str(v) for v in report.errors])
         self.assertTrue(any(v.rule == "objective_form" for v in report.warnings))
 
 
@@ -243,3 +216,161 @@ class TestFakeClientContract(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestInstructionalStandard(unittest.TestCase):
+    """The district's quality gate, made executable.
+
+    All 8 Hunter steps? A student page per activity? A real STAAR ticket with a
+    key? Questions past recall? Vocab in the plan AND on the kid page?
+    """
+
+    def setUp(self) -> None:
+        self.config, self.store, _ = make_project()
+        _, self.standards, self.validator = _agents(self.config, self.store)
+        self.pack = self.standards.run(["5.3H", "5.3K"], grade="5", subject="math")
+        self.request = LessonRequest(grade="5", subject="math", duration_minutes=60)
+
+    def _doc(self, **overrides) -> dict:
+        document = hunter_lesson([(s.code, s.text) for s in self.pack.standards])
+        document.update(overrides)
+        return document
+
+    def _run(self, document, request=None):
+        return self.validator.run(document, request or self.request, self.pack)
+
+    def _rules(self, report) -> set[str]:
+        return {v.rule for v in report.errors}
+
+    # -- Part A --------------------------------------------------------
+    def test_a_skipped_hunter_step_is_an_error(self) -> None:
+        document = self._doc()
+        document["hunter"]["modeling"]["teacher_moves"] = []
+        self.assertIn("hunter_complete", self._rules(self._run(document)))
+
+    def test_every_hunter_step_is_required(self) -> None:
+        for step in ("purpose", "anticipatory_set", "input", "modeling", "guided_practice",
+                     "checking_for_understanding", "independent_practice", "closure"):
+            document = self._doc()
+            document["hunter"][step]["teacher_moves"] = []
+            with self.subTest(step=step):
+                self.assertIn("hunter_complete", self._rules(self._run(document)))
+
+    def test_objective_must_say_how_mastery_is_shown(self) -> None:
+        document = self._doc()
+        document["objective"]["mastery_evidence"] = ""
+        self.assertIn("objective_form", self._rules(self._run(document)))
+
+    def test_vocabulary_outside_four_to_eight_is_an_error(self) -> None:
+        document = self._doc()
+        document["academic_vocabulary"] = document["academic_vocabulary"][:2]
+        self.assertIn("vocabulary_bounds", self._rules(self._run(document)))
+
+    def test_vocabulary_listed_but_never_taught_is_an_error(self) -> None:
+        """A term that appears only in the list at the top has not been taught."""
+        document = self._doc()
+        document["academic_vocabulary"].append(
+            {"term": "numerator", "student_definition": "the top number",
+             "cognate": "numerador", "gesture_or_object": "point to the top"}
+        )
+        self.assertIn("vocabulary_woven", self._rules(self._run(document)))
+
+    def test_bare_recall_question_is_an_error(self) -> None:
+        document = self._doc()
+        document["hunter"]["checking_for_understanding"]["questions"] = ["What is a denominator?"]
+        self.assertIn("high_order_questions", self._rules(self._run(document)))
+
+    def test_recall_stem_with_a_reasoning_demand_passes(self) -> None:
+        document = self._doc()
+        document["hunter"]["checking_for_understanding"]["questions"] = [
+            "What does the denominator tell us, and how do you know your pieces are equal?"
+        ]
+        self.assertNotIn("high_order_questions", self._rules(self._run(document)))
+
+    def test_math_without_manipulatives_is_an_error(self) -> None:
+        document = self._doc(manipulatives=[])
+        self.assertIn("manipulatives", self._rules(self._run(document)))
+
+    def test_reading_lesson_does_not_require_manipulatives(self) -> None:
+        request = LessonRequest(grade="5", subject="ela", duration_minutes=60)
+        document = self._doc(manipulatives=[])
+        self.assertNotIn("manipulatives", self._rules(self._run(document, request)))
+
+    # -- Part B --------------------------------------------------------
+    def test_missing_student_pages_is_an_error(self) -> None:
+        document = self._doc(student_pages=[])
+        self.assertIn("student_pages", self._rules(self._run(document)))
+
+    def test_student_page_without_a_because_line_is_an_error(self) -> None:
+        document = self._doc()
+        document["student_pages"][0]["because_line"] = ""
+        self.assertIn("student_pages", self._rules(self._run(document)))
+
+    def test_student_page_without_evidence_space_is_an_error(self) -> None:
+        document = self._doc()
+        document["student_pages"][0]["evidence_space"] = ""
+        self.assertIn("student_pages", self._rules(self._run(document)))
+
+    def test_student_page_item_needs_a_teacher_key(self) -> None:
+        document = self._doc()
+        document["student_pages"][0]["items"][0]["answer"] = ""
+        self.assertIn("student_pages", self._rules(self._run(document)))
+
+    # -- Part C --------------------------------------------------------
+    def test_one_item_ticket_is_an_error(self) -> None:
+        document = self._doc()
+        document["exit_ticket"]["items"] = document["exit_ticket"]["items"][:1]
+        self.assertIn("exit_ticket_staar", self._rules(self._run(document)))
+
+    def test_ticket_without_a_constructed_item_is_an_error(self) -> None:
+        document = self._doc()
+        document["exit_ticket"]["constructed_item"]["prompt"] = ""
+        self.assertIn("exit_ticket_staar", self._rules(self._run(document)))
+
+    def test_constructed_item_needs_model_and_justification(self) -> None:
+        for field in ("exemplar_model", "exemplar_justification"):
+            document = self._doc()
+            document["exit_ticket"]["constructed_item"][field] = ""
+            with self.subTest(field=field):
+                self.assertIn("exit_ticket_staar", self._rules(self._run(document)))
+
+    def test_constructed_item_needs_the_full_scoring_rubric(self) -> None:
+        document = self._doc()
+        document["exit_ticket"]["constructed_item"]["scoring"]["two"] = ""
+        self.assertIn("exit_ticket_staar", self._rules(self._run(document)))
+
+    def test_success_line_is_required(self) -> None:
+        document = self._doc()
+        document["exit_ticket"]["success_line"] = ""
+        self.assertIn("required_sections", self._rules(self._run(document)))
+
+    def test_ticket_teks_are_posted_automatically(self) -> None:
+        from dlg.agents.validator import apply_deterministic_fixes as fix
+
+        document = self._doc()
+        document["exit_ticket"]["teks_posted"] = []
+        changes = fix(document, self.pack, False, self.store, "5", "math")
+        self.assertEqual(document["exit_ticket"]["teks_posted"], ["5.3H", "5.3K"])
+        self.assertTrue(any("posted the lesson's TEKS" in c for c in changes))
+
+    # -- Multilingual learners ----------------------------------------
+    def test_ell_class_requires_language_load_and_concept_gap(self) -> None:
+        request = LessonRequest(grade="5", subject="math", duration_minutes=60,
+                                student_notes="6 emergent bilingual students")
+        document = self._doc()
+        document["ell_support"]["language_load"] = ""
+        document["ell_support"]["concept_gap"] = ""
+        rules = self._rules(self._run(document, request))
+        self.assertIn("ell_support", rules)
+
+    def test_ell_class_requires_all_four_motion_movie_beats(self) -> None:
+        request = LessonRequest(grade="5", subject="math", duration_minutes=60,
+                                student_notes="newcomers in third period")
+        document = self._doc()
+        document["ell_support"]["motion_movie"]["freeze_frame"] = ""
+        self.assertIn("ell_support", self._rules(self._run(document, request)))
+
+    def test_class_without_multilingual_learners_is_not_penalised(self) -> None:
+        document = self._doc()
+        document["ell_support"]["language_load"] = ""
+        self.assertNotIn("ell_support", self._rules(self._run(document)))

@@ -9,7 +9,7 @@ from .. import prompts
 from ..contextpack import ContextPacker, PackedContext
 from ..models import LessonRequest, Violation
 from ..retrieval import Hit
-from ..schemas import FIVE_E_PHASES, LESSON_SCHEMA, schema_example
+from ..schemas import HUNTER_STEPS, LESSON_SCHEMA, schema_example
 from ..util import get_logger, truncate_words
 from .base import Agent
 from .curriculum_mapper import MappingResult
@@ -23,8 +23,18 @@ SCAFFOLD_NOTE = (
     "ones that need a model. Start Ollama (or set an API key) and regenerate to fill them."
 )
 
-# Share of the lesson each 5E phase gets in the scaffold.
-_PHASE_SHARE = {"Engage": 0.12, "Explore": 0.28, "Explain": 0.25, "Elaborate": 0.23, "Evaluate": 0.12}
+# Share of the period each Hunter step gets in the scaffold. A teacher will
+# move these; they exist so the minutes total the period from the start.
+_STEP_SHARE = {
+    "purpose": 0.05,
+    "anticipatory_set": 0.10,
+    "input": 0.15,
+    "modeling": 0.20,
+    "guided_practice": 0.20,
+    "checking_for_understanding": 0.10,
+    "independent_practice": 0.15,
+    "closure": 0.05,
+}
 
 
 class LessonWriter(Agent):
@@ -153,35 +163,28 @@ class LessonWriter(Agent):
         """
         primary = pack.standards[0] if pack.standards else None
         unit_label = mapping.unit.label() if mapping.unit else f"Grade {request.grade} {request.subject}"
-        excerpts = _phase_excerpts(pack.support, len(FIVE_E_PHASES))
+        excerpts = _phase_excerpts(pack.support, len(HUNTER_STEPS))
 
-        flow: list[dict[str, Any]] = []
+        hunter: dict[str, Any] = {}
         allocated = 0
-        for index, phase in enumerate(FIVE_E_PHASES):
-            if index == len(FIVE_E_PHASES) - 1:
-                minutes = request.duration_minutes - allocated
+        for index, (step, _label) in enumerate(HUNTER_STEPS):
+            if index == len(HUNTER_STEPS) - 1:
+                minutes = max(1, request.duration_minutes - allocated)
             else:
-                minutes = max(5, round(request.duration_minutes * _PHASE_SHARE[phase]))
+                minutes = max(2, round(request.duration_minutes * _STEP_SHARE[step]))
                 allocated += minutes
-            moves = excerpts[index] if index < len(excerpts) else []
-            flow.append(
-                {
-                    "phase": phase,
-                    "minutes": minutes,
-                    "teacher_moves": moves,
-                    "student_actions": [],
-                    "check_for_understanding": "",
-                }
-            )
+            hunter[step] = {
+                "minutes": minutes,
+                "teacher_moves": excerpts[index] if index < len(excerpts) else [],
+                "student_actions": [],
+                "questions": [],
+                "look_fors": [],
+            }
 
         return {
             "title": f"{unit_label} - Lesson {request.lesson_number}",
-            # The unit focus is a statement, not a question; only promote it when
-            # the district actually wrote one.
-            "essential_question": _question_or_blank(mapping.unit.focus if mapping.unit else ""),
-            "learning_objective": _objective_from_standard(primary.text) if primary else "",
-            "language_objective": "",
-            "success_criteria": _criteria_from_standard(primary.text) if primary else [],
+            "grade": request.grade,
+            "subject": request.subject,
             "standards": [
                 {
                     "code": standard.code,
@@ -190,22 +193,40 @@ class LessonWriter(Agent):
                 }
                 for index, standard in enumerate(pack.standards)
             ],
-            "vocabulary": [],
+            "objective": {
+                "student_friendly": _objective_from_standard(primary.text) if primary else "",
+                "mastery_evidence": "",
+            },
+            # The district's own vocabulary column, when the pacing guide has one.
+            "academic_vocabulary": _vocabulary_from_unit(mapping),
+            "hunter": hunter,
             "materials": _materials_from_unit(mapping),
-            "prior_knowledge": "",
-            "misconceptions": [],
-            "lesson_flow": flow,
+            "manipulatives": _manipulatives_from_unit(mapping),
             "differentiation": {
-                "tier2_support": [], "emergent_bilingual": [],
-                "special_education": [], "extension": [],
+                "below_level": [], "on_level": [], "above_level": [], "special_education": [],
             },
-            "formative_assessment": {
-                "task": (mapping.unit.assessments if mapping.unit else "") or "",
-                "exemplar_response": "",
-                "scoring_notes": "",
+            "ell_support": {
+                "language_load": "",
+                "concept_gap": "",
+                "motion_movie": {"scene": "", "move": "", "freeze_frame": "", "talk_back": ""},
+                "thinking_stems": [],
             },
-            "exit_ticket": {"prompt": "", "answer_key": ""},
-            "independent_practice": "",
+            "timing_overview": [
+                {"segment": label, "minutes": hunter[step]["minutes"]}
+                for step, label in HUNTER_STEPS
+            ],
+            "student_pages": [],
+            "exit_ticket": {
+                "minutes": 10,
+                "teks_posted": [s.code for s in pack.standards],
+                "items": [],
+                "constructed_item": {
+                    "prompt": "", "exemplar_model": "", "exemplar_equation": "",
+                    "exemplar_justification": "",
+                    "scoring": {"zero": "", "one": "", "two": ""},
+                },
+                "success_line": "",
+            },
             "teacher_notes": SCAFFOLD_NOTE,
         }
 
@@ -261,27 +282,45 @@ def _objective_from_standard(text: str) -> str:
     return f"I can {first[0].lower()}{first[1:]}"
 
 
-def _criteria_from_standard(text: str) -> list[str]:
-    """Split a multi-part standard into its parts, which is what the parts are for."""
-    cleaned = (text or "").strip().rstrip(".")
-    parts = [part.strip() for part in re.split(r";|,\s+and\s+|\s+and\s+then\s+", cleaned) if part.strip()]
-    if len(parts) < 2:
-        return []
-    return [f"I can {part[0].lower()}{part[1:]}" for part in parts[:5] if len(part.split()) > 2]
-
-
-def _question_or_blank(text: str) -> str:
-    return text.strip() if text.strip().endswith("?") else ""
-
-
 def _materials_from_unit(mapping: MappingResult) -> list[str]:
     if not mapping.unit or not mapping.unit.resources:
         return []
     return [item.strip() for item in re.split(r"[;,\n]+", mapping.unit.resources) if item.strip()]
 
 
+def _manipulatives_from_unit(mapping: MappingResult) -> list[str]:
+    """The district's "Recommended Manipulatives" column, when it has one."""
+    if not mapping.unit:
+        return []
+    return [
+        item.strip()
+        for item in re.split(r"[;,\n]+", mapping.unit.resources or "")
+        if item.strip()
+    ]
+
+
+def _vocabulary_from_unit(mapping: MappingResult) -> list[dict[str, str]]:
+    """Seed the vocabulary list from the pacing guide's own column.
+
+    Definitions are left blank: the district named the terms, but nobody has
+    written the student-friendly wording yet, and inventing it here would hide
+    that gap from the validator.
+    """
+    if not mapping.unit or not mapping.unit.vocabulary:
+        return []
+    terms = [
+        term.strip()
+        for term in re.split(r"[;,\n]+", mapping.unit.vocabulary)
+        if term.strip() and len(term.strip()) < 40
+    ]
+    return [
+        {"term": term, "student_definition": "", "cognate": "", "gesture_or_object": ""}
+        for term in terms[:8]
+    ]
+
+
 def _phase_excerpts(hits: list[Hit], phases: int) -> list[list[str]]:
-    """Deal the retrieved district excerpts across the 5E phases, round-robin.
+    """Deal the retrieved district excerpts across the lesson steps, round-robin.
 
     Resource and assessment material is what a teacher can actually build from,
     so pacing tables are used only to fill gaps, and no single file is allowed

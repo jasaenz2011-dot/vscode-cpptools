@@ -15,7 +15,7 @@ from pathlib import Path
 from typing import Any
 
 from .models import GenerationResult
-from .schemas import get
+from .schemas import HUNTER_STEPS, get
 from .util import slugify
 
 # ----------------------------------------------------------------------
@@ -70,106 +70,206 @@ def _header_blocks(result: GenerationResult, title: str) -> list[Block]:
 
 
 def _lesson_blocks(result: GenerationResult) -> list[Block]:
+    """The three-part package: Hunter lesson, student pages, exit ticket."""
     doc = result.document
     blocks = _header_blocks(result, str(doc.get("title", "")))
 
-    blocks.append(Block("h2", "Standards"))
+    blocks.append(Block("h2", "Part A — Madeline Hunter lesson"))
+
     standard_rows = [
         [str(entry.get("code", "")), str(entry.get("text", "")), str(entry.get("emphasis", ""))]
         for entry in doc.get("standards", [])
         if isinstance(entry, dict)
     ]
+    blocks.append(Block("h3", "TEKS"))
     if standard_rows:
         blocks.append(Block("table", header=["Code", "District wording (verbatim)", "Emphasis"],
                             rows=standard_rows))
     else:
         blocks.append(Block("p", "No standards were resolved from district documents."))
 
-    blocks.append(Block("h2", "Objectives"))
-    for label, key in (
-        ("Learning objective", "learning_objective"),
-        ("Language objective", "language_objective"),
-        ("Essential question", "essential_question"),
-        ("Prior knowledge", "prior_knowledge"),
-    ):
-        blocks.append(Block("kv", label=label, text=_or_blank(doc.get(key))))
-    if doc.get("success_criteria"):
-        blocks.append(Block("h3", "Success criteria"))
-        blocks.append(Block("ul", items=[str(item) for item in doc["success_criteria"]]))
+    blocks.append(Block("h3", "Objective"))
+    blocks.append(Block("kv", label="Students will say",
+                        text=_or_blank(get(doc, "objective.student_friendly"))))
+    blocks.append(Block("kv", label="Mastery is shown by",
+                        text=_or_blank(get(doc, "objective.mastery_evidence"))))
 
-    if doc.get("vocabulary"):
-        blocks.append(Block("h2", "Vocabulary"))
+    vocabulary = [v for v in (doc.get("academic_vocabulary") or []) if isinstance(v, dict)]
+    if vocabulary:
+        blocks.append(Block("h3", "Academic vocabulary"))
         blocks.append(Block(
             "table",
-            header=["Term", "Student-friendly definition", "Spanish cognate"],
+            header=["Term", "Student-friendly definition", "Cognate", "Gesture / object"],
             rows=[
-                [str(v.get("term", "")), str(v.get("student_friendly_definition", "")),
-                 str(v.get("spanish_cognate", ""))]
-                for v in doc["vocabulary"] if isinstance(v, dict)
+                [str(v.get("term", "")), str(v.get("student_definition", "")),
+                 str(v.get("cognate", "")), str(v.get("gesture_or_object", ""))]
+                for v in vocabulary
             ],
         ))
 
-    if doc.get("materials"):
-        blocks.append(Block("h2", "Materials"))
-        blocks.append(Block("ul", items=[str(item) for item in doc["materials"]]))
+    for number, (step, label) in enumerate(HUNTER_STEPS, start=1):
+        node = get(doc, f"hunter.{step}") or {}
+        minutes = node.get("minutes") or 0
+        blocks.append(Block("h3", f"({number}) {label} — {minutes} min"))
+        for key, heading in (
+            ("teacher_moves", "Teacher"),
+            ("student_actions", "Students"),
+            ("questions", "Questions"),
+            ("look_fors", "Look for"),
+        ):
+            items = [str(item) for item in (node.get(key) or []) if str(item).strip()]
+            if items:
+                blocks.append(Block("kv", label=heading, text=""))
+                blocks.append(Block("ul", items=items))
 
-    if doc.get("misconceptions"):
-        blocks.append(Block("h2", "Common misconceptions"))
-        blocks.append(Block(
-            "table",
-            header=["What students do", "Teacher response"],
-            rows=[
-                [str(m.get("misconception", "")), str(m.get("teacher_response", ""))]
-                for m in doc["misconceptions"] if isinstance(m, dict)
-            ],
-        ))
-
-    blocks.append(Block("h2", "Lesson flow"))
-    for phase in doc.get("lesson_flow", []):
-        if not isinstance(phase, dict):
-            continue
-        minutes = phase.get("minutes") or 0
-        blocks.append(Block("h3", f"{phase.get('phase', 'Phase')} ({minutes} min)"))
-        if phase.get("teacher_moves"):
-            blocks.append(Block("kv", label="Teacher", text=""))
-            blocks.append(Block("ul", items=[str(m) for m in phase["teacher_moves"]]))
-        if phase.get("student_actions"):
-            blocks.append(Block("kv", label="Students", text=""))
-            blocks.append(Block("ul", items=[str(a) for a in phase["student_actions"]]))
-        if phase.get("check_for_understanding"):
-            blocks.append(Block("kv", label="Check for understanding",
-                                text=str(phase["check_for_understanding"])))
+    for key, label in (("materials", "Materials"), ("manipulatives", "Manipulatives")):
+        items = [str(item) for item in (doc.get(key) or []) if str(item).strip()]
+        if items:
+            blocks.append(Block("h3", label))
+            blocks.append(Block("ul", items=items))
 
     differentiation = doc.get("differentiation") or {}
     if any(differentiation.values()):
-        blocks.append(Block("h2", "Differentiation"))
+        blocks.append(Block("h3", "Differentiation notes"))
         for key, label in (
-            ("tier2_support", "Students who need more support"),
-            ("emergent_bilingual", "Emergent bilingual students"),
+            ("below_level", "Needs more support"),
+            ("on_level", "On level"),
+            ("above_level", "Extension"),
             ("special_education", "Accommodations and modifications"),
-            ("extension", "Extension"),
         ):
             items = differentiation.get(key) or []
             if items:
-                blocks.append(Block("h3", label))
+                blocks.append(Block("kv", label=label, text=""))
                 blocks.append(Block("ul", items=[str(item) for item in items]))
 
-    blocks.append(Block("h2", "Assessment"))
-    blocks.append(Block("kv", label="Formative task", text=_or_blank(get(doc, "formative_assessment.task"))))
-    blocks.append(Block("kv", label="Exemplar response",
-                        text=_or_blank(get(doc, "formative_assessment.exemplar_response"))))
-    blocks.append(Block("kv", label="Scoring notes",
-                        text=_or_blank(get(doc, "formative_assessment.scoring_notes"))))
-    blocks.append(Block("h3", "Exit ticket"))
-    blocks.append(Block("kv", label="Prompt", text=_or_blank(get(doc, "exit_ticket.prompt"))))
-    blocks.append(Block("kv", label="Answer key", text=_or_blank(get(doc, "exit_ticket.answer_key"))))
+    blocks.extend(_ell_blocks(doc))
 
-    if doc.get("independent_practice"):
-        blocks.append(Block("h2", "Independent practice"))
-        blocks.append(Block("p", str(doc["independent_practice"])))
+    timing = [t for t in (doc.get("timing_overview") or []) if isinstance(t, dict)]
+    if timing:
+        blocks.append(Block("h3", "Timing overview"))
+        blocks.append(Block(
+            "table", header=["Segment", "Minutes"],
+            rows=[[str(t.get("segment", "")), str(t.get("minutes", ""))] for t in timing],
+        ))
+
+    blocks.extend(_student_page_blocks(doc))
+    blocks.extend(_exit_ticket_blocks(doc))
+
     if doc.get("teacher_notes"):
         blocks.append(Block("h2", "Teacher notes"))
         blocks.append(Block("p", str(doc["teacher_notes"])))
+    return blocks
+
+
+def _ell_blocks(doc: dict[str, Any]) -> list[Block]:
+    ell = doc.get("ell_support") or {}
+    movie = ell.get("motion_movie") or {}
+    if not any([ell.get("language_load"), ell.get("concept_gap"), any(movie.values())]):
+        return []
+
+    blocks = [Block("h3", "Multilingual learners")]
+    blocks.append(Block("kv", label="Language load", text=_or_blank(ell.get("language_load"))))
+    blocks.append(Block("kv", label="Concept gap", text=_or_blank(ell.get("concept_gap"))))
+    if any(movie.values()):
+        blocks.append(Block(
+            "table",
+            header=["Beat", "What happens"],
+            rows=[
+                ["1. Scene", str(movie.get("scene", ""))],
+                ["2. Move", str(movie.get("move", ""))],
+                ["3. Freeze frame", str(movie.get("freeze_frame", ""))],
+                ["4. Talk-back", str(movie.get("talk_back", ""))],
+            ],
+        ))
+    stems = [str(s) for s in (ell.get("thinking_stems") or []) if str(s).strip()]
+    if stems:
+        blocks.append(Block("kv", label="Thinking stems", text=""))
+        blocks.append(Block("ul", items=stems))
+    return blocks
+
+
+def _student_page_blocks(doc: dict[str, Any]) -> list[Block]:
+    pages = [p for p in (doc.get("student_pages") or []) if isinstance(p, dict)]
+    blocks = [Block("h2", "Part B — Student pages")]
+    if not pages:
+        blocks.append(Block("note", "No student pages were produced. The package is incomplete "
+                                    "without them.", tone="warn"))
+        return blocks
+
+    for index, page in enumerate(pages, start=1):
+        blocks.append(Block("h3", f"{page.get('title') or f'Student page {index}'}"))
+        blocks.append(Block("kv", label="Name", text="__________________________    Date: __________"))
+        if page.get("directions"):
+            blocks.append(Block("p", str(page["directions"])))
+        stems = [str(s) for s in (page.get("vocabulary_or_stems") or []) if str(s).strip()]
+        if stems:
+            blocks.append(Block("kv", label="Word bank / sentence stems", text=""))
+            blocks.append(Block("ul", items=stems))
+        if page.get("evidence_space"):
+            blocks.append(Block("kv", label="Show your thinking here",
+                                text=str(page["evidence_space"])))
+        items = [i for i in (page.get("items") or []) if isinstance(i, dict)]
+        if items:
+            blocks.append(Block(
+                "table",
+                header=["#", "Task", "Teacher key"],
+                rows=[[str(n), str(i.get("prompt", "")), str(i.get("answer", ""))]
+                      for n, i in enumerate(items, start=1)],
+            ))
+        if page.get("because_line"):
+            blocks.append(Block("kv", label="Because", text=str(page["because_line"])))
+    return blocks
+
+
+def _exit_ticket_blocks(doc: dict[str, Any]) -> list[Block]:
+    ticket = doc.get("exit_ticket") or {}
+    minutes = ticket.get("minutes") or 0
+    blocks = [Block("h2", f"Part C — Exit ticket ({minutes} min)")]
+
+    posted = [str(code) for code in (ticket.get("teks_posted") or []) if str(code).strip()]
+    blocks.append(Block("kv", label="TEKS", text=", ".join(posted) if posted else "--"))
+    blocks.append(Block("kv", label="Name", text="__________________________    Date: __________"))
+
+    items = [i for i in (ticket.get("items") or []) if isinstance(i, dict)]
+    for number, item in enumerate(items, start=1):
+        blocks.append(Block("kv", label=f"{number}", text=str(item.get("prompt", ""))))
+        choices = [str(c) for c in (item.get("choices") or []) if str(c).strip()]
+        if choices:
+            blocks.append(Block("ul", items=choices))
+
+    constructed = ticket.get("constructed_item") or {}
+    if constructed.get("prompt"):
+        blocks.append(Block("kv", label=f"{len(items) + 1}", text=str(constructed["prompt"])))
+        blocks.append(Block("p", "Show a model, give your answer, and explain how you know."))
+
+    if ticket.get("success_line"):
+        blocks.append(Block("note", str(ticket["success_line"])))
+
+    # --- teacher key ---------------------------------------------------
+    blocks.append(Block("h3", "Answer key (teacher)"))
+    if items:
+        blocks.append(Block(
+            "table",
+            header=["#", "Answer", "What a wrong answer reveals"],
+            rows=[[str(n), str(i.get("answer", "")), str(i.get("distractor_rationale", ""))]
+                  for n, i in enumerate(items, start=1)],
+        ))
+    if constructed.get("prompt"):
+        blocks.append(Block("kv", label="Exemplar model", text=_or_blank(constructed.get("exemplar_model"))))
+        blocks.append(Block("kv", label="Exemplar equation",
+                            text=_or_blank(constructed.get("exemplar_equation"))))
+        blocks.append(Block("kv", label="Exemplar justification",
+                            text=_or_blank(constructed.get("exemplar_justification"))))
+        scoring = constructed.get("scoring") or {}
+        blocks.append(Block(
+            "table",
+            header=["Score", "Criteria"],
+            rows=[
+                ["0", str(scoring.get("zero", ""))],
+                ["1", str(scoring.get("one", ""))],
+                ["2", str(scoring.get("two", ""))],
+            ],
+        ))
     return blocks
 
 

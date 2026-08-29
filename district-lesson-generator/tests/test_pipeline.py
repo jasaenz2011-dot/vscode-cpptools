@@ -6,60 +6,38 @@ import json
 import unittest
 import zipfile
 
-from helpers import FakeClient, make_project  # noqa: E402
+from helpers import FakeClient, hunter_lesson, make_project  # noqa: E402
 
 from dlg.agents.base import AgentError
 from dlg.llm import OfflineClient
 from dlg.models import LessonRequest
 from dlg.pipeline import Pipeline
 from dlg.render import to_docx, to_html, to_markdown, write_all
+from dlg.schemas import HUNTER_STEPS
 
 
-def lesson_json(store, *, minutes=(10, 15, 15, 12, 8), bad_code="", answer="7/12",
-                paraphrase=False) -> str:
+# Deliberately sums to 30, not the requested 60, so duration_sum fails.
+_SHORT_MINUTES = {
+    "purpose": 2, "anticipatory_set": 4, "input": 4, "modeling": 5,
+    "guided_practice": 5, "checking_for_understanding": 4,
+    "independent_practice": 4, "closure": 2,
+}
+
+
+def lesson_json(store, *, minutes=None, bad_code="", answer="7/12",
+                paraphrase=False, student_pages=True) -> str:
+    """A district-shaped three-part package, serialized as a model would return it."""
     by_code = store.standards_by_code()
     fractions = by_code["53h"]
     fluency = by_code["53k"]
     text = "Add and subtract fractions." if paraphrase else fractions.text
-    phases = ("Engage", "Explore", "Explain", "Elaborate", "Evaluate")
-    document = {
-        "title": "Adding Fractions with Unlike Denominators",
-        "essential_question": "How do we add fractions when the denominators differ?",
-        "learning_objective": "I can add fractions with unlike denominators using models.",
-        "language_objective": "I can explain my model using the word denominator.",
-        "success_criteria": ["I can rename two fractions with a common denominator."],
-        "standards": [
-            {"code": "5.3H", "text": text, "emphasis": "primary focus"},
-            {"code": "5.3K", "text": fluency.text, "emphasis": "supporting"},
-        ],
-        "vocabulary": [{"term": "denominator",
-                        "student_friendly_definition": "how many equal parts are in one whole",
-                        "spanish_cognate": "denominador"}],
-        "materials": ["fraction tiles", "number line strips"],
-        "prior_knowledge": "Students can name equivalent fractions with models.",
-        "misconceptions": [{"misconception": "Students add the denominators.",
-                            "teacher_response": "Show 1/2 + 1/3 with tiles and compare to 2/5."}],
-        "lesson_flow": [
-            {"phase": phase, "minutes": value,
-             "teacher_moves": [f"Ask: what does the denominator tell us in {phase.lower()}?"],
-             "student_actions": ["Build the sum with fraction tiles."],
-             "check_for_understanding": "Students hold up a whiteboard with their model."}
-            for phase, value in zip(phases, minutes)
-        ],
-        "differentiation": {
-            "tier2_support": ["Work with halves, fourths, and eighths first."],
-            "emergent_bilingual": ["Post the stem: 'I renamed ___ as ___ because ___.'"],
-            "special_education": ["Reduce to four problems and pre-cut the tiles."],
-            "extension": ["Add three fractions with unlike denominators."],
-        },
-        "formative_assessment": {"task": "Solve 1/2 + 1/3 with a model and an equation.",
-                                 "exemplar_response": "3/6 + 2/6 = 5/6",
-                                 "scoring_notes": "Look for equal-sized parts in the model."},
-        "exit_ticket": {"prompt": "Add 1/4 + 1/3 and show your model.", "answer_key": answer},
-        "independent_practice": "Textbook page 214, problems 1-8.",
-        "teacher_notes": (f"Also review {bad_code} before this lesson." if bad_code
-                          else "Fraction tiles are in the back cabinet."),
-    }
+    document = hunter_lesson(
+        [("5.3H", text), ("5.3K", fluency.text)],
+        minutes=minutes,
+        bad_code=bad_code,
+        answer=answer,
+        student_pages=student_pages,
+    )
     return json.dumps(document)
 
 
@@ -81,8 +59,7 @@ class TestPipelineWithAModel(unittest.TestCase):
         self.assertEqual(result.unit.sequence, 3)
 
     def test_a_failing_draft_is_repaired_and_the_retry_is_cheaper(self) -> None:
-        broken = lesson_json(self.store, minutes=(5, 10, 10, 10, 10), bad_code="9.99Z",
-                             answer="TBD")
+        broken = lesson_json(self.store, minutes=_SHORT_MINUTES, bad_code="9.99Z")
         pipeline, client = self._pipeline([broken, lesson_json(self.store)])
         result = pipeline.generate(self.request)
 
@@ -97,7 +74,7 @@ class TestPipelineWithAModel(unittest.TestCase):
         self.assertLess(len(repair_prompt), len(first_prompt))
 
     def test_unfixable_draft_still_returns_with_the_failures_reported(self) -> None:
-        broken = lesson_json(self.store, minutes=(5, 5, 5, 5, 5))
+        broken = lesson_json(self.store, minutes=_SHORT_MINUTES)
         pipeline, _ = self._pipeline([broken] * 3)
         result = pipeline.generate(self.request)
         self.assertFalse(result.report.ok)
@@ -155,7 +132,7 @@ class TestOfflineScaffold(unittest.TestCase):
         result = self.pipeline.generate(
             LessonRequest(grade="5", subject="math", week="9", duration_minutes=45)
         )
-        total = sum(phase["minutes"] for phase in result.document["lesson_flow"])
+        total = sum(step["minutes"] for step in result.document["hunter"].values())
         self.assertEqual(total, 45)
 
     def test_scaffold_does_not_burn_repair_attempts(self) -> None:
@@ -185,7 +162,14 @@ class TestRendering(unittest.TestCase):
         self.assertIn("5.3H", markdown)
         self.assertIn("unequal denominators", markdown)
         self.assertIn("sample_standards_grade5_math.csv", markdown)
-        self.assertIn("## Lesson flow", markdown)
+
+    def test_markdown_carries_all_three_parts(self) -> None:
+        markdown = to_markdown(self.result)
+        self.assertIn("Part A — Madeline Hunter lesson", markdown)
+        self.assertIn("Part B — Student pages", markdown)
+        self.assertIn("Part C — Exit ticket", markdown)
+        for _, label in HUNTER_STEPS:
+            self.assertIn(label, markdown)
 
     def test_markdown_tables_have_a_consistent_column_count(self) -> None:
         rows = [line for line in to_markdown(self.result).splitlines()
