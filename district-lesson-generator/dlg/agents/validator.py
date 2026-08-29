@@ -27,6 +27,7 @@ from typing import Any
 
 from ..models import LessonRequest, ValidationReport
 from ..schemas import (
+    BARE_RECALL_MAX_WORDS,
     EVERYDAY_MANIPULATIVES,
     HIGH_ORDER_MARKERS,
     HUNTER_STEPS,
@@ -337,8 +338,8 @@ class Validator(Agent):
                 lowered = text.lower()
                 if any(marker in lowered for marker in HIGH_ORDER_MARKERS):
                     continue
-                if len(text.split()) > 14:
-                    continue      # a long question usually carries its own demand
+                if len(text.split()) > BARE_RECALL_MAX_WORDS:
+                    continue      # a longer question carries its own demand
                 report.add(
                     "high_order_questions", "error",
                     f"{label} question {index + 1} is bare recall: {text!r}",

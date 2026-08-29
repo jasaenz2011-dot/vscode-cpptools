@@ -280,6 +280,23 @@ class TestInstructionalStandard(unittest.TestCase):
         document["hunter"]["checking_for_understanding"]["questions"] = ["What is a denominator?"]
         self.assertIn("high_order_questions", self._rules(self._run(document)))
 
+    def test_causal_why_question_is_not_bare_recall(self) -> None:
+        """Regression: "Why would joining pieces of different sizes give us the
+        wrong amount?" is a mechanism question, and was wrongly rejected."""
+        document = self._doc()
+        document["hunter"]["purpose"]["questions"] = [
+            "Why would joining pieces of different sizes give us the wrong amount?"
+        ]
+        self.assertNotIn("high_order_questions", self._rules(self._run(document)))
+
+    def test_short_bare_recall_is_still_caught(self) -> None:
+        for question in ("What is a denominator?", "Define equivalent fraction.",
+                         "Name the numerator."):
+            document = self._doc()
+            document["hunter"]["input"]["questions"] = [question]
+            with self.subTest(question=question):
+                self.assertIn("high_order_questions", self._rules(self._run(document)))
+
     def test_recall_stem_with_a_reasoning_demand_passes(self) -> None:
         document = self._doc()
         document["hunter"]["checking_for_understanding"]["questions"] = [

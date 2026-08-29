@@ -170,7 +170,14 @@ HIGH_ORDER_MARKERS = (
     "explain", "justify", "compare", "contrast", "represent", "apply", "prove",
     "how do you know", "because", "evidence", "model", "predict", "defend",
     "what would happen", "which strategy", "convince", "support your",
+    # Hypothetical and causal framing is analysis, not recall: "Why *would*
+    # joining unequal pieces give the wrong amount?" is a mechanism question.
+    "would", "instead of", "rather than", "how does", "how did", "what happens",
 )
+
+# A genuinely bare recall question is short: "What is a denominator?" A stem
+# that opens a longer question is almost always carrying its own demand.
+BARE_RECALL_MAX_WORDS = 9
 
 # Everyday objects the standard wants reached for before commercial kits.
 EVERYDAY_MANIPULATIVES = (
