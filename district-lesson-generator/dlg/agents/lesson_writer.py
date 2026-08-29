@@ -23,6 +23,15 @@ SCAFFOLD_NOTE = (
     "ones that need a model. Start Ollama (or set an API key) and regenerate to fill them."
 )
 
+# Media-brief findings. A repair that touches none of these does not need the
+# NotebookLM pack resent.
+PART_D_RULES = frozenset({
+    "MISSING_PART_D", "WEAK_GEMINI_PROMPT", "CALC_NOT_MODEL",
+    "THIN_NOTEBOOK_PACK", "VEO_TOO_FEW", "TEKS_DRIFT_IN_MEDIA",
+})
+
+MEDIA_ELISION = "[[UNCHANGED -- return this line verbatim, do not rewrite]]"
+
 # Share of the period each Hunter step gets in the scaffold. A teacher will
 # move these; they exist so the minutes total the period from the start.
 _STEP_SHARE = {
@@ -130,8 +139,21 @@ class LessonWriter(Agent):
         pack: StandardsPack,
         request: LessonRequest,
     ) -> dict[str, Any]:
-        """Send back only the failures, not the whole context, and ask for a fix."""
+        """Send back only the failures, not the whole context, and ask for a fix.
+
+        The NotebookLM pack is 800-1500 words, so resending it on a repair that
+        has nothing to do with media would make the retry cost more than the
+        original call -- and invite the model to rewrite a pack that already
+        passed. When no media rule is failing the pack is elided and spliced
+        back afterwards.
+        """
+        import copy
         import json
+
+        document = copy.deepcopy(document)
+        elided: dict[str, str] = {}
+        if not any(v.rule in PART_D_RULES for v in violations):
+            elided = _elide_media(document)
 
         system = prompts.render(
             self.system_prompt,
@@ -147,7 +169,9 @@ class LessonWriter(Agent):
             allowed_codes=allowed,
             draft=json.dumps(document, ensure_ascii=False, indent=2),
         )
-        return self.complete_json(system, user, self.schema)
+        fixed = self.complete_json(system, user, self.schema)
+        _restore_media(fixed, elided)
+        return fixed
 
     # ------------------------------------------------------------------
     def scaffold(
@@ -280,6 +304,54 @@ def _objective_from_standard(text: str) -> str:
         return ""
     first = truncate_words(cleaned, 35)
     return f"I can {first[0].lower()}{first[1:]}"
+
+
+def _elide_media(document: dict[str, Any]) -> dict[str, str]:
+    """Swap Part D's long fields for a marker; return what was taken out.
+
+    The Gemini prompt and the NotebookLM pack are the two fields that dominate
+    a draft's size. When no media rule is failing they are already validated,
+    so resending them buys nothing and risks the model rewriting them.
+    """
+    part_d = document.get("part_d")
+    if not isinstance(part_d, dict):
+        return {}
+    saved: dict[str, str] = {}
+
+    prompt = str(part_d.get("gemini_sim_prompt", "") or "")
+    if len(prompt.split()) > 60:
+        saved["gemini_sim_prompt"] = prompt
+        part_d["gemini_sim_prompt"] = MEDIA_ELISION
+
+    node = part_d.get("notebooklm_source_pack")
+    if isinstance(node, dict):
+        pack = str(node.get("source_doc_markdown", "") or "")
+        if len(pack.split()) > 200:
+            saved["source_doc_markdown"] = pack
+            node["source_doc_markdown"] = MEDIA_ELISION
+    return saved
+
+
+def _restore_media(document: dict[str, Any], saved: dict[str, str]) -> None:
+    """Put the elided fields back, whatever the model returned in their place."""
+    if not saved:
+        return
+    part_d = document.setdefault("part_d", {})
+    if not isinstance(part_d, dict):
+        return
+
+    if "gemini_sim_prompt" in saved:
+        returned = str(part_d.get("gemini_sim_prompt", "") or "")
+        if not returned.strip() or MEDIA_ELISION in returned:
+            part_d["gemini_sim_prompt"] = saved["gemini_sim_prompt"]
+
+    if "source_doc_markdown" in saved:
+        node = part_d.get("notebooklm_source_pack")
+        if not isinstance(node, dict):
+            node = part_d["notebooklm_source_pack"] = {}
+        returned = str(node.get("source_doc_markdown", "") or "")
+        if not returned.strip() or MEDIA_ELISION in returned:
+            node["source_doc_markdown"] = saved["source_doc_markdown"]
 
 
 def _materials_from_unit(mapping: MappingResult) -> list[str]:

@@ -77,6 +77,18 @@ class Config:
     duration_tolerance_minutes: int = field(default_factory=lambda: _env("duration_tolerance_minutes", 5))
     strict: bool = field(default_factory=lambda: _env("strict", False))
 
+    # --- The instructional standard, as numbers a campus can set --------
+    # These are the district's own thresholds, not implementation details.
+    # `dlg rules` prints them; dlg.config.json overrides them.
+    vocabulary_min: int = field(default_factory=lambda: _env("vocabulary_min", 4))
+    vocabulary_max: int = field(default_factory=lambda: _env("vocabulary_max", 8))
+    bare_recall_max_words: int = field(default_factory=lambda: _env("bare_recall_max_words", 9))
+    exit_ticket_min_items: int = field(default_factory=lambda: _env("exit_ticket_min_items", 2))
+    exit_ticket_min_choices: int = field(default_factory=lambda: _env("exit_ticket_min_choices", 3))
+    max_sentence_words: int = field(default_factory=lambda: _env("max_sentence_words", 28))
+    period_min_minutes: int = field(default_factory=lambda: _env("period_min_minutes", 30))
+    period_max_minutes: int = field(default_factory=lambda: _env("period_max_minutes", 90))
+
     # --- Interface -------------------------------------------------------
     server_host: str = field(default_factory=lambda: _env("server_host", "127.0.0.1"))
     server_port: int = field(default_factory=lambda: _env("server_port", 8765))

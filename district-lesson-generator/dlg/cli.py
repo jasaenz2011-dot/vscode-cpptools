@@ -52,6 +52,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     sub.add_parser("status", help="show what is indexed and which backends are reachable")
     sub.add_parser("doctor", help="check the local model and embedding backends")
+    sub.add_parser("rules", help="print the instructional standard the validator enforces")
 
     units_parser = sub.add_parser("units", help="list scope and sequence units")
     units_parser.add_argument("--grade", default="")
@@ -104,6 +105,7 @@ def main(argv: list[str] | None = None) -> int:
     config = _config(args)
     handlers = {
         "init": cmd_init, "ingest": cmd_ingest, "status": cmd_status, "doctor": cmd_doctor,
+        "rules": cmd_rules,
         "units": cmd_units, "standards": cmd_standards, "search": cmd_search,
         "generate": cmd_generate, "serve": cmd_serve,
     }
@@ -213,6 +215,59 @@ def cmd_doctor(args: argparse.Namespace, config: Config) -> int:
         print(f"\n  index: {len(store.chunks)} chunks, built {store.meta.built_at}")
     except FileNotFoundError:
         print("\n  index: not built yet (run: dlg ingest)")
+    return 0
+
+
+def cmd_rules(args: argparse.Namespace, config: Config) -> int:
+    """Print the instructional standard as the validator actually applies it."""
+    from .schemas import EVERYDAY_MANIPULATIVES, HIGH_ORDER_MARKERS, HUNTER_STEPS, LOW_ORDER_STEMS
+
+    print(f"Instructional standard enforced for {config.district_name}\n")
+    print("Every lesson is a three-part package:")
+    print("  Part A  Madeline Hunter lesson, all 8 steps")
+    print("  Part B  student pages the children write on")
+    print("  Part C  STAAR-level exit ticket with a teacher key\n")
+
+    print("ERRORS -- the draft is sent back to the writer")
+    for rule, description in (
+        ("hunter_complete", "all 8 steps carry real teacher moves"),
+        ("duration_sum", f"step minutes total the period (+/-{config.duration_tolerance_minutes})"),
+        ("objective_form", "the objective states how mastery will be shown"),
+        ("vocabulary_bounds", f"{config.vocabulary_min}-{config.vocabulary_max} academic vocabulary terms"),
+        ("vocabulary_woven", "each term is used in Input, Modeling, Guided Practice or CFU"),
+        ("high_order_questions", f"no bare recall stem at or under {config.bare_recall_max_words} words"),
+        ("manipulatives", "a math lesson names manipulatives"),
+        ("student_pages", "a page per activity, with evidence space, a because line and keys"),
+        ("exit_ticket_staar", f">={config.exit_ticket_min_items} STAAR items with distractor rationale, "
+                              "a constructed item, model + justification + 0/1/2 rubric"),
+        ("closure_points_to_ticket", "closure hands students to the exit ticket"),
+        ("ell_support", "language load and concept gap diagnosed separately, 4 motion-movie beats"),
+        ("no_growth_promises", "never promises a score outcome"),
+        ("standards_grounded", "every cited code resolves to a district standard"),
+        ("no_invented_codes", "no code unknown to the district appears anywhere"),
+        ("no_placeholders", "no TBD or template debris survives"),
+        ("required_sections", "the sections a teacher cannot teach without are filled"),
+    ):
+        print(f"  {rule:<26} {description}")
+
+    print("\nWARNINGS -- reported, not retried")
+    for rule, description in (
+        ("verbatim_standards", "standard text matches the district's wording"),
+        ("realistic_period", f"lesson length within {config.period_min_minutes}-{config.period_max_minutes} minutes"),
+        ("sentence_length", f"student-facing text under {config.max_sentence_words} words a sentence"),
+        ("citations_resolve", "cited filenames exist in the corpus"),
+    ):
+        print(f"  {rule:<26} {description}")
+
+    print("\nBANNED AS A WHOLE QUESTION (unless a reasoning demand is attached)")
+    print(f"  {', '.join(LOW_ORDER_STEMS)}")
+    print("\nCOUNTS AS A REASONING DEMAND")
+    print(f"  {', '.join(HIGH_ORDER_MARKERS)}")
+    print("\nEVERYDAY OBJECTS PREFERRED IN MATH")
+    print(f"  {', '.join(EVERYDAY_MANIPULATIVES)}")
+    print("\nHUNTER STEPS")
+    print("  " + " -> ".join(label for _, label in HUNTER_STEPS))
+    print(f"\nChange any threshold in {config.root}/dlg.config.json")
     return 0
 
 

@@ -56,6 +56,170 @@ _HUNTER_MINUTES = {
 _VOCAB = ("denominator", "equivalent", "benchmark", "sum")
 
 
+VIDEO_STEERING = (
+    "VIDEO STEERING: Cinematic classroom explainer, 3-6 minutes, no background music "
+    "louder than the voice, on-screen labels for every academic vocabulary word the first "
+    "time it is spoken, freeze on the model before any formula appears."
+)
+
+
+def notebook_pack_markdown() -> str:
+    """A NotebookLM source pack that clears the 800-word floor honestly.
+
+    Written out rather than padded: NotebookLM narrates only what it is given,
+    so a fixture that games the word count would not prove the rule works.
+    """
+    return "\n\n".join([
+        VIDEO_STEERING,
+        "# Adding Fractions with Unequal Denominators",
+        "Grade 5 Mathematics. Posted TEKS 5.3H, represent and solve addition and "
+        "subtraction of fractions with unequal denominators referring to the same whole "
+        "using objects and pictorial models and properties of operations, and 5.3K, add "
+        "and subtract positive rational numbers fluently.",
+        "## Objective and mastery",
+        "Students will add and subtract fractions whose denominators differ by renaming "
+        "both fractions so the pieces are the same size, and they will prove the result "
+        "with a model rather than asserting it. Mastery is shown when a student builds a "
+        "model, writes the matching equation, and explains why the pieces had to be equal "
+        "before they could be counted together. A correct number with no model is not yet "
+        "mastery, because the number can come from a memorized procedure the student "
+        "cannot defend or repair when it goes wrong.",
+        "## The motion movie, in four beats",
+        "Scene. Two identical paper plates sit on the document camera. Each plate is one "
+        "whole. Nothing is shaded yet, and the class agrees out loud that the plates are "
+        "the same size, because the whole matters more than anything else today.",
+        "Move. One plate is folded into halves and shaded to show one half. The second "
+        "plate is folded into thirds and shaded to show one third. The two shaded pieces "
+        "are slid toward each other. They do not line up. The teacher keeps folding: the "
+        "halves plate is folded again into sixths, and the thirds plate is folded again "
+        "into sixths, saying the same amount, a new name, on every fold.",
+        "Freeze frame. Both plates are held up at the moment they both show sixths. One "
+        "half now reads three sixths. One third now reads two sixths. This is the picture "
+        "that becomes the written line, and the narrator should hold here before any "
+        "symbol appears on screen.",
+        "Talk-back. A student says, I renamed one half as three sixths because the pieces "
+        "had to be the same size.",
+        "## Worked example",
+        "Example: add one half and one third. Step 1, name the denominators. One half has "
+        "a denominator of 2, meaning the whole was cut into 2 equal parts. One third has a "
+        "denominator of 3. Step 2, find a size that works for both. Folding halves again "
+        "gives fourths, then sixths. Folding thirds again gives sixths. Sixths is the "
+        "first size both plates can make, so 6 is the common denominator. Step 3, rename. "
+        "One half becomes 3 sixths, because 1 times 3 is 3 and 2 times 3 is 6. One third "
+        "becomes 2 sixths, because 1 times 2 is 2 and 3 times 2 is 6. Step 4, join the "
+        "pieces. 3 sixths plus 2 sixths is 5 sixths, because there are now 5 pieces and "
+        "each piece is one sixth of the whole. The equation reads 1/2 + 1/3 = 3/6 + 2/6 = "
+        "5/6. Step 5, check against a benchmark. One half of the plate would be 3 sixths, "
+        "and 5 sixths is more than that, so a sum a little under one whole is reasonable.",
+        "The diagram shows two circles side by side. Each is divided into six equal "
+        "wedges. The left circle has three wedges shaded and is labeled one half equals "
+        "three sixths. The right circle has two wedges shaded and is labeled one third "
+        "equals two sixths. Beneath both, a third circle shows five of six wedges shaded, "
+        "labeled five sixths.",
+        "## The misconception this kills",
+        "The wrong idea is that one half plus one third is two fifths. It comes from "
+        "treating the denominator as a counting number instead of the size of the piece, "
+        "so the student adds the tops and adds the bottoms. The visual kills it because "
+        "two fifths is visibly smaller than one half, while the real answer is visibly "
+        "larger than one half. A student who has seen the plates cannot hold on to two "
+        "fifths, because the picture contradicts it immediately and without argument.",
+        "## Talk-back and an acceptable answer",
+        "Stem: I renamed ___ as ___ because ___. An acceptable answer is, I renamed one "
+        "third as two sixths because the pieces had to be the same size before I could "
+        "count them together. A student who says, I multiplied by two, has described the "
+        "move but not the reason, and the narrator should model the reason.",
+        "## One STAAR-flavored check",
+        "Which model shows one half plus one third renamed so the pieces are the same "
+        "size? Choice A shows two plates in sixths with three shaded and two shaded, and "
+        "it is correct. Choice B shows one plate in fifths with two shaded, which is the "
+        "student who added both denominators. Choice C shows two plates in sixths with one "
+        "shaded and one shaded, which is the student who renamed the denominator but "
+        "forgot to rename the numerator. Choice D shows one plate in halves and one in "
+        "thirds with one shaded each, which is the student who never renamed at all.",
+        "## Closing line",
+        "You cannot add the pieces until the pieces are the same size.",
+    ])
+
+
+def media_brief() -> dict:
+    """A Part D brief that clears the gate: control, misconception, pack, shots."""
+    return {
+        "concept_one_liner": "Fractions can only be joined once both wholes are cut into "
+                             "the same size pieces.",
+        "motion_movie": {
+            "scene": "Two identical paper plates, each one whole pizza.",
+            "move": "Fold one plate into halves and one into thirds, then keep folding "
+                    "both until the fold lines match at sixths.",
+            "freeze_frame": "The moment both plates show sixths: 1/2 reads 3/6 and 1/3 "
+                            "reads 2/6.",
+            "talk_back": "I renamed ___ as ___ because the pieces had to be the same size.",
+        },
+        "misconceptions_to_show": [
+            "Adding both denominators: 1/2 + 1/3 = 2/5.",
+            "Renaming the denominator but leaving the numerator alone: 1/2 becomes 1/6.",
+            "Treating unequal pieces as countable without renaming at all.",
+        ],
+        "gemini_sim_prompt": (
+            "You are building an interactive teaching simulation inside this chat / Canvas.\n\n"
+            "AUDIENCE: Grade 5 Mathematics. TEKS 5.3H and 5.3K.\n"
+            "GOAL: Students must SEE that fractions can only be joined once both wholes are "
+            "cut into the same size pieces. They must not only compute.\n\n"
+            "REQUIRED CONTROLS\n"
+            "- A slider for each denominator, so the student can drag halves to sixths and "
+            "watch the fold lines change.\n"
+            "- Draggable shaded wedges the student can slide from one plate onto the other.\n"
+            "- Live labels using the vocabulary: denominator, equivalent fraction, common "
+            "denominator, benchmark fraction, sum, difference.\n"
+            "- A talk-back stem on screen: \"I renamed ___ as ___ because the pieces had to "
+            "be the same size.\"\n"
+            "- A misconception mode that can display 1/2 + 1/3 = 2/5 so the class can see "
+            "the area is wrong.\n\n"
+            "REQUIRED VISUAL\n"
+            "- Two circles as area models, each one whole, divided into equal wedges.\n"
+            "- The shaded area of each fraction stays constant as the denominator slider "
+            "moves, so renaming visibly changes the name and not the amount.\n"
+            "- An equation bar that updates to 1/2 + 1/3 = 3/6 + 2/6 = 5/6.\n"
+            "- A benchmark line at one half the student can compare the sum against.\n\n"
+            "CONSTRAINTS\n"
+            "- Fifth-grade readable. No clutter.\n"
+            "- Do not invent extra TEKS.\n"
+            "- Start on halves and thirds so the first common denominator is 6.\n"
+            "- If you cannot animate the folds, say so and show the two area models "
+            "side by side. Do not ship a calculator that only prints the answer.\n\n"
+            "Walk me through the first interaction as if I am the teacher on a document camera."
+        ),
+        "notebooklm_source_pack": {
+            "title": "Adding Fractions with Unequal Denominators",
+            "audience": "Grade 5 Mathematics",
+            "teks_block": "5.3H represent and solve addition and subtraction of fractions "
+                          "with unequal denominators; 5.3K add and subtract positive "
+                          "rational numbers fluently",
+            "source_doc_markdown": notebook_pack_markdown(),
+        },
+        "veo_shot_list": [
+            {"shot_id": "V1", "seconds": 6, "purpose": "hook",
+             "prompt": "Top-down on butcher paper. Two identical paper plates rest side by "
+                       "side. One folds into halves, one into thirds. Slow push-in. No people."},
+            {"shot_id": "V2", "seconds": 6, "purpose": "misconception",
+             "prompt": "Top-down. A shaded half and a shaded third slide together and refuse "
+                       "to line up. A ghosted 2/5 label fades in and then dissolves. Static camera."},
+            {"shot_id": "V3", "seconds": 5, "purpose": "freeze",
+             "prompt": "Top-down. Both plates fold again until every wedge matches at sixths. "
+                       "The camera holds still on the matched fold lines. No text."},
+            {"shot_id": "V4", "seconds": 6, "purpose": "model",
+             "prompt": "Top-down. Three wedges and two wedges slide into one plate, filling "
+                       "five of six. Slow rise to overhead. No people."},
+        ],
+        "classroom_use": {
+            "when_in_hunter": "Explain",
+            "minutes": 8,
+            "grouping": "whole group on board",
+            "teacher_move_after": "The slider changed the name and not the amount. Explain "
+                                  "how you know the shaded area never grew.",
+        },
+    }
+
+
 def hunter_lesson(
     standards: list[tuple[str, str]],
     *,
@@ -82,6 +246,10 @@ def hunter_lesson(
         node = step()
         node["minutes"] = value
         hunter[name] = node
+    # The standard requires closure to hand students to the ticket.
+    hunter["closure"]["teacher_moves"] = [
+        f"{woven} Then tell students the exit ticket asks them to prove it with a model."
+    ]
 
     return {
         "title": "Adding Fractions with Unlike Denominators",
@@ -165,6 +333,7 @@ def hunter_lesson(
             },
             "success_line": "I can rename fractions and justify my sum.",
         },
+        "part_d": media_brief(),
         "teacher_notes": (f"Also review {bad_code} first." if bad_code
                           else "Fraction strips are in the back cabinet."),
     }

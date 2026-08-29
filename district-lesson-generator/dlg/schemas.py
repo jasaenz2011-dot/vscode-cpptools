@@ -106,8 +106,62 @@ LESSON_SCHEMA: dict[str, Any] = {
         },
         "success_line": "str",
     },
+    # --- Part D: the media brief --------------------------------------
+    # This repo emits briefs; it never renders media. The three engines are
+    # driven by a human pasting these, or later by a webhook.
+    "part_d": {
+        "concept_one_liner": "str",
+        "motion_movie": {
+            "scene": "str",
+            "move": "str",
+            "freeze_frame": "str",
+            "talk_back": "str",
+        },
+        "misconceptions_to_show": ["str"],
+        "gemini_sim_prompt": "str",
+        "notebooklm_source_pack": {
+            "title": "str",
+            "audience": "str",
+            "teks_block": "str",
+            "source_doc_markdown": "str",
+        },
+        "veo_shot_list": [
+            {"shot_id": "str", "seconds": "int", "purpose": "str", "prompt": "str"}
+        ],
+        "classroom_use": {
+            "when_in_hunter": "str",
+            "minutes": "int",
+            "grouping": "str",
+            "teacher_move_after": "str",
+        },
+    },
     "teacher_notes": "str",
 }
+
+# --- Part D thresholds ----------------------------------------------------
+VEO_MIN_SHOTS = 3
+VEO_PREFERRED_SHOTS = 5
+VEO_SECONDS_RANGE = (3, 8)
+VEO_PURPOSES = ("hook", "model", "misconception", "freeze", "transfer")
+
+NOTEBOOK_PACK_MIN_WORDS = 800
+NOTEBOOK_PACK_MAX_WORDS = 1500
+
+# A simulation the student can only watch is a GIF. These words are the
+# evidence that something on screen can actually be moved.
+GEMINI_CONTROL_MARKERS = (
+    "slider", "draggable", "drag ", "drag-", "toggle", "control", "manipulate",
+    "input", "adjust", "move the", "pull the", "type in",
+)
+
+# Part D exists to make a concept visible, so the brief has to name the wrong
+# idea it is killing.
+GEMINI_MISCONCEPTION_MARKERS = ("misconception", "wrong idea", "common error", "students think")
+
+# CALC_NOT_MODEL: a Pythagorean brief that is a calculator, not a model.
+CALC_ONLY_MARKERS = ("sqrt", "square root", "√", "c =", "c=", "formula", "calculate")
+AREA_MODEL_MARKERS = ("square on", "squares on", "area", "a²", "b²", "c²",
+                      "a2 + b2", "grid", "unit square", "tiles")
 
 INTERVENTION_SCHEMA: dict[str, Any] = {
     "title": "str",
@@ -177,7 +231,32 @@ HIGH_ORDER_MARKERS = (
 
 # A genuinely bare recall question is short: "What is a denominator?" A stem
 # that opens a longer question is almost always carrying its own demand.
+# Overridable per campus via Config.bare_recall_max_words.
 BARE_RECALL_MAX_WORDS = 9
+
+# "Never invent fake growth data. Design for growth. Don't promise scores."
+# A lesson plan that promises a score gain is making a claim nobody can keep.
+GROWTH_PROMISE_PATTERNS = (
+    r"\braise\s+(?:their\s+)?(?:staar\s+)?scores?\b",
+    r"\bincrease\s+(?:their\s+)?scores?\b",
+    r"\bscores?\s+will\s+(?:go up|rise|increase|improve)\b",
+    r"\bguarantee(?:d|s)?\s+(?:growth|mastery|proficiency|results)\b",
+    r"\bproven\s+to\s+(?:raise|increase|improve)\b",
+    r"\b\d{1,3}\s*%\s*(?:growth|gain|increase)\b",
+    r"\bwill\s+(?:master|pass)\s+staar\b",
+)
+
+# A reflection slip is not an exit ticket. These belong in a closure routine,
+# not in the items that are supposed to measure the standard.
+REFLECTION_SLIP_PATTERNS = (
+    r"\b3\s*[-–,]\s*2\s*[-–,]\s*1\b",
+    r"\bhow\s+(?:do|did)\s+you\s+feel\b",
+    r"\brate\s+your\s+(?:understanding|confidence)\b",
+    r"\bthumbs\s+(?:up|down)\b",
+    r"\bemoji\b",
+    r"\bexit\s+slip:?\s+(?:how|what)\s+(?:do|did)\s+you\s+feel\b",
+    r"\bone\s+thing\s+you\s+(?:liked|enjoyed)\b",
+)
 
 # Everyday objects the standard wants reached for before commercial kits.
 EVERYDAY_MANIPULATIVES = (

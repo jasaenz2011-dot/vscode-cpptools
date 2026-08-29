@@ -27,13 +27,24 @@ from typing import Any
 
 from ..models import LessonRequest, ValidationReport
 from ..schemas import (
-    BARE_RECALL_MAX_WORDS,
+    AREA_MODEL_MARKERS,
+    CALC_ONLY_MARKERS,
     EVERYDAY_MANIPULATIVES,
+    GEMINI_CONTROL_MARKERS,
+    GEMINI_MISCONCEPTION_MARKERS,
+    GROWTH_PROMISE_PATTERNS,
     HIGH_ORDER_MARKERS,
     HUNTER_STEPS,
     INTERVENTION_REQUIRED,
     LESSON_REQUIRED,
     LOW_ORDER_STEMS,
+    NOTEBOOK_PACK_MAX_WORDS,
+    NOTEBOOK_PACK_MIN_WORDS,
+    REFLECTION_SLIP_PATTERNS,
+    VEO_MIN_SHOTS,
+    VEO_PREFERRED_SHOTS,
+    VEO_PURPOSES,
+    VEO_SECONDS_RANGE,
     VOCAB_BEARING_STEPS,
     get,
     step_text,
@@ -51,6 +62,8 @@ PLACEHOLDER_PATTERNS = (
 _PLACEHOLDER_RE = re.compile("|".join(PLACEHOLDER_PATTERNS), re.IGNORECASE)
 
 _LOW_ORDER_RE = re.compile(r"^\s*(?:%s)\b" % "|".join(LOW_ORDER_STEMS), re.IGNORECASE)
+_GROWTH_RE = re.compile("|".join(GROWTH_PROMISE_PATTERNS), re.IGNORECASE)
+_REFLECTION_RE = re.compile("|".join(REFLECTION_SLIP_PATTERNS), re.IGNORECASE)
 
 _STUDENT_FACING = (
     "objective.student_friendly",
@@ -80,6 +93,7 @@ class Validator(Agent):
         self._check_placeholders(document, report)
         self._check_citations(document, report)
         self._check_sentence_length(document, report)
+        self._check_growth_promises(document, report)
 
         if intervention:
             self._check_intervention_answer_keys(document, report)
@@ -94,6 +108,9 @@ class Validator(Agent):
             self._check_exit_ticket(document, report)
             self._check_manipulatives(document, report, request)
             self._check_ell_support(document, report, request)
+            self._check_closure_points_to_ticket(document, report)
+            self._check_period_length(document, report, request)
+            self._check_part_d(document, report, pack, request)
 
         return report
 
@@ -233,11 +250,29 @@ class Validator(Agent):
                 if not sentences:
                     continue
                 longest = max(len(s.split()) for s in sentences)
-                if longest > 28:
+                if longest > self.config.max_sentence_words:
                     report.add(
                         "sentence_length", "warning",
                         f"`{field}` has a {longest}-word sentence; students will lose the thread.",
                     )
+
+    def _check_growth_promises(self, doc: dict[str, Any], report: ValidationReport) -> None:
+        """Design for growth; never promise scores.
+
+        A plan that claims a score gain is writing a cheque nobody can cash, and
+        it is the fastest way for a generated packet to lose a teacher's trust.
+        """
+        report.checked.append("no_growth_promises")
+        for path, text in walk_strings(doc):
+            if path.startswith("_provenance"):
+                continue
+            match = _GROWTH_RE.search(text)
+            if match:
+                report.add(
+                    "no_growth_promises", "error",
+                    f"`{path}` promises a score outcome ({match.group(0)!r}).",
+                    "Describe what students will do, not what their scores will do.",
+                )
 
     # ------------------------------------------------------------------
     # Part A -- the Hunter lesson
@@ -294,10 +329,11 @@ class Validator(Agent):
         report.checked.append("vocabulary_woven")
         terms = [t for t in (doc.get("academic_vocabulary") or []) if isinstance(t, dict)]
 
-        if terms and not 4 <= len(terms) <= 8:
+        low, high = self.config.vocabulary_min, self.config.vocabulary_max
+        if terms and not low <= len(terms) <= high:
             report.add(
                 "vocabulary_bounds", "error",
-                f"{len(terms)} academic vocabulary terms; the standard is 4-8.",
+                f"{len(terms)} academic vocabulary terms; the standard is {low}-{high}.",
             )
         for index, term in enumerate(terms):
             if term.get("term") and not str(term.get("student_definition", "")).strip():
@@ -338,7 +374,7 @@ class Validator(Agent):
                 lowered = text.lower()
                 if any(marker in lowered for marker in HIGH_ORDER_MARKERS):
                     continue
-                if len(text.split()) > BARE_RECALL_MAX_WORDS:
+                if len(text.split()) > self.config.bare_recall_max_words:
                     continue      # a longer question carries its own demand
                 report.add(
                     "high_order_questions", "error",
@@ -391,6 +427,32 @@ class Validator(Agent):
                     "ell_support", "error",
                     f"The motion movie is missing its {beat.replace('_', ' ')} beat.",
                 )
+
+    def _check_closure_points_to_ticket(self, doc: dict[str, Any], report: ValidationReport) -> None:
+        """The standard is explicit: closure must hand students to the ticket."""
+        report.checked.append("closure_points_to_ticket")
+        closure = step_text(doc, "closure").lower()
+        if not closure:
+            return          # hunter_complete already reports the empty step
+        if not any(word in closure for word in ("ticket", "exit")):
+            report.add(
+                "closure_points_to_ticket", "error",
+                "Closure does not point students to the exit ticket.",
+                "End by telling students what the ticket asks them to prove.",
+            )
+
+    def _check_period_length(
+        self, doc: dict[str, Any], report: ValidationReport, request: LessonRequest
+    ) -> None:
+        """Realistic timing for a real K-8 period."""
+        report.checked.append("realistic_period")
+        low, high = self.config.period_min_minutes, self.config.period_max_minutes
+        if not low <= request.duration_minutes <= high:
+            report.add(
+                "realistic_period", "warning",
+                f"{request.duration_minutes} minutes is outside a normal K-8 period "
+                f"({low}-{high}).",
+            )
 
     # ------------------------------------------------------------------
     # Part B -- student pages
@@ -450,10 +512,12 @@ class Validator(Agent):
         ticket = doc.get("exit_ticket") or {}
         items = [i for i in (ticket.get("items") or []) if isinstance(i, dict)]
 
-        if len(items) < 2:
+        minimum = self.config.exit_ticket_min_items
+        if len(items) < minimum:
             report.add(
                 "exit_ticket_staar", "error",
-                f"The exit ticket has {len(items)} STAAR-style item(s); at least 2 are required.",
+                f"The exit ticket has {len(items)} STAAR-style item(s); "
+                f"at least {minimum} are required.",
             )
         for index, item in enumerate(items):
             if not str(item.get("answer", "")).strip():
@@ -462,16 +526,22 @@ class Validator(Agent):
                     f"Exit ticket item {index + 1} has no answer key.",
                 )
             choices = [c for c in (item.get("choices") or []) if str(c).strip()]
-            if choices and len(choices) < 3:
+            if choices and len(choices) < self.config.exit_ticket_min_choices:
                 report.add(
                     "exit_ticket_staar", "warning",
                     f"Exit ticket item {index + 1} has only {len(choices)} choices.",
                 )
             if choices and not str(item.get("distractor_rationale", "")).strip():
                 report.add(
-                    "exit_ticket_staar", "warning",
+                    "exit_ticket_staar", "error",
                     f"Item {index + 1} does not say what its wrong answers reveal.",
-                    "Distractors must expose real misconceptions.",
+                    "Name the misconception each wrong choice catches.",
+                )
+            if _REFLECTION_RE.search(str(item.get("prompt", ""))):
+                report.add(
+                    "exit_ticket_staar", "error",
+                    f"Exit ticket item {index + 1} is a reflection prompt, not a STAAR item.",
+                    "A feelings slip does not measure the standard.",
                 )
 
         constructed = ticket.get("constructed_item") or {}
@@ -503,6 +573,157 @@ class Validator(Agent):
                 "exit_ticket_staar", "warning",
                 "The exit ticket does not post the TEKS it assesses.",
             )
+
+    # ------------------------------------------------------------------
+    # Part D -- the media brief
+    # ------------------------------------------------------------------
+    def _check_part_d(
+        self, doc: dict[str, Any], report: ValidationReport, pack: StandardsPack,
+        request: LessonRequest,
+    ) -> None:
+        """The brief that drives Gemini, NotebookLM and Veo.
+
+        This repo emits briefs and never renders media, so "done" means a human
+        could paste these tonight and get something teachable back.
+        """
+        report.checked.append("part_d")
+        part_d = doc.get("part_d")
+        if not isinstance(part_d, dict) or not any(
+            v for v in part_d.values() if v not in ({}, [], "")
+        ):
+            report.add(
+                "MISSING_PART_D", "error",
+                "Part D (media brief) is absent or empty.",
+                "Every teachable lesson carries a media brief: a Gemini sim prompt, "
+                "a NotebookLM source pack, and at least three Veo shots.",
+            )
+            return
+
+        self._check_gemini_prompt(part_d, report, request)
+        self._check_notebook_pack(part_d, report)
+        self._check_veo_shots(part_d, report)
+        self._check_media_teks_drift(part_d, report, pack)
+
+    def _check_gemini_prompt(
+        self, part_d: dict[str, Any], report: ValidationReport, request: LessonRequest
+    ) -> None:
+        prompt = str(part_d.get("gemini_sim_prompt", "") or "")
+        lowered = prompt.lower()
+        if not prompt.strip():
+            report.add("WEAK_GEMINI_PROMPT", "error", "No Gemini simulation prompt.")
+            return
+
+        if not any(marker in lowered for marker in GEMINI_CONTROL_MARKERS):
+            report.add(
+                "WEAK_GEMINI_PROMPT", "error",
+                "The Gemini prompt names nothing the student can manipulate.",
+                "Demand sliders or draggable points, not a picture.",
+            )
+        listed = [m for m in (part_d.get("misconceptions_to_show") or []) if str(m).strip()]
+        if not any(marker in lowered for marker in GEMINI_MISCONCEPTION_MARKERS) and not listed:
+            report.add(
+                "WEAK_GEMINI_PROMPT", "error",
+                "The Gemini prompt names no misconception for the visual to expose.",
+                "Say which wrong idea the simulation has to make visible.",
+            )
+        if listed and not 2 <= len(listed) <= 4:
+            report.add(
+                "WEAK_GEMINI_PROMPT", "warning",
+                f"{len(listed)} misconceptions listed; 2-4 is the working range.",
+            )
+
+        # CALC_NOT_MODEL: a formula with a triangle attached is not a model.
+        if "math" in (request.subject or "").lower():
+            calculator = any(marker in lowered for marker in CALC_ONLY_MARKERS)
+            area_model = any(marker in lowered for marker in AREA_MODEL_MARKERS)
+            if calculator and not area_model:
+                report.add(
+                    "CALC_NOT_MODEL", "error",
+                    "The Gemini prompt computes but never shows area: no squares on the "
+                    "sides, no grid, no area model.",
+                    "Draw squares on all three sides so a2, b2 and c2 are areas the "
+                    "student can see, not terms in a formula.",
+                )
+
+    def _check_notebook_pack(self, part_d: dict[str, Any], report: ValidationReport) -> None:
+        pack_node = part_d.get("notebooklm_source_pack") or {}
+        source = str(pack_node.get("source_doc_markdown", "") or "")
+        words = len(source.split())
+        if words < NOTEBOOK_PACK_MIN_WORDS:
+            report.add(
+                "THIN_NOTEBOOK_PACK", "error",
+                f"The NotebookLM pack is {words} words; the floor is {NOTEBOOK_PACK_MIN_WORDS}.",
+                "NotebookLM narrates only what it is given. A thin pack makes a thin video.",
+            )
+        elif words > NOTEBOOK_PACK_MAX_WORDS:
+            report.add(
+                "THIN_NOTEBOOK_PACK", "warning",
+                f"The NotebookLM pack is {words} words; over {NOTEBOOK_PACK_MAX_WORDS} it rambles.",
+            )
+        # A worked example means numbers actually being worked, not a mention.
+        has_numbers = len(re.findall(r"\d", source)) >= 8
+        mentions_example = re.search(r"worked example|example:|step 1", source, re.IGNORECASE)
+        if source and not (has_numbers and mentions_example):
+            report.add(
+                "THIN_NOTEBOOK_PACK", "error",
+                "The NotebookLM pack has no fully worked example with numbers.",
+                "Include one example worked end to end, with a labeled diagram description.",
+            )
+
+    def _check_veo_shots(self, part_d: dict[str, Any], report: ValidationReport) -> None:
+        shots = [s for s in (part_d.get("veo_shot_list") or []) if isinstance(s, dict)]
+        if len(shots) < VEO_MIN_SHOTS:
+            report.add(
+                "VEO_TOO_FEW", "error",
+                f"{len(shots)} Veo shot(s); at least {VEO_MIN_SHOTS} are required "
+                f"({VEO_PREFERRED_SHOTS} preferred for a full day).",
+            )
+        low, high = VEO_SECONDS_RANGE
+        for index, shot in enumerate(shots, start=1):
+            label = shot.get("shot_id") or f"shot {index}"
+            purpose = str(shot.get("purpose", "")).strip().lower()
+            if purpose and purpose not in VEO_PURPOSES:
+                report.add(
+                    "VEO_TOO_FEW", "warning",
+                    f"{label} has purpose {purpose!r}; use one of {', '.join(VEO_PURPOSES)}.",
+                )
+            seconds = int(shot.get("seconds") or 0)
+            if seconds and not low <= seconds <= high:
+                report.add(
+                    "VEO_TOO_FEW", "warning",
+                    f"{label} runs {seconds}s; shots are {low}-{high} seconds.",
+                )
+            if not str(shot.get("prompt", "")).strip():
+                report.add("VEO_TOO_FEW", "error", f"{label} has no prompt.")
+
+    def _check_media_teks_drift(
+        self, part_d: dict[str, Any], report: ValidationReport, pack: StandardsPack
+    ) -> None:
+        """Part D may cite only the codes this lesson actually teaches.
+
+        Unit 15's transformation codes leaking into a Unit 10 media brief is the
+        exact failure this catches.
+        """
+        allowed = pack.allowed_code_keys()
+        if not allowed:
+            return
+        allowed = allowed | {
+            normalize_code(code)
+            for standard in pack.standards
+            for code in find_strict_codes(standard.text)
+        }
+        seen: set[str] = set()
+        for path, text in walk_strings(part_d):
+            for code in find_strict_codes(text):
+                key = normalize_code(code)
+                if key in allowed or key in seen:
+                    continue
+                seen.add(key)
+                report.add(
+                    "TEKS_DRIFT_IN_MEDIA", "error",
+                    f"Part D cites {code} in `{path}`, which this lesson does not teach.",
+                    "Media may cite only the codes in scope for this lesson.",
+                )
 
     # ------------------------------------------------------------------
     # Intervention packets

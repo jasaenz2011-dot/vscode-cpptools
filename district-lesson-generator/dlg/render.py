@@ -154,6 +154,7 @@ def _lesson_blocks(result: GenerationResult) -> list[Block]:
 
     blocks.extend(_student_page_blocks(doc))
     blocks.extend(_exit_ticket_blocks(doc))
+    blocks.extend(_media_brief_blocks(doc))
 
     if doc.get("teacher_notes"):
         blocks.append(Block("h2", "Teacher notes"))
@@ -344,6 +345,70 @@ def _intervention_blocks(result: GenerationResult) -> list[Block]:
     if doc.get("teacher_notes"):
         blocks.append(Block("h2", "Teacher notes"))
         blocks.append(Block("p", str(doc["teacher_notes"])))
+    return blocks
+
+
+def _media_brief_blocks(doc: dict[str, Any]) -> list[Block]:
+    """Part D, laid out so a teacher can copy each prompt into its engine."""
+    part_d = doc.get("part_d") or {}
+    blocks = [Block("h2", "Part D — Media brief")]
+    if not part_d:
+        blocks.append(Block("note", "No media brief was produced. The package is incomplete "
+                                    "without one.", tone="warn"))
+        return blocks
+
+    blocks.append(Block("kv", label="Students must see",
+                        text=_or_blank(part_d.get("concept_one_liner"))))
+
+    movie = part_d.get("motion_movie") or {}
+    if any(movie.values()):
+        blocks.append(Block("h3", "Motion movie"))
+        blocks.append(Block(
+            "table", header=["Beat", "What happens"],
+            rows=[
+                ["1. Scene", str(movie.get("scene", ""))],
+                ["2. Move", str(movie.get("move", ""))],
+                ["3. Freeze frame", str(movie.get("freeze_frame", ""))],
+                ["4. Talk-back", str(movie.get("talk_back", ""))],
+            ],
+        ))
+
+    misconceptions = [str(m) for m in (part_d.get("misconceptions_to_show") or []) if str(m).strip()]
+    if misconceptions:
+        blocks.append(Block("h3", "Misconceptions the visual must expose"))
+        blocks.append(Block("ul", items=misconceptions))
+
+    use = part_d.get("classroom_use") or {}
+    if any(use.values()):
+        blocks.append(Block("h3", "Where it lands"))
+        blocks.append(Block("kv", label="Hunter step", text=_or_blank(use.get("when_in_hunter"))))
+        blocks.append(Block("kv", label="Minutes", text=str(use.get("minutes") or "--")))
+        blocks.append(Block("kv", label="Grouping", text=_or_blank(use.get("grouping"))))
+        blocks.append(Block("kv", label="Ask when it pauses",
+                            text=_or_blank(use.get("teacher_move_after"))))
+
+    if part_d.get("gemini_sim_prompt"):
+        blocks.append(Block("h3", "Paste into Gemini (interactive simulation)"))
+        blocks.append(Block("p", str(part_d["gemini_sim_prompt"])))
+
+    pack = part_d.get("notebooklm_source_pack") or {}
+    if pack.get("source_doc_markdown"):
+        words = len(str(pack["source_doc_markdown"]).split())
+        blocks.append(Block("h3", f"Paste into NotebookLM (source pack, {words} words)"))
+        blocks.append(Block("kv", label="Title", text=_or_blank(pack.get("title"))))
+        blocks.append(Block("kv", label="Audience", text=_or_blank(pack.get("audience"))))
+        blocks.append(Block("kv", label="TEKS", text=_or_blank(pack.get("teks_block"))))
+        blocks.append(Block("p", str(pack["source_doc_markdown"])))
+
+    shots = [s for s in (part_d.get("veo_shot_list") or []) if isinstance(s, dict)]
+    if shots:
+        blocks.append(Block("h3", "Paste into Veo (shot list)"))
+        blocks.append(Block(
+            "table",
+            header=["Shot", "Sec", "Purpose", "Prompt"],
+            rows=[[str(s.get("shot_id", "")), str(s.get("seconds", "")),
+                   str(s.get("purpose", "")), str(s.get("prompt", ""))] for s in shots],
+        ))
     return blocks
 
 

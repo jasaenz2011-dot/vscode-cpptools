@@ -8,11 +8,13 @@ Pick a grade and a subject. Get a **complete printable package** — cited to th
 exact row of your pacing guide, quoting your standards verbatim, and telling you
 which of its own quality checks it failed.
 
-Every output has three parts, enforced by the validator, never optional:
+Every output has four parts, enforced by the validator, never optional:
 
 - **Part A** — a full Madeline Hunter lesson, all 8 steps, never skipped or merged
 - **Part B** — student pages the children actually write on
 - **Part C** — a STAAR-level exit ticket with a teacher answer key
+- **Part D** — a media brief: a Gemini simulation prompt, a NotebookLM source pack,
+  and a Veo shot list. This repo emits briefs; other tools render.
 
 Nothing leaves the machine. Nothing is required beyond Python 3.9+.
 
@@ -143,6 +145,14 @@ draft, and a failure sends the draft back to the model:
 | `student_pages` | no page, or a page with no evidence space, no because line, or an unkeyed item |
 | `exit_ticket_staar` | fewer than 2 STAAR-style items, no constructed item, or a missing model / justification / 0-1-2 rubric |
 | `ell_support` | the class has multilingual learners but language load and concept gap are not diagnosed separately, or a motion-movie beat is missing |
+| `closure_points_to_ticket` | closure never hands students to the exit ticket |
+| `no_growth_promises` | the plan promises a score outcome instead of describing what students do |
+| `MISSING_PART_D` | no media brief |
+| `WEAK_GEMINI_PROMPT` | the sim names nothing manipulable, or no misconception to expose |
+| `CALC_NOT_MODEL` | a math sim computes but never shows area — a calculator, not a model |
+| `THIN_NOTEBOOK_PACK` | the source pack is under 800 words or has no worked example |
+| `VEO_TOO_FEW` | fewer than three shots, or a shot with no prompt |
+| `TEKS_DRIFT_IN_MEDIA` | Part D cites a code this lesson does not teach |
 
 Vocabulary has to appear **in the plan and on the kid page**. A "3-2-1
 reflection" cannot stand in for the exit ticket. A teacher plan with no student
@@ -309,7 +319,7 @@ pip install -r requirements-optional.txt
 python3 -m unittest discover -s tests -t tests
 ```
 
-137 tests, no network, no model, no third-party packages. They cover the PDF
+164 tests, no network, no model, no third-party packages. They cover the PDF
 extractor (against PDFs built byte by byte in the test), column-alias parsing,
 chunk boundaries, JSON recovery from malformed model output, the context
 budget, every validation rule, and the full repair loop against a scripted

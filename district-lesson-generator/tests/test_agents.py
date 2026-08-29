@@ -391,3 +391,103 @@ class TestInstructionalStandard(unittest.TestCase):
         document = self._doc()
         document["ell_support"]["language_load"] = ""
         self.assertNotIn("ell_support", self._rules(self._run(document)))
+
+
+class TestMediaBrief(unittest.TestCase):
+    """Part D: the contract with Gemini, NotebookLM and Veo.
+
+    The four fixtures the media addendum specifies -- one PASS and three FAIL
+    -- plus the boundary cases around each threshold.
+    """
+
+    def setUp(self) -> None:
+        self.config, self.store, _ = make_project()
+        _, self.standards, self.validator = _agents(self.config, self.store)
+        self.pack = self.standards.run(["5.3H", "5.3K"], grade="5", subject="math")
+        self.request = LessonRequest(grade="5", subject="math", duration_minutes=60)
+
+    def _doc(self, **overrides) -> dict:
+        document = hunter_lesson([(s.code, s.text) for s in self.pack.standards])
+        document.update(overrides)
+        return document
+
+    def _rules(self, document) -> set[str]:
+        return {v.rule for v in self.validator.run(document, self.request, self.pack).errors}
+
+    # -- the four specified fixtures -----------------------------------
+    def test_pass_full_media_brief(self) -> None:
+        """PASS: squares/area Gemini prompt, 800+ word pack, 3+ Veo shots."""
+        report = self.validator.run(self._doc(), self.request, self.pack)
+        self.assertTrue(report.ok, [str(v) for v in report.errors])
+
+    def test_fail_gemini_prompt_that_only_computes(self) -> None:
+        """FAIL: a prompt that prints c = sqrt(a^2+b^2) and shows no area."""
+        document = self._doc()
+        document["part_d"]["gemini_sim_prompt"] = (
+            "Build a tool where the student types side a and side b, and it "
+            "computes the hypotenuse with the formula c = sqrt(a^2 + b^2). "
+            "Show a right triangle and the misconception of adding a + b."
+        )
+        self.assertIn("CALC_NOT_MODEL", self._rules(document))
+
+    def test_fail_notebook_pack_that_is_just_the_objective(self) -> None:
+        document = self._doc()
+        document["part_d"]["notebooklm_source_pack"]["source_doc_markdown"] = (
+            "Students will add fractions with unlike denominators."
+        )
+        self.assertIn("THIN_NOTEBOOK_PACK", self._rules(document))
+
+    def test_fail_media_citing_another_units_standard(self) -> None:
+        """FAIL: Unit 15's transformation code leaking into a Unit 10 brief."""
+        document = self._doc()
+        document["part_d"]["concept_one_liner"] = (
+            "This also previews 8.10C, transformations on the coordinate plane."
+        )
+        self.assertIn("TEKS_DRIFT_IN_MEDIA", self._rules(document))
+
+    # -- the rest of the gate ------------------------------------------
+    def test_missing_part_d_is_an_error(self) -> None:
+        self.assertIn("MISSING_PART_D", self._rules(self._doc(part_d={})))
+
+    def test_absent_part_d_key_is_an_error(self) -> None:
+        document = self._doc()
+        document.pop("part_d")
+        self.assertIn("MISSING_PART_D", self._rules(document))
+
+    def test_gemini_prompt_without_a_control_is_weak(self) -> None:
+        document = self._doc()
+        document["part_d"]["gemini_sim_prompt"] = (
+            "Show two area models side by side with squares shaded, and display "
+            "the common misconception of adding denominators."
+        )
+        self.assertIn("WEAK_GEMINI_PROMPT", self._rules(document))
+
+    def test_gemini_prompt_without_a_misconception_is_weak(self) -> None:
+        document = self._doc()
+        document["part_d"]["gemini_sim_prompt"] = (
+            "Build a simulation with a slider for each denominator and draggable "
+            "wedges over an area model showing squares."
+        )
+        document["part_d"]["misconceptions_to_show"] = []
+        self.assertIn("WEAK_GEMINI_PROMPT", self._rules(document))
+
+    def test_fewer_than_three_veo_shots_is_an_error(self) -> None:
+        document = self._doc()
+        document["part_d"]["veo_shot_list"] = document["part_d"]["veo_shot_list"][:2]
+        self.assertIn("VEO_TOO_FEW", self._rules(document))
+
+    def test_veo_shot_without_a_prompt_is_an_error(self) -> None:
+        document = self._doc()
+        document["part_d"]["veo_shot_list"][0]["prompt"] = ""
+        self.assertIn("VEO_TOO_FEW", self._rules(document))
+
+    def test_pack_missing_a_worked_example_is_an_error(self) -> None:
+        document = self._doc()
+        long_but_empty = "The pieces must be the same size before they are joined. " * 160
+        document["part_d"]["notebooklm_source_pack"]["source_doc_markdown"] = long_but_empty
+        self.assertIn("THIN_NOTEBOOK_PACK", self._rules(document))
+
+    def test_media_may_quote_the_lessons_own_codes(self) -> None:
+        document = self._doc()
+        document["part_d"]["notebooklm_source_pack"]["teks_block"] = "5.3H and 5.3K"
+        self.assertNotIn("TEKS_DRIFT_IN_MEDIA", self._rules(document))
