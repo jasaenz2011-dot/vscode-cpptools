@@ -26,6 +26,7 @@ from .util import (
     normalize_code,
     stable_id,
     subject_key,
+    truncate_words,
 )
 
 # --------------------------------------------------------------------------
@@ -356,6 +357,11 @@ def extract_standards(doc: Document, loaded: Loaded) -> list[Standard]:
     # the codes unresolved.
     out.extend(_standards_from_code_column(doc, loaded, default_grade, default_subject))
 
+    # A published TEKS document states the standards authoritatively but never
+    # writes their codes; those have to be composed from its structure.
+    if looks_like_tea_document(loaded.text):
+        out.extend(standards_from_tea_document(doc, loaded.text, default_subject))
+
     if not out:
         out.extend(_standards_from_prose(doc, loaded, default_grade, default_subject))
     return dedupe_standards(out)
@@ -386,6 +392,95 @@ def _standards_from_code_column(
                     )
                 )
     return out
+
+
+# --- Official TEA-style standards documents -------------------------------
+# The published TEKS are hierarchical prose in which the code is never written
+# out. "(A) apply mathematics to problems..." under "(1) Mathematical process
+# standards" in "Grade 5 / Mathematics" *is* TEKS 5.1A. The code has to be
+# composed from the document's structure, which is why a plain code scan finds
+# nothing in the state's own file.
+_TEA_GRADE_RE = re.compile(r"^Grade\s+(\d{1,2})\b|^(Kindergarten)\b", re.IGNORECASE)
+_TEA_KNOWLEDGE_RE = re.compile(r"^\((\d{1,2})\)\s+(.*)")
+_TEA_EXPECTATION_RE = re.compile(r"^\(([A-Z])\)\s+(.*)")
+_TEA_SUBSECTION_RE = re.compile(r"^\([a-z]\)\s")
+_TEA_SUBJECT_HEADINGS = {
+    "mathematics": "math",
+    "science": "science",
+    "social studies": "social studies",
+    "english language arts and reading": "ela",
+    "english language arts": "ela",
+}
+
+
+def looks_like_tea_document(text: str) -> bool:
+    head = (text or "")[:4000].lower()
+    return "the student is expected to" in head and "knowledge and skills" in head
+
+
+def standards_from_tea_document(
+    doc: Document, text: str, default_subject: str = ""
+) -> list[Standard]:
+    """Compose standards from a published TEKS document's hierarchy."""
+    grade = ""
+    subject = default_subject
+    knowledge = ""
+    strand = ""
+    out: list[Standard] = []
+    current: Standard | None = None
+
+    for raw in (text or "").split("\n"):
+        line = raw.strip()
+        if not line:
+            continue
+
+        grade_match = _TEA_GRADE_RE.match(line)
+        if grade_match and len(line.split()) <= 3:
+            grade = "K" if grade_match.group(2) else grade_key(grade_match.group(1))
+            knowledge, current = "", None
+            continue
+
+        heading = _TEA_SUBJECT_HEADINGS.get(line.lower().strip(" .:"))
+        if heading:
+            subject, knowledge, current = heading, "", None
+            continue
+
+        if _TEA_SUBSECTION_RE.match(line):     # "(b) Knowledge and skills."
+            current = None
+            continue
+
+        knowledge_match = _TEA_KNOWLEDGE_RE.match(line)
+        if knowledge_match:
+            knowledge = knowledge_match.group(1)
+            strand = " ".join(knowledge_match.group(2).split())
+            current = None
+            continue
+
+        expectation = _TEA_EXPECTATION_RE.match(line)
+        if expectation and grade and knowledge:
+            current = Standard(
+                code=f"{grade}.{knowledge}{expectation.group(1)}",
+                text=" ".join(expectation.group(2).split()),
+                grade=grade,
+                subject=subject,
+                strand=truncate_words(strand, 12),
+                source_path=doc.path,
+                locator="",
+            )
+            out.append(current)
+            continue
+
+        # A wrapped continuation of the expectation currently being read.
+        if current is not None:
+            current.text = " ".join(f"{current.text} {line}".split())
+
+    for standard in out:
+        # Items in the published list end "...; and" / "...; or" where they run
+        # into the next expectation. That is list punctuation, not the standard.
+        standard.text = re.sub(
+            r"[;,]?\s+(?:and|or)$", "", standard.text.rstrip(" ;.")
+        ).rstrip(" ;.,")
+    return [s for s in out if len(s.text.split()) >= 3]
 
 
 def _standards_from_prose(

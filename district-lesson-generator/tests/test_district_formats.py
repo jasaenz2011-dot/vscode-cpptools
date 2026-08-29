@@ -182,6 +182,82 @@ class TestCrossSubjectCodes(unittest.TestCase):
         self.assertEqual(missing, ["9.99Z"])
 
 
+TEA_DOCUMENT = """Texas Essential Knowledge and Skills (TEKS)
+
+Grades 5-8 | Mathematics, Science, Social Studies, English Language Arts and Reading
+
+Grade 5
+
+Mathematics
+
+(b) Knowledge and skills.
+
+(3) Number and operations. The student applies mathematical process standards to
+develop and use strategies. The student is expected to:
+
+(K) add and subtract positive rational numbers fluently; and
+
+(L) divide whole numbers by unit fractions and unit fractions by whole numbers
+
+Science
+
+(b) Knowledge and skills.
+
+(4) Scientific investigation and reasoning. The student is expected to:
+
+(A) demonstrate safe practices during laboratory and outdoor investigations
+
+Grade 8
+
+Mathematics
+
+(b) Knowledge and skills.
+
+(10) Two-dimensional shapes. The student is expected to:
+
+(C) explain the effect of translations and reflections over the x- or y-axis
+"""
+
+
+class TestOfficialTeksDocument(unittest.TestCase):
+    """The published TEKS never write the code out: "(K)" under "(3)" in
+    "Grade 5 / Mathematics" is 5.3K. A plain code scan finds nothing at all."""
+
+    def _standards(self):
+        doc = Document(doc_id="d", path="Texas_TEKS_Grades5-8.docx", title="teks",
+                       kind="standards")
+        return {(s.code, s.subject): s for s in
+                parsers.standards_from_tea_document(doc, TEA_DOCUMENT)}
+
+    def test_document_is_recognised(self) -> None:
+        self.assertTrue(parsers.looks_like_tea_document(TEA_DOCUMENT))
+        self.assertFalse(parsers.looks_like_tea_document("An ordinary resource list."))
+
+    def test_codes_are_composed_from_the_hierarchy(self) -> None:
+        standards = self._standards()
+        self.assertIn(("5.3K", "math"), standards)
+        self.assertIn(("5.3L", "math"), standards)
+        self.assertIn(("8.10C", "math"), standards)
+
+    def test_subject_switches_within_a_grade(self) -> None:
+        standards = self._standards()
+        self.assertIn(("5.4A", "science"), standards)
+        self.assertIn("safe practices", standards[("5.4A", "science")].text)
+
+    def test_list_punctuation_is_not_part_of_the_standard(self) -> None:
+        text = self._standards()[("5.3K", "math")].text
+        self.assertEqual(text, "add and subtract positive rational numbers fluently")
+
+    def test_wrapped_text_is_joined(self) -> None:
+        standards = self._standards()
+        self.assertIn("unit fractions by whole numbers", standards[("5.3L", "math")].text)
+
+    def test_grade_resets_the_knowledge_number(self) -> None:
+        """Grade 8's "(10)" must not inherit grade 5's numbering."""
+        standards = self._standards()
+        self.assertNotIn(("5.10C", "math"), standards)
+
+
 class TestUnitSelection(unittest.TestCase):
     def test_a_number_means_the_unit_number_not_a_name_substring(self) -> None:
         """`--unit 7` used to match "Covey's 7 Habits" instead of unit 7."""
