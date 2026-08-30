@@ -1,0 +1,468 @@
+{
+  "title": "Seeing the Pythagorean Theorem as Area",
+  "grade": "8",
+  "subject": "math",
+  "standards": [
+    {
+      "code": "8.6C",
+      "text": "Use models and diagrams to explain the Pythagorean theorem",
+      "emphasis": "primary focus"
+    },
+    {
+      "code": "8.7C",
+      "text": "Use the Pythagorean Theorem and its converse to solve problems",
+      "emphasis": "spiraled forward, not assessed today"
+    }
+  ],
+  "objective": {
+    "student_friendly": "I can explain the Pythagorean theorem with a model, showing that the area of the square on the hypotenuse equals the two leg squares combined.",
+    "mastery_evidence": "On the exit ticket I draw the three squares, label their areas in square units, and explain why the two smaller areas fill the larger one."
+  },
+  "academic_vocabulary": [
+    {
+      "term": "right triangle",
+      "student_definition": "a triangle with one square corner",
+      "cognate": "triangulo rectangulo",
+      "gesture_or_object": "make an L with two fingers"
+    },
+    {
+      "term": "leg",
+      "student_definition": "one of the two sides that form the square corner",
+      "cognate": "cateto",
+      "gesture_or_object": "trace the two short sides of an index card"
+    },
+    {
+      "term": "hypotenuse",
+      "student_definition": "the longest side, across from the square corner",
+      "cognate": "hipotenusa",
+      "gesture_or_object": "stretch a string across the open corner"
+    },
+    {
+      "term": "area",
+      "student_definition": "how many unit squares cover a shape",
+      "cognate": "area",
+      "gesture_or_object": "pat the surface flat with your palm"
+    },
+    {
+      "term": "square unit",
+      "student_definition": "one square of the grid, the thing we count",
+      "cognate": "unidad cuadrada",
+      "gesture_or_object": "hold up one paper tile"
+    },
+    {
+      "term": "theorem",
+      "student_definition": "a statement we can prove is always true",
+      "cognate": "teorema",
+      "gesture_or_object": "stamp your fist once, it is settled"
+    }
+  ],
+  "hunter": {
+    "purpose": {
+      "minutes": 3,
+      "teacher_moves": [
+        "Post and read: 'I can explain the Pythagorean theorem with a model, not just a formula.'",
+        "Say: 'Most of you have seen a squared plus b squared equals c squared. Today you find out what those squares actually are, and you will hold them.'"
+      ],
+      "student_actions": [
+        "Read the objective with a partner and underline the word 'explain'."
+      ],
+      "questions": [
+        "Explain what you think the word 'squared' is describing in that equation."
+      ],
+      "look_fors": [
+        "Students say a shape or an area, not just 'times itself'."
+      ]
+    },
+    "anticipatory_set": {
+      "minutes": 6,
+      "teacher_moves": [
+        "Show a right triangle on grid paper with legs 3 and 4. Ask for the third side. Let '7' be said out loud and write it up without correcting it.",
+        "Hand each pair a 5 by 5 paper square and ask whether a side of 7 could be right."
+      ],
+      "student_actions": [
+        "Turn and talk: could the hypotenuse be 7? Use the grid to argue."
+      ],
+      "questions": [
+        "Justify whether a hypotenuse of 7 is possible when the legs are 3 and 4.",
+        "Compare the slanted side to the two legs and explain what you notice about its length."
+      ],
+      "look_fors": [
+        "Students reason from the grid, not from a remembered rule."
+      ]
+    },
+    "input": {
+      "minutes": 8,
+      "teacher_moves": [
+        "Name the parts on the document camera: a right triangle has two legs meeting at the square corner, and the hypotenuse across from it.",
+        "Define area as the number of square units that cover a shape, and count the 9 square units on the 3 by 3 square out loud with the class.",
+        "State the theorem in words before symbols: the area of the square on the hypotenuse equals the combined area of the squares on the two legs."
+      ],
+      "student_actions": [
+        "Label leg, leg and hypotenuse on their own grid-paper triangle.",
+        "Count and record the area of each square in square units."
+      ],
+      "questions": [
+        "Explain why we count square units instead of measuring the side length here.",
+        "Compare the area of the square on the hypotenuse to each leg square and justify which is largest."
+      ],
+      "look_fors": [
+        "Students use 'leg' and 'hypotenuse' rather than 'the short one'."
+      ]
+    },
+    "modeling": {
+      "minutes": 12,
+      "teacher_moves": [
+        "Think aloud: 'I have a right triangle with legs 3 and 4. I will build a square on every side and find the area of each in square units.'",
+        "Cut the 3 by 3 square into 9 unit squares and the 4 by 4 into 16, counting aloud.",
+        "Slide all 25 unit squares into the 5 by 5 square on the hypotenuse until it is full.",
+        "Freeze. Point: 'Nothing left over, no gaps. That is the theorem.' Only now write 9 + 16 = 25, then a squared plus b squared equals c squared.",
+        "Open the angle past ninety degrees and show the tiles failing to fill the square, so the right angle is the condition."
+      ],
+      "student_actions": [
+        "Track each step on their own grid paper and label the three areas."
+      ],
+      "questions": [
+        "Explain why I filled the hypotenuse square instead of measuring its side.",
+        "Justify what the failed tiling on the obtuse triangle proves about the right angle."
+      ],
+      "look_fors": [
+        "Students connect the written 9, 16 and 25 to counted square units."
+      ]
+    },
+    "guided_practice": {
+      "minutes": 12,
+      "teacher_moves": [
+        "Pairs build squares on a 6-8-10 right triangle with grid paper and square tiles, recording each area on Student Page 1.",
+        "Require the area sentence before any equation: 36 square units plus 64 square units fills 100 square units.",
+        "Pull a small group at the table with pre-cut unit squares for students still adding side lengths.",
+        "Post the stem: 'The area of the square on the hypotenuse equals ___ because ___.'"
+      ],
+      "student_actions": [
+        "Cut, tile and record on Student Page 1, using leg, hypotenuse, area and square unit.",
+        "Say the stem aloud to a partner before writing the because line."
+      ],
+      "questions": [
+        "Compare your tiling with your partner's and justify which triangle is truly right.",
+        "Explain how you would convince someone the theorem is not just true for 3-4-5."
+      ],
+      "look_fors": [
+        "The recorded areas match the counted tiles.",
+        "Students name the right angle as the condition without being asked."
+      ]
+    },
+    "checking_for_understanding": {
+      "minutes": 6,
+      "teacher_moves": [
+        "Show Me: every student holds up a whiteboard with the three areas for legs 5 and 12.",
+        "Fact or Fib: 'A triangle with sides 4, 5 and 6 is a right triangle.' Thumbs, then justify.",
+        "Sort the boards: correct areas, added the side lengths, or found a length where an area was asked for."
+      ],
+      "student_actions": [
+        "Hold up the board, then explain the area sentence to a neighbour."
+      ],
+      "questions": [
+        "Explain how you know your third area is the square on the hypotenuse and not a leg.",
+        "Justify why 4, 5 and 6 cannot be a right triangle using areas.",
+        "Which model would you choose to convince a doubter, and why that one?"
+      ],
+      "look_fors": [
+        "Areas, not lengths, on the board.",
+        "Students who added 5 + 12 go to the teacher table with pre-cut square units."
+      ]
+    },
+    "independent_practice": {
+      "minutes": 6,
+      "teacher_moves": [
+        "Release Student Page 2. Four triangles, each needing the three areas and one sentence of explanation.",
+        "Remind students the because line is where they prove the areas filled exactly."
+      ],
+      "student_actions": [
+        "Work alone, drawing and labelling the squares before writing."
+      ],
+      "questions": [
+        "Justify one of your answers to a partner when you finish."
+      ],
+      "look_fors": [
+        "Squares drawn on all three sides, not just a labelled triangle."
+      ]
+    },
+    "closure": {
+      "minutes": 2,
+      "teacher_moves": [
+        "Ask three students to finish: 'The theorem is really a statement about ___.'",
+        "Say: 'Your exit ticket asks you to draw the squares and explain, not to compute. Show me the areas.'"
+      ],
+      "student_actions": [
+        "Complete the sentence in their head; one volunteer says it aloud."
+      ],
+      "questions": [
+        "Explain in one sentence what the squares in the theorem represent."
+      ],
+      "look_fors": [
+        "The word 'area' appears in the sentence."
+      ]
+    }
+  },
+  "materials": [
+    "Centimetre grid paper, 3 sheets per student",
+    "Scissors, one pair per pair of students",
+    "Pre-cut paper squares (3x3, 4x4, 5x5) for the model",
+    "Square tiles from the campus math shelf",
+    "String for stretching across the open corner",
+    "Index cards for labelling leg and hypotenuse",
+    "Individual whiteboards and markers",
+    "Student Page 1 and Student Page 2, printed"
+  ],
+  "manipulatives": [
+    "Centimetre grid paper cut into unit squares",
+    "Square tiles used as countable square units",
+    "String stretched from corner to corner to compare the hypotenuse",
+    "Index cards folded to check the right angle"
+  ],
+  "differentiation": {
+    "below_level": [
+      "Pre-cut unit squares so cutting is not the barrier.",
+      "Stay on 3-4-5 and 6-8-10, where every area is a friendly count."
+    ],
+    "on_level": [
+      "Move to 5-12-13, where the tiles must be counted carefully."
+    ],
+    "above_level": [
+      "Give the area of the hypotenuse square and one leg square; find the other.",
+      "Ask whether the shapes on the sides must be squares for the relationship to hold."
+    ],
+    "special_education": [
+      "Reduce Student Page 2 to two triangles.",
+      "Provide the area sentence frame ___ square units plus ___ square units fills ___ square units."
+    ]
+  },
+  "ell_support": {
+    "language_load": "'Square' is three different words in one lesson: the shape, the operation, and the unit of area. 'Leg' is a body part in everyday speech. 'Squared' sounds like a past-tense verb but names an area. The phrase 'the square on the hypotenuse' uses 'on' spatially, which newcomers often read as 'of'.",
+    "concept_gap": "Area is being treated as a formula to apply rather than a count of unit squares, so a squared reads as a keystroke rather than a shape. Until students count tiles, the theorem has nothing to be about.",
+    "motion_movie": {
+      "scene": "Grid paper is the floor. Each unit square is one tile of that floor.",
+      "move": "Cut the two leg squares into loose tiles and carry them, a few at a time, into the square resting on the hypotenuse.",
+      "freeze_frame": "The moment the last tile lands and the big square is exactly full. That picture becomes 9 + 16 = 25.",
+      "talk_back": "The area of the square on the hypotenuse equals ___ because ___."
+    },
+    "thinking_stems": [
+      "The area of the square on the hypotenuse equals ___ because ___.",
+      "I counted ___ square units on the leg, so its area is ___.",
+      "This is a right triangle because ___."
+    ]
+  },
+  "timing_overview": [
+    {
+      "segment": "Purpose / Objective",
+      "minutes": 3
+    },
+    {
+      "segment": "Anticipatory Set",
+      "minutes": 6
+    },
+    {
+      "segment": "Input",
+      "minutes": 8
+    },
+    {
+      "segment": "Modeling",
+      "minutes": 12
+    },
+    {
+      "segment": "Guided Practice",
+      "minutes": 12
+    },
+    {
+      "segment": "Checking for Understanding",
+      "minutes": 6
+    },
+    {
+      "segment": "Independent Practice",
+      "minutes": 6
+    },
+    {
+      "segment": "Closure",
+      "minutes": 2
+    }
+  ],
+  "student_pages": [
+    {
+      "title": "Student Page 1 — Build the Three Squares (We Do)",
+      "directions": "Draw the right triangle on your grid paper. Build a square on every side. Count the square units in each one. Then tile the two leg squares into the square on the hypotenuse.",
+      "vocabulary_or_stems": [
+        "right triangle",
+        "leg",
+        "hypotenuse",
+        "area",
+        "square unit",
+        "theorem",
+        "The area of the square on the hypotenuse equals ___ because ___."
+      ],
+      "evidence_space": "Draw all three squares on the grid below. Label each one with its area in square units, and shade the tiles you moved.",
+      "items": [
+        {
+          "prompt": "Legs 3 and 4. Area of each leg square? Area of the hypotenuse square?",
+          "answer": "9 square units and 16 square units; 25 square units."
+        },
+        {
+          "prompt": "Legs 6 and 8. Area of each leg square? Area of the hypotenuse square?",
+          "answer": "36 square units and 64 square units; 100 square units."
+        },
+        {
+          "prompt": "Write the area sentence for the 6-8-10 triangle.",
+          "answer": "36 square units plus 64 square units fills 100 square units."
+        }
+      ],
+      "because_line": "I know the tiles filled the square exactly because ___."
+    },
+    {
+      "title": "Student Page 2 — Explain It Without the Formula (You Do)",
+      "directions": "For each triangle, draw the squares, label the areas, then write one sentence explaining why the areas work out. Do not write only a number.",
+      "vocabulary_or_stems": [
+        "right triangle",
+        "leg",
+        "hypotenuse",
+        "area",
+        "square unit",
+        "theorem",
+        "My model shows ___, which means ___."
+      ],
+      "evidence_space": "One grid box per triangle. Draw the squares on all three sides and label each area.",
+      "items": [
+        {
+          "prompt": "Legs 5 and 12. Give the three areas.",
+          "answer": "25 square units, 144 square units, and 169 square units."
+        },
+        {
+          "prompt": "A student says the hypotenuse for legs 5 and 12 is 17. Explain the error.",
+          "answer": "They added the side lengths. A square on a side of 17 would have an area of 289 square units, but only 169 square units came off the legs."
+        },
+        {
+          "prompt": "Sides 4, 5 and 6. Is it a right triangle? Explain using areas.",
+          "answer": "No. 16 plus 25 is 41 square units, but the square on the longest side is 36 square units. The tiles would not fill it."
+        },
+        {
+          "prompt": "Explain why the theorem needs the right angle.",
+          "answer": "Opening the angle past ninety degrees makes the largest square grow while the leg squares stay the same, so the tiles no longer fill it."
+        }
+      ],
+      "because_line": "I know my answer is correct because ___."
+    }
+  ],
+  "exit_ticket": {
+    "minutes": 9,
+    "teks_posted": [
+      "8.6C"
+    ],
+    "items": [
+      {
+        "prompt": "A right triangle has legs of 6 units and 8 units. Squares are drawn on all three sides. What is the area of the square on the hypotenuse?",
+        "choices": [
+          "A. 100 square units",
+          "B. 14 square units",
+          "C. 48 square units",
+          "D. 10 square units"
+        ],
+        "answer": "A",
+        "distractor_rationale": "B is the student who added the side lengths instead of the areas. C multiplied the legs, which is twice the area of the triangle, not the square on the hypotenuse. D found the hypotenuse length and reported it where an area was asked for."
+      },
+      {
+        "prompt": "Which diagram could NOT show the Pythagorean theorem?",
+        "choices": [
+          "A. A right triangle with squares of area 9, 16 and 25 on its sides",
+          "B. A right triangle with squares of area 36, 64 and 100 on its sides",
+          "C. A triangle with no right angle and squares of area 16, 25 and 36",
+          "D. A right triangle with squares of area 25, 144 and 169 on its sides"
+        ],
+        "answer": "C",
+        "distractor_rationale": "Choosing A, B or D means the student is checking whether the numbers look familiar rather than whether the two smaller areas fill the largest one under a right angle."
+      }
+    ],
+    "constructed_item": {
+      "prompt": "A right triangle has legs of 9 units and 12 units. Draw the square on each side, label the area of each in square units, and explain how the areas prove the length of the hypotenuse without using a formula.",
+      "exemplar_model": "Three squares drawn on grid paper: 81 square units on the 9-unit leg, 144 square units on the 12-unit leg, and 225 square units on the hypotenuse, with grid lines shown so the units are countable.",
+      "exemplar_equation": "81 + 144 = 225, so the square on the hypotenuse has side 15.",
+      "exemplar_justification": "The 81 unit squares from one leg and the 144 from the other are 225 unit squares in total, and they fill the square on the hypotenuse exactly. A square with an area of 225 square units has a side of 15 units.",
+      "scoring": {
+        "zero": "Blank, or adds the side lengths to get 21, showing the relationship is read as length rather than area.",
+        "one": "Correct area or a correct hypotenuse of 15 with no model, or a model of the three squares with no explanation of why the areas combine.",
+        "two": "All three squares drawn and labelled 81, 144 and 225 square units, plus an explanation that the leg areas fill the hypotenuse square exactly."
+      }
+    },
+    "success_line": "I can explain the Pythagorean theorem with a model, using area."
+  },
+  "part_d": {
+    "concept_one_liner": "The area of the square on the hypotenuse equals the combined area of the squares on the two legs.",
+    "motion_movie": {
+      "scene": "Centimetre grid paper. A right triangle with legs 3 and 4, and a real paper square resting on each of its three sides.",
+      "move": "Cut the 3 by 3 and 4 by 4 squares into 25 loose unit squares and slide them, one at a time, into the 5 by 5 square on the hypotenuse.",
+      "freeze_frame": "The last unit square drops in and the 5 by 5 square is exactly full. That picture becomes 9 + 16 = 25.",
+      "talk_back": "The area of the square on the hypotenuse equals ___ because ___."
+    },
+    "misconceptions_to_show": [
+      "The hypotenuse is the two legs added: 3 + 4 = 7.",
+      "The relationship holds for any triangle, not only a right triangle.",
+      "A squared means a keystroke rather than the area of a square on that side."
+    ],
+    "gemini_sim_prompt": "You are building an interactive teaching simulation inside this chat / Canvas.\n\nAUDIENCE: Grade 8 Mathematics. TEKS 8.6C, use models and diagrams to explain the Pythagorean theorem.\nGOAL: Students must SEE that the area of the square on the hypotenuse equals the combined area of the squares on the two legs. They must not only compute.\n\nREQUIRED CONTROLS\n- Draggable vertices on the right triangle, so the student can pull leg a and leg b and watch all three squares resize live.\n- A slider for each leg length as an alternative to dragging.\n- Draggable unit squares: the student can pick up individual unit squares from the leg squares and drop them into the square on the hypotenuse.\n- Live labels using the academic vocabulary: right triangle, leg, hypotenuse, area, square unit, theorem.\n- A talk-back stem on screen: \"The area of the square on the hypotenuse equals ___ because ___.\"\n- A misconception mode that can display either of these wrong ideas: the hypotenuse equals leg plus leg (3 + 4 = 7), or the relationship holds for a triangle with no right angle.\n\nREQUIRED VISUAL\n- A right triangle with an actual square drawn on all three sides, so a squared, b squared and c squared are AREAS the student can see and count, not terms in a formula.\n- Faint grid lines inside every square so unit squares are countable.\n- An area bar that updates as the triangle changes: 9 + 16 = 25.\n- A tile-transfer animation: the unit squares from both leg squares move into the hypotenuse square and fill it exactly.\n- An obtuse mode: open the angle past ninety degrees and show the tiles failing to fill the largest square, so the right angle is visibly the condition.\n\nCONSTRAINTS\n- Eighth-grade readable. No clutter. No decorative junk.\n- Do not invent extra TEKS. This lesson is 8.6C only.\n- Start on a clean 3-4-5 triangle so the areas are 9, 16 and 25.\n- Do not show the algebraic form until after the tiles have filled the square.\n- If you cannot draw squares on the sides, say so and draw the next-best area model. Do not ship a calculator with a skinny triangle.\n\nWalk me through the first interaction as if I am the teacher on a document camera.",
+    "notebooklm_source_pack": {
+      "title": "Seeing the Pythagorean Theorem as Area",
+      "audience": "Grade 8 Mathematics",
+      "teks_block": "8.6C Use models and diagrams to explain the Pythagorean theorem",
+      "source_doc_markdown": "VIDEO STEERING: Cinematic classroom explainer, 3-6 minutes, no background music louder than the voice, on-screen labels for every academic vocabulary word the first time it is spoken, freeze on the model before any formula appears.\n\n# Seeing the Pythagorean Theorem as Area\n\nGrade 8 Mathematics. Posted TEKS 8.6C, use models and diagrams to explain the Pythagorean theorem.\n\n## Objective and how mastery is shown\n\nStudents explain the Pythagorean theorem using a model in which each side of a right triangle carries a square, and the area of the square on the hypotenuse equals the combined area of the squares on the two legs. Mastery is shown when a student builds or draws the three squares, states the areas in square units, and explains in their own words why the two smaller areas must fill the larger one. A student who writes a correct number without an area model has not yet met this standard, because 8.6C is about explaining with models and diagrams, not about computing a missing side.\n\n## The motion movie, in four beats\n\nScene. A right triangle is drawn on centimetre grid paper with legs of 3 and 4 units. The right angle is marked with a small box. Three paper squares are cut to sit exactly on the three sides: a 3 by 3 square, a 4 by 4 square, and a 5 by 5 square. Each square is a real object the class can pick up, not a label.\n\nMove. The 3 by 3 square is cut into 9 unit squares and the 4 by 4 square is cut into 16 unit squares. Students slide those 25 loose unit squares, one at a time, into the square resting on the hypotenuse. They keep going until the large square is full. Nothing is left over and no gap remains.\n\nFreeze frame. Hold the moment the last unit square drops into place and the 5 by 5 square is exactly covered. That picture is the equation. Only after the class has looked at the full square does the line 9 + 16 = 25 appear, and only after that does the general form a squared plus b squared equals c squared appear.\n\nTalk-back. A student says: the area of the square on the hypotenuse equals the area of the square on one leg plus the area of the square on the other leg.\n\n## One fully worked example\n\nWorked example: a right triangle with legs of 3 units and 4 units. Step 1, build the square on the first leg. Its side is 3 units, so its area is 3 times 3, which is 9 square units. Count the 9 unit squares on the grid to confirm it. Step 2, build the square on the second leg. Its side is 4 units, so its area is 4 times 4, which is 16 square units. Count the 16 unit squares. Step 3, build the square on the hypotenuse. Its side is 5 units, so its area is 5 times 5, which is 25 square units. Step 4, test the claim by moving area. Take all 9 unit squares from the first square and all 16 unit squares from the second, which is 25 unit squares in total, and tile them into the 25 square units of the largest square. They fit exactly. Step 5, write what the picture showed: 9 + 16 = 25, and in general a squared plus b squared equals c squared, where a and b are the legs and c is the hypotenuse.\n\nThe diagram to describe on screen: a right triangle sits in the centre with the right angle at the lower left. A shaded square hangs below the horizontal leg labelled 16 square units. A shaded square sits to the left of the vertical leg labelled 9 square units. A larger square rests on the slanted side, labelled 25 square units. Faint grid lines run through all three squares so every unit square is countable.\n\n## The misconception this visual kills\n\nThe wrong idea is that the hypotenuse is simply the two legs added together, so a triangle with legs 3 and 4 would have a hypotenuse of 7. It survives when students only ever see the letters a, b and c and never see area. The model kills it because a square built on a side of 7 would have an area of 49 square units, and the class has just watched only 25 unit squares come off the legs. There is no way to fill 49 with 25, and the gap is visible on the grid rather than argued about.\n\nA second wrong idea is that the relationship holds for any triangle. Tilting the triangle so the right angle opens past ninety degrees makes the square on the longest side grow while the leg squares stay the same, and the tiles no longer fill it. The right angle is the condition, not decoration.\n\n## Talk-back stem and an acceptable answer\n\nStem: the area of the square on the hypotenuse equals ___ because ___. An acceptable answer: the area of the square on the hypotenuse equals 25 square units because the 9 unit squares from one leg and the 16 unit squares from the other leg filled it exactly, with nothing left over. A student who says c equals 5 because I used the formula has computed, not explained, and the narrator should return to the tiles.\n\n## One STAAR-flavored check\n\nA right triangle has legs measuring 6 units and 8 units. Squares are drawn on all three sides. What is the area of the square drawn on the hypotenuse? The correct answer is 100 square units, because 36 plus 64 is 100. A choice of 14 square units catches the student who added the two side lengths instead of the areas. A choice of 48 square units catches the student who multiplied the legs, which finds twice the area of the triangle rather than the square on the hypotenuse. A choice of 10 square units catches the student who found the length of the hypotenuse and stopped, reporting a length where an area was asked for.\n\n## Closing line for the narrator\n\nThe theorem is not a formula to remember. It is a statement about area you can watch happen on grid paper."
+    },
+    "veo_shot_list": [
+      {
+        "shot_id": "V1",
+        "seconds": 6,
+        "purpose": "hook",
+        "prompt": "Top-down on centimetre grid paper. A right triangle is inked in, legs 3 and 4. Three blank paper squares slide into place on its three sides. Slow push-in. No people."
+      },
+      {
+        "shot_id": "V2",
+        "seconds": 6,
+        "purpose": "misconception",
+        "prompt": "Top-down. A ghosted square of side 7 fades over the hypotenuse square and visibly overhangs it on two edges, then dissolves. Static camera. No text."
+      },
+      {
+        "shot_id": "V3",
+        "seconds": 6,
+        "purpose": "model",
+        "prompt": "Top-down. Twenty-five loose unit squares slide one at a time from the two small squares into the large square. Slow, steady. No hands visible."
+      },
+      {
+        "shot_id": "V4",
+        "seconds": 5,
+        "purpose": "freeze",
+        "prompt": "Top-down. The final unit square drops into place and the large square is exactly full. The camera holds completely still for the full shot."
+      },
+      {
+        "shot_id": "V5",
+        "seconds": 6,
+        "purpose": "transfer",
+        "prompt": "Top-down. The triangle's angle opens past ninety degrees. The largest square grows and the tiles no longer cover it, leaving a visible gap. Slow pull-back."
+      }
+    ],
+    "classroom_use": {
+      "when_in_hunter": "Explain",
+      "minutes": 8,
+      "grouping": "whole group on board",
+      "teacher_move_after": "The tiles filled it exactly. Explain what would have to be true about the corner for them not to."
+    }
+  },
+  "teacher_notes": "Pre-cut the 3x3, 4x4 and 5x5 squares during conference period so cutting does not eat the modeling block. Students who add side lengths on the CFU come to the teacher table tomorrow with pre-cut unit squares. This is day 1 of the 7-day unit; 8.7C converse work begins day 3 and 8.7D distance on the coordinate plane begins day 5. Source: 8th Grade Math Pacing_S&S 26-27.xlsx | Scope & Sequence | row 15.",
+  "_provenance": {
+    "district": "Village Tech Schools",
+    "unit": "Unit 10: Pythagorean Theorem",
+    "unit_source": "8th Grade Math Pacing_S&S 26-27.xlsx (Scope & Sequence, row 15)",
+    "standards_sources": [
+      "8th Grade Math Pacing_S&S 26-27.xlsx (Scope & Sequence, row 15)"
+    ],
+    "backend": "scripted test backend",
+    "mode": "generated",
+    "automatic_fixes": [],
+    "unresolved_codes": [],
+    "notes": [],
+    "open_issues": []
+  }
+}

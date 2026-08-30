@@ -1,0 +1,7 @@
+# Nothing here is required. The system runs on the Python standard library.
+# Each package is detected at runtime and used only if present.
+
+pypdf>=4.0                  # better PDF extraction on complex layouts
+numpy>=1.24                 # faster vector search on large corpora
+streamlit>=1.30             # alternative UI: streamlit run dlg/streamlit_app.py
+sentence-transformers>=2.2  # local embeddings without Ollama
