@@ -12,6 +12,9 @@ Everything runs from one machine on your lab network:
 Student browsers ──► GameLab server (Node.js, this folder)
                         ├─► Stable Diffusion (AUTOMATIC1111) — sprite art
                         ├─► Ollama (open LLM)               — coding helper chat
+                        ├─► MusicGen sidecar (music_server.py) — music, with optional
+                        │       YouTube "sounds like this" reference via yt-dlp
+                        ├─► Piper TTS                        — voice acting for NPC lines
                         └─► built-in chip synthesizer        — retro sound FX (no AI needed)
 ```
 
@@ -59,6 +62,42 @@ GameLab already sends pixel-art-friendly prompts and a "flat background"
 instruction, and the editor can knock out the background client-side so
 sprites drop straight into Phaser.
 
+### Music — MusicGen (with YouTube "sounds like this" references)
+
+Students describe the track AND can paste a YouTube link meaning "this
+vibe". The server pulls ~25 seconds of that audio as a *style reference*
+and MusicGen composes an **original** track guided by it — the YouTube
+audio itself is never saved into any project.
+
+On the AI box (GPU strongly recommended, ~8 GB VRAM):
+
+```bash
+pip install flask audiocraft torch torchaudio
+python3 music_server.py          # first run downloads the model (~4 GB)
+```
+
+For the YouTube reference feature, the GameLab server machine also needs:
+
+```bash
+pip install yt-dlp               # and ffmpeg from your package manager
+```
+
+Set `music_url` in `config.json` if the sidecar runs on another machine.
+Without yt-dlp the tool still works — it just generates from the text
+description and says so.
+
+### Voice acting — Piper TTS
+
+Fast, open-source, CPU-only text-to-speech for NPC lines:
+
+```bash
+pip install piper-tts
+```
+
+Then download voice files into the `voices/` folder — see
+`voices/README.txt` for good starter voices. The Voice tool lists every
+installed voice automatically.
+
 ### Coding helper — Ollama
 
 1. Install [Ollama](https://ollama.com).
@@ -83,6 +122,8 @@ the file the student has open — it won't dump whole rewritten files.
 | `sd_steps` / `sd_sampler` | generation speed/quality knobs | `20` / `Euler a` |
 | `ollama_url` | Ollama base URL | `http://127.0.0.1:11434` |
 | `ollama_model` | model tag for the helper | `qwen2.5-coder:7b` |
+| `music_url` | MusicGen sidecar base URL | `http://127.0.0.1:8760` |
+| `piper_bin` / `piper_voices_dir` | Piper command and voices folder | `piper` / `voices` |
 
 The home page shows a live online/offline badge for both backends.
 
@@ -94,6 +135,7 @@ The home page shows a live online/offline badge for both backends.
 | `adventure` | overhead adventure | **level drawn as a text map** students can redraw, keys/door logic, patrols |
 | `rpg` | turn-based RPG battle | data-driven move list, turn state machine, HP/MP resource math |
 | `shooter` | vertical shooter (side-scroll variant suggested in comments) | spawn timers, difficulty scaling, lives/game-over loop |
+| `fighter` | 2-player versus fighter on one keyboard | attack data (damage/reach/cooldown), hit detection, knockback and stun |
 
 Each is ~150 lines of heavily commented Phaser 3 with a `TWEAK ME` block at
 the top, runs out of the box with placeholder rectangles, and contains

@@ -71,6 +71,34 @@
       </div>
       <p class="error" id="sfxError"></p>
       <p class="hint" id="sfxSaved"></p>
+
+      <hr class="sep">
+      <h4 class="toolhead">🎵 Music (AI)</h4>
+      <label for="musicPrompt">Describe the music</label>
+      <textarea id="musicPrompt" rows="2" placeholder="upbeat chiptune adventure theme with a catchy melody"></textarea>
+      <label for="musicRef">Sounds-like reference (optional YouTube link)</label>
+      <input id="musicRef" placeholder="https://www.youtube.com/watch?v=…" style="width:100%">
+      <p class="hint">The clip only guides the style — an original track is generated; the YouTube audio never goes into your game.</p>
+      <div class="row">
+        <select id="musicDuration">
+          <option value="15">15 seconds</option>
+          <option value="20" selected>20 seconds</option>
+          <option value="30">30 seconds</option>
+        </select>
+        <button id="musicGen">Generate music</button>
+      </div>
+      <p class="error" id="musicError"></p>
+      <div id="musicResult"></div>
+
+      <hr class="sep">
+      <h4 class="toolhead">🎤 Voice acting (AI)</h4>
+      <label for="voiceSelect">Voice</label>
+      <select id="voiceSelect"></select>
+      <label for="voiceText">Line to speak</label>
+      <textarea id="voiceText" rows="2" placeholder="Welcome, hero! The dungeon awaits…"></textarea>
+      <div class="row"><button id="voiceGen">Generate voice</button></div>
+      <p class="error" id="voiceError"></p>
+      <div id="voiceResult"></div>
     </div>
 
     <div class="tabbody" id="tab-helper">

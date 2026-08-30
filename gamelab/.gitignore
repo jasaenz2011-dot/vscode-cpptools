@@ -1,2 +1,5 @@
 node_modules/
 projects/
+voices/*.onnx
+voices/*.onnx.json
+__pycache__/

@@ -145,6 +145,9 @@ input:focus, select:focus, textarea:focus, button:focus-visible {
   background: repeating-conic-gradient(#2a2638 0% 25%, #201d2b 0% 50%) 0 0 / 16px 16px;
 }
 .sfx-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sep { border: none; border-top: 1px solid var(--line); margin: 18px 0 10px; }
+.toolhead { margin: 0 0 4px; font-size: 15px; }
+#musicResult audio, #voiceResult audio { width: 100%; margin-top: 8px; }
 .chatlog { display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
 .msg { border-radius: 8px; padding: 8px 12px; font-size: 13.5px; white-space: pre-wrap; overflow-wrap: break-word; }
 .msg.user { background: var(--panel-2); align-self: flex-end; max-width: 90%; }

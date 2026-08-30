@@ -205,6 +205,105 @@ document.getElementById('sfxSave').onclick = async () => {
   }
 };
 
+// ---------- music (MusicGen + optional YouTube style reference) ----------
+
+// Renders a playable result with a filename box and a save button.
+// Used by both the music and voice tools.
+function showAudioResult(container, audioBase64, defaultName, loadHint) {
+  container.innerHTML = '';
+  const player = document.createElement('audio');
+  player.controls = true;
+  player.src = 'data:audio/wav;base64,' + audioBase64;
+  const row = document.createElement('div');
+  row.className = 'row';
+  const nameInput = document.createElement('input');
+  nameInput.placeholder = 'filename';
+  nameInput.maxLength = 30;
+  nameInput.value = defaultName;
+  const saveBtn = document.createElement('button');
+  saveBtn.textContent = 'Save to assets/';
+  const note = document.createElement('p');
+  note.className = 'hint';
+  saveBtn.onclick = async () => {
+    const name = nameInput.value.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '');
+    if (!name) { note.textContent = 'Type a filename first.'; return; }
+    try {
+      const saved = await jsonPost(`/api/projects/${projectId}/asset`, { filename: name + '.wav', dataBase64: audioBase64 });
+      note.textContent = `Saved as ${saved.path} — ${loadHint(name)}`;
+      loadFiles(currentFile);
+    } catch (e) {
+      note.textContent = '⚠ ' + e.message;
+    }
+  };
+  row.append(nameInput, saveBtn);
+  container.append(player, row, note);
+  player.play().catch(() => { /* some browsers require a click first */ });
+}
+
+document.getElementById('musicGen').onclick = async () => {
+  const btn = document.getElementById('musicGen');
+  const err = document.getElementById('musicError');
+  err.textContent = '';
+  btn.disabled = true;
+  btn.textContent = 'Generating… (can take a minute)';
+  try {
+    const { audioBase64, warning } = await jsonPost('/api/generate/music', {
+      prompt: document.getElementById('musicPrompt').value.trim(),
+      youtubeUrl: document.getElementById('musicRef').value.trim() || undefined,
+      duration: Number(document.getElementById('musicDuration').value)
+    });
+    if (warning) err.textContent = warning;
+    showAudioResult(document.getElementById('musicResult'), audioBase64, 'theme',
+      (name) => `loop it with: this.sound.play('${name}', { loop: true }) after this.load.audio('${name}', 'assets/${name}.wav')`);
+  } catch (e) {
+    err.textContent = e.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Generate music';
+  }
+};
+
+// ---------- voice acting (Piper) ----------
+
+async function loadVoices() {
+  const sel = document.getElementById('voiceSelect');
+  try {
+    const voices = await api('/api/voices');
+    sel.innerHTML = '';
+    if (!voices.length) {
+      sel.innerHTML = '<option value="">no voices installed (see README)</option>';
+      return;
+    }
+    voices.forEach((v) => {
+      const opt = document.createElement('option');
+      opt.value = v;
+      opt.textContent = v;
+      sel.appendChild(opt);
+    });
+  } catch { /* leave empty */ }
+}
+
+document.getElementById('voiceGen').onclick = async () => {
+  const btn = document.getElementById('voiceGen');
+  const err = document.getElementById('voiceError');
+  err.textContent = '';
+  btn.disabled = true;
+  btn.textContent = 'Generating…';
+  try {
+    const { audioBase64 } = await jsonPost('/api/generate/speech', {
+      text: document.getElementById('voiceText').value,
+      voice: document.getElementById('voiceSelect').value
+    });
+    showAudioResult(document.getElementById('voiceResult'), audioBase64, 'line1',
+      (name) => `play it with: this.sound.play('${name}') after this.load.audio('${name}', 'assets/${name}.wav')`);
+  } catch (e) {
+    err.textContent = e.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Generate voice';
+  }
+};
+
 // ---------- coding helper (Ollama) ----------
 
 const chatHistory = [];
@@ -257,3 +356,4 @@ async function sendChat() {
 // ---------- boot ----------
 
 loadFiles().then(runGame);
+loadVoices();

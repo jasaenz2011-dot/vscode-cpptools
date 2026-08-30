@@ -43,8 +43,10 @@ async function loadStatus() {
   try {
     const s = await api('/api/status');
     document.getElementById('status').innerHTML =
-      '<span class="badge ' + (s.sd ? 'on' : 'off') + '">Sprite AI (Stable Diffusion): ' + (s.sd ? 'online' : 'offline') + '</span> ' +
-      '<span class="badge ' + (s.ollama ? 'on' : 'off') + '">Helper AI (Ollama): ' + (s.ollama ? 'online' : 'offline') + '</span>';
+      '<span class="badge ' + (s.sd ? 'on' : 'off') + '">Sprite AI: ' + (s.sd ? 'online' : 'offline') + '</span> ' +
+      '<span class="badge ' + (s.ollama ? 'on' : 'off') + '">Helper AI: ' + (s.ollama ? 'online' : 'offline') + '</span> ' +
+      '<span class="badge ' + (s.music ? 'on' : 'off') + '">Music AI: ' + (s.music ? 'online' : 'offline') + '</span> ' +
+      '<span class="badge ' + (s.voices ? 'on' : 'off') + '">Voices: ' + (s.voices ? s.voices + ' installed' : 'none') + '</span>';
   } catch { /* non-fatal */ }
 }
 

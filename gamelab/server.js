@@ -9,7 +9,9 @@
 const express = require('express');
 const fs = require('fs');
 const fsp = fs.promises;
+const os = require('os');
 const path = require('path');
+const { spawn } = require('child_process');
 
 const CONFIG_PATH = path.join(__dirname, 'config.json');
 const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
@@ -79,7 +81,10 @@ const wrap = (fn) => (req, res) => fn(req, res).catch((e) => {
 // ---------- config / backend status ----------
 
 app.get('/api/status', wrap(async (req, res) => {
-  const status = { sd: false, ollama: false, sd_url: config.sd_url, ollama_url: config.ollama_url, ollama_model: config.ollama_model };
+  const status = {
+    sd: false, ollama: false, music: false, voices: 0,
+    sd_url: config.sd_url, ollama_url: config.ollama_url, ollama_model: config.ollama_model, music_url: config.music_url
+  };
   try {
     const r = await fetch(config.sd_url + '/sdapi/v1/options', { signal: AbortSignal.timeout(2500) });
     status.sd = r.ok;
@@ -88,6 +93,11 @@ app.get('/api/status', wrap(async (req, res) => {
     const r = await fetch(config.ollama_url + '/api/tags', { signal: AbortSignal.timeout(2500) });
     status.ollama = r.ok;
   } catch { /* backend offline */ }
+  try {
+    const r = await fetch(config.music_url + '/health', { signal: AbortSignal.timeout(2500) });
+    status.music = r.ok;
+  } catch { /* backend offline */ }
+  status.voices = listVoices().length;
   res.json(status);
 }));
 
@@ -193,6 +203,120 @@ app.post('/api/generate/sprite', wrap(async (req, res) => {
   const data = await r.json();
   if (!data.images || !data.images.length) throw httpError(502, 'Stable Diffusion returned no image.');
   res.json({ imageBase64: data.images[0] });
+}));
+
+// ---------- AI: music via MusicGen sidecar, with optional YouTube style reference ----------
+
+// Runs a command with stdin/timeout, collecting stdout. Used for yt-dlp and piper.
+function runCommand(cmd, args, { stdin = null, timeoutMs = 120000 } = {}) {
+  return new Promise((resolve, reject) => {
+    const child = spawn(cmd, args, { stdio: ['pipe', 'pipe', 'pipe'] });
+    let out = '', err = '';
+    const timer = setTimeout(() => { child.kill('SIGKILL'); reject(new Error(`${cmd} timed out`)); }, timeoutMs);
+    child.stdout.on('data', (d) => { out += d; });
+    child.stderr.on('data', (d) => { err += d; });
+    child.on('error', (e) => { clearTimeout(timer); reject(e); });
+    child.on('close', (code) => {
+      clearTimeout(timer);
+      if (code === 0) resolve(out);
+      else reject(new Error(`${cmd} failed: ${err.slice(-300)}`));
+    });
+    if (stdin !== null) child.stdin.write(stdin);
+    child.stdin.end();
+  });
+}
+
+const YOUTUBE_URL = /^https?:\/\/(www\.|m\.|music\.)?(youtube\.com|youtu\.be)\//;
+
+app.post('/api/generate/music', wrap(async (req, res) => {
+  const { prompt, youtubeUrl, duration = 20 } = req.body || {};
+  if (!prompt) throw httpError(400, 'Describe the music you want.');
+  const secs = Math.min(30, Math.max(5, Number(duration) || 20));
+
+  // Optional: pull ~25s of audio from a YouTube link as a style/melody
+  // reference. The clip only guides generation — it is never saved into
+  // the student's project.
+  let referenceBase64 = null;
+  let warning = null;
+  if (youtubeUrl) {
+    if (!YOUTUBE_URL.test(youtubeUrl)) throw httpError(400, 'The reference link must be a YouTube URL.');
+    const tmp = await fsp.mkdtemp(path.join(os.tmpdir(), 'gamelab-ref-'));
+    try {
+      await runCommand('yt-dlp', [
+        '--no-playlist', '-x', '--audio-format', 'wav',
+        '--download-sections', '*00:00:00-00:00:25',
+        '-o', path.join(tmp, 'ref.%(ext)s'), youtubeUrl
+      ], { timeoutMs: 120000 });
+      referenceBase64 = (await fsp.readFile(path.join(tmp, 'ref.wav'))).toString('base64');
+    } catch (e) {
+      warning = 'Could not fetch the YouTube reference (' + e.message.split('\n')[0] +
+        '). Generated from your text description only. Is yt-dlp installed on the server?';
+    } finally {
+      await fsp.rm(tmp, { recursive: true, force: true });
+    }
+  }
+
+  let r;
+  try {
+    r = await fetch(config.music_url + '/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, duration: secs, referenceBase64 }),
+      signal: AbortSignal.timeout(600000)
+    });
+  } catch {
+    throw httpError(503, `The music server is not reachable at ${config.music_url}. Start it with: python3 music_server.py (see README) or fix music_url in config.json.`);
+  }
+  if (!r.ok) {
+    const body = await r.text().catch(() => '');
+    throw httpError(502, `Music server error (${r.status}). ${body.slice(0, 200)}`);
+  }
+  const data = await r.json();
+  res.json({ audioBase64: data.audioBase64, warning });
+}));
+
+// ---------- AI: voice acting via Piper TTS ----------
+
+function voicesDir() {
+  return path.resolve(ROOT, config.piper_voices_dir || 'voices');
+}
+
+function listVoices() {
+  try {
+    return fs.readdirSync(voicesDir())
+      .filter((f) => f.endsWith('.onnx'))
+      .map((f) => f.replace(/\.onnx$/, ''))
+      .sort();
+  } catch {
+    return [];
+  }
+}
+
+app.get('/api/voices', wrap(async (req, res) => res.json(listVoices())));
+
+app.post('/api/generate/speech', wrap(async (req, res) => {
+  const { text, voice } = req.body || {};
+  if (!text || !text.trim()) throw httpError(400, 'Type the line you want spoken.');
+  if (text.length > 1000) throw httpError(400, 'Keep lines under 1000 characters.');
+  const voices = listVoices();
+  if (!voices.length) throw httpError(503, `No voices installed. Download Piper voice files (.onnx + .onnx.json) into the ${config.piper_voices_dir}/ folder (see README).`);
+  if (!voices.includes(voice)) throw httpError(400, 'Unknown voice. Pick one from the list.');
+
+  const outFile = path.join(os.tmpdir(), `gamelab-tts-${Date.now()}.wav`);
+  try {
+    await runCommand(config.piper_bin || 'piper', [
+      '--model', path.join(voicesDir(), voice + '.onnx'),
+      '--output_file', outFile
+    ], { stdin: text.trim(), timeoutMs: 120000 });
+    res.json({ audioBase64: (await fsp.readFile(outFile)).toString('base64') });
+  } catch (e) {
+    if (e.code === 'ENOENT') {
+      throw httpError(503, `Piper is not installed (command "${config.piper_bin}" not found). Install it with: pip install piper-tts (see README).`);
+    }
+    throw httpError(502, 'Voice generation failed: ' + e.message.split('\n')[0]);
+  } finally {
+    await fsp.rm(outFile, { force: true });
+  }
 }));
 
 // ---------- AI: coding helper via Ollama ----------
