@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GameLab</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧙</text></svg>">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="home">
+  <header>
+    <h1>🧙 GameLab</h1>
+    <p class="sub">Pick a starter game, make it yours: change the code, generate sprites and sounds with AI.</p>
+    <p id="status"></p>
+  </header>
+
+  <h2>1 · Choose a starter game</h2>
+  <div class="tpl-grid" id="templates"></div>
+
+  <h2>2 · Name your project</h2>
+  <div class="newproj">
+    <input id="projName" placeholder="e.g. marios-revenge" maxlength="40" autocomplete="off">
+    <button id="createBtn">Create project</button>
+  </div>
+  <p class="error" id="createError"></p>
+
+  <h2>Your projects</h2>
+  <ul class="proj-list" id="projects"></ul>
+</div>
+
+<script>
+let selectedTemplate = null;
+
+async function api(url, opts) {
+  const r = await fetch(url, opts);
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(data.error || ('Request failed: ' + r.status));
+  return data;
+}
+
+async function loadStatus() {
+  try {
+    const s = await api('/api/status');
+    document.getElementById('status').innerHTML =
+      '<span class="badge ' + (s.sd ? 'on' : 'off') + '">Sprite AI (Stable Diffusion): ' + (s.sd ? 'online' : 'offline') + '</span> ' +
+      '<span class="badge ' + (s.ollama ? 'on' : 'off') + '">Helper AI (Ollama): ' + (s.ollama ? 'online' : 'offline') + '</span>';
+  } catch { /* non-fatal */ }
+}
+
+async function loadTemplates() {
+  const tpls = await api('/api/templates');
+  const grid = document.getElementById('templates');
+  grid.innerHTML = '';
+  tpls.forEach((t, i) => {
+    const card = document.createElement('button');
+    card.className = 'tpl-card';
+    card.innerHTML = '<h3></h3><p></p>';
+    card.querySelector('h3').textContent = t.title;
+    card.querySelector('p').textContent = t.description;
+    card.onclick = () => {
+      selectedTemplate = t.id;
+      document.querySelectorAll('.tpl-card').forEach((c) => c.classList.remove('selected'));
+      card.classList.add('selected');
+    };
+    if (i === 0) card.click();
+    grid.appendChild(card);
+  });
+}
+
+async function loadProjects() {
+  const projects = await api('/api/projects');
+  const list = document.getElementById('projects');
+  list.innerHTML = projects.length ? '' : '<li><span class="hint">No projects yet — create one above.</span></li>';
+  projects.forEach((p) => {
+    const li = document.createElement('li');
+    const name = document.createElement('span');
+    name.textContent = p;
+    const open = document.createElement('a');
+    open.href = '/editor.html?project=' + encodeURIComponent(p);
+    open.textContent = 'Open →';
+    li.append(name, open);
+    list.appendChild(li);
+  });
+}
+
+document.getElementById('createBtn').onclick = async () => {
+  const name = document.getElementById('projName').value.trim().toLowerCase();
+  const err = document.getElementById('createError');
+  err.textContent = '';
+  try {
+    if (!selectedTemplate) throw new Error('Pick a starter game first.');
+    await api('/api/projects', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, template: selectedTemplate })
+    });
+    location.href = '/editor.html?project=' + encodeURIComponent(name);
+  } catch (e) {
+    err.textContent = e.message;
+  }
+};
+
+loadStatus();
+loadTemplates();
+loadProjects();
+</script>
+</body>
+</html>

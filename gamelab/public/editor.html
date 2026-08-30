@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GameLab Editor</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧙</text></svg>">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/vendor/codemirror/lib/codemirror.css">
+<link rel="stylesheet" href="/vendor/codemirror/theme/material-darker.css">
+</head>
+<body>
+<div class="editor-shell">
+  <div class="topbar">
+    <a href="/">← GameLab</a>
+    <span class="title" id="projTitle"></span>
+    <span class="spacer"></span>
+    <span class="hint" id="saveState"></span>
+    <button class="ghost" id="saveBtn">Save</button>
+    <button id="runBtn">▶ Run</button>
+  </div>
+
+  <div class="filepane" id="filePane"></div>
+
+  <div class="editpane">
+    <textarea id="code"></textarea>
+  </div>
+
+  <div class="sidepane">
+    <div class="preview"><iframe id="gameFrame" title="Game preview"></iframe></div>
+    <div class="tabs">
+      <button data-tab="sprites" class="active">🎨 Sprites</button>
+      <button data-tab="sounds">🔊 Sounds</button>
+      <button data-tab="helper">💬 Helper</button>
+    </div>
+
+    <div class="tabbody active" id="tab-sprites">
+      <label for="spriteStyle">What kind of sprite?</label>
+      <select id="spriteStyle">
+        <option value="character">Character (hero, NPC)</option>
+        <option value="enemy">Enemy / monster</option>
+        <option value="item">Item / pickup</option>
+        <option value="tile">Seamless tile / texture</option>
+        <option value="background">Background scene</option>
+      </select>
+      <label for="spritePrompt">Describe it</label>
+      <textarea id="spritePrompt" rows="2" placeholder="a knight with a blue cape and a sword"></textarea>
+      <div class="row">
+        <select id="spriteSize"><option value="512">512×512</option><option value="256">256×256</option></select>
+        <label style="display:inline;text-transform:none;letter-spacing:0"><input type="checkbox" id="spriteTransparent" checked> transparent background</label>
+        <button id="spriteGen">Generate</button>
+      </div>
+      <p class="error" id="spriteError"></p>
+      <div class="sprite-result" id="spriteResult"></div>
+    </div>
+
+    <div class="tabbody" id="tab-sounds">
+      <p class="hint">Retro sound synthesizer — no AI needed, instant results. Click a preset to hear a new random variation, then save the one you like.</p>
+      <div class="sfx-grid">
+        <button class="ghost sfx" data-sfx="jump">🐇 Jump</button>
+        <button class="ghost sfx" data-sfx="coin">🪙 Coin</button>
+        <button class="ghost sfx" data-sfx="laser">🔫 Laser</button>
+        <button class="ghost sfx" data-sfx="explosion">💥 Explosion</button>
+        <button class="ghost sfx" data-sfx="hit">🤕 Hit</button>
+        <button class="ghost sfx" data-sfx="powerup">⭐ Powerup</button>
+      </div>
+      <div class="row" id="sfxSaveRow" hidden>
+        <button class="ghost" id="sfxReplay">▶ Replay</button>
+        <input id="sfxName" placeholder="filename (e.g. jump1)" maxlength="30">
+        <button id="sfxSave">Save .wav</button>
+      </div>
+      <p class="error" id="sfxError"></p>
+      <p class="hint" id="sfxSaved"></p>
+    </div>
+
+    <div class="tabbody" id="tab-helper">
+      <div class="chatlog" id="chatLog">
+        <div class="msg ai">Hi! I'm your coding helper. Ask me how to change your game — for example: "how do I make the player jump higher?" I can see the file you have open.</div>
+      </div>
+      <textarea id="chatInput" rows="2" placeholder="Ask about your code…"></textarea>
+      <div class="row"><button id="chatSend">Send</button><span class="hint" id="chatBusy"></span></div>
+    </div>
+  </div>
+</div>
+
+<script src="/vendor/codemirror/lib/codemirror.js"></script>
+<script src="/vendor/codemirror/mode/javascript/javascript.js"></script>
+<script src="/vendor/codemirror/mode/xml/xml.js"></script>
+<script src="/vendor/codemirror/mode/css/css.js"></script>
+<script src="/vendor/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script src="/sfx.js"></script>
+<script src="/editor.js"></script>
+</body>
+</html>

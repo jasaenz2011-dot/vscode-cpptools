@@ -1,0 +1,14 @@
+{
+  "name": "gamelab",
+  "version": "0.1.0",
+  "description": "Self-hosted classroom game creation lab: Phaser starter games + open-source AI asset tools (Stable Diffusion, Ollama)",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "codemirror": "^5.65.16",
+    "express": "^4.19.2",
+    "phaser": "^3.80.1"
+  }
+}

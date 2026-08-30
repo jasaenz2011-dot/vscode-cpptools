@@ -1,0 +1,8 @@
+{
+  "port": 8420,
+  "sd_url": "http://127.0.0.1:7860",
+  "sd_steps": 20,
+  "sd_sampler": "Euler a",
+  "ollama_url": "http://127.0.0.1:11434",
+  "ollama_model": "qwen2.5-coder:7b"
+}
