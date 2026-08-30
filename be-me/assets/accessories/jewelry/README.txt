@@ -4,5 +4,7 @@ TARGET: 3 files
 
 Earrings, necklaces. Name by what it is, then number.
 
-Every file: transparent PNG on the SAME canvas size as everything else
-(recommended 512x768), character anchored in the identical spot.
+Every file: 512x768 transparent PNG, art anchored in the identical spot
+in every file. Body placement guide: body ~300px wide x ~620px tall,
+centered, feet near y=740, top of head around y=120 (headroom above is
+for hats/tall hair). Draw at 1024x1536 and scale down if you need room.

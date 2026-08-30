@@ -4,5 +4,5 @@ TARGET: 5 files
 
 Full-canvas portrait backdrops: gradient, bedroom, city, park, fantasy. These may be fully colored (no tinting).
 
-Every file: transparent PNG on the SAME canvas size as everything else
-(recommended 512x768), character anchored in the identical spot.
+Backgrounds paint the FULL 512x768 canvas edge to edge and may be
+fully opaque (no transparency needed).

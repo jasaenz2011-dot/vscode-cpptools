@@ -14,10 +14,18 @@ pattern and target count, and `CHECKLIST.md` tracks overall progress
 2. **Matching numbers pair up.** `hairback_03.png` + `hairfront_03.png` are
    the *same hairstyle*, split into behind-the-head and in-front-of-face
    halves.
-3. **Every file, same canvas.** Same dimensions — **512 × 768 recommended** —
-   transparent PNG, character anchored in the identical spot in every file.
-   An eyes file is mostly empty canvas with just the eyes where they belong.
-   That's correct; don't crop it.
+3. **Every file, same canvas: 512 × 768 px, transparent PNG.** Character
+   anchored in the identical spot in every file. An eyes file is mostly
+   empty canvas with just the eyes where they belong. That's correct;
+   don't crop it. Two exceptions: backgrounds paint the full canvas and
+   may be opaque, and `ui/` icons are 128 × 128 (they're not avatar layers).
+
+   **Body placement on the canvas:** body ~300 px wide × ~620 px tall,
+   centered horizontally, feet near y = 740, top of head around y = 120.
+   The empty ~120 px above the head is deliberate — hats, halos, and tall
+   hair need that room. Long back-hair and wings may spread toward the
+   canvas edges. If 512 × 768 feels cramped, draw at 1024 × 1536 and
+   export scaled down — never the reverse.
 4. **Tintables are grayscale.** Skin, hair, eyes, and most clothes get drawn
    once in white-to-gray shading; the game tints them into every color.
    One file = a full palette.

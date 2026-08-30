@@ -4,5 +4,5 @@ TARGET: 11 files
 
 Buttons and category icons for the creator screen. Use these exact names.
 
-Every file: transparent PNG on the SAME canvas size as everything else
-(recommended 512x768), character anchored in the identical spot.
+Exception to the shared canvas: UI icons are 128x128 transparent PNGs
+(they are buttons on the creator screen, not avatar layers).
