@@ -1,0 +1,57 @@
+{
+  "_comment": "Everything here is a PERCENTAGE, never pixels. Change a body type and every piece of art rescales to match it automatically.",
+
+  "canvas": { "width": 512, "height": 768 },
+
+  "_bodyTypes_comment": "Skeleton lines as a fraction of canvas height, and reference widths as a fraction of canvas width. Younger characters get proportionally BIGGER heads and shorter bodies — that is what actually makes a character read as a kid. Hair, eyes, and hats scale off headWidth, so they resize themselves when you switch body type.",
+  "bodyTypes": {
+    "adult": {
+      "headTop": 0.09, "headCenterY": 0.155, "eyeLine": 0.165, "noseLine": 0.195,
+      "mouthLine": 0.215, "chinY": 0.235, "shoulderY": 0.275, "hipY": 0.545,
+      "kneeY": 0.775, "feetY": 0.975, "headWidth": 0.20, "bodyWidth": 0.40
+    },
+    "teen": {
+      "headTop": 0.10, "headCenterY": 0.175, "eyeLine": 0.185, "noseLine": 0.215,
+      "mouthLine": 0.238, "chinY": 0.262, "shoulderY": 0.305, "hipY": 0.570,
+      "kneeY": 0.785, "feetY": 0.975, "headWidth": 0.225, "bodyWidth": 0.38
+    },
+    "kid": {
+      "headTop": 0.11, "headCenterY": 0.215, "eyeLine": 0.230, "noseLine": 0.272,
+      "mouthLine": 0.300, "chinY": 0.325, "shoulderY": 0.375, "hipY": 0.615,
+      "kneeY": 0.805, "feetY": 0.975, "headWidth": 0.29, "bodyWidth": 0.35
+    }
+  },
+
+  "_categories_comment": "relativeTo = which reference width this scales against (head or body). widthPct = multiplier of that width. anchorY = which skeleton line it attaches to. anchorMode = which edge of the art lands on that line (top / center / bottom).",
+  "categories": {
+    "body":                  { "fitHeight": ["headTop", "feetY"] },
+    "face/eyes":             { "relativeTo": "head", "widthPct": 0.78, "anchorY": "eyeLine",   "anchorMode": "center" },
+    "face/brows":            { "relativeTo": "head", "widthPct": 0.80, "anchorY": "eyeLine",   "anchorMode": "bottom" },
+    "face/noses":            { "relativeTo": "head", "widthPct": 0.22, "anchorY": "noseLine",  "anchorMode": "center" },
+    "face/mouths":           { "relativeTo": "head", "widthPct": 0.42, "anchorY": "mouthLine", "anchorMode": "center" },
+    "face/extras":           { "relativeTo": "head", "widthPct": 0.85, "anchorY": "noseLine",  "anchorMode": "center" },
+    "hair/back":             { "relativeTo": "head", "widthPct": 1.45, "anchorY": "headTop",   "anchorMode": "top" },
+    "hair/front":            { "relativeTo": "head", "widthPct": 1.12, "anchorY": "headTop",   "anchorMode": "top" },
+    "clothes/tops":          { "relativeTo": "body", "widthPct": 1.06, "anchorY": "shoulderY", "anchorMode": "top" },
+    "clothes/bottoms":       { "relativeTo": "body", "widthPct": 1.02, "anchorY": "hipY",      "anchorMode": "top" },
+    "clothes/outfits":       { "relativeTo": "body", "widthPct": 1.06, "anchorY": "shoulderY", "anchorMode": "top" },
+    "clothes/outerwear":     { "relativeTo": "body", "widthPct": 1.16, "anchorY": "shoulderY", "anchorMode": "top" },
+    "clothes/shoes":         { "relativeTo": "body", "widthPct": 0.92, "anchorY": "feetY",     "anchorMode": "bottom" },
+    "accessories/glasses":   { "relativeTo": "head", "widthPct": 0.92, "anchorY": "eyeLine",   "anchorMode": "center" },
+    "accessories/hats":      { "relativeTo": "head", "widthPct": 1.30, "anchorY": "headTop",   "anchorMode": "bottom" },
+    "accessories/jewelry":   { "relativeTo": "head", "widthPct": 1.00, "anchorY": "chinY",     "anchorMode": "top" },
+    "accessories/props":     { "relativeTo": "body", "widthPct": 0.55, "anchorY": "hipY",      "anchorMode": "center" },
+    "accessories/fantasy":   { "relativeTo": "body", "widthPct": 1.70, "anchorY": "shoulderY", "anchorMode": "center" },
+    "backgrounds":           { "fill": true },
+    "ui":                    { "iconSize": 128 }
+  },
+
+  "_layerOrder_comment": "Back to front. Used by preview.js to stack a full avatar.",
+  "layerOrder": [
+    "backgrounds", "hair/back", "accessories/fantasy", "body", "clothes/shoes",
+    "clothes/bottoms", "clothes/tops", "clothes/outfits", "clothes/outerwear",
+    "face/eyes", "face/brows", "face/noses", "face/mouths", "face/extras",
+    "hair/front", "accessories/hats", "accessories/glasses", "accessories/jewelry",
+    "accessories/props"
+  ]
+}

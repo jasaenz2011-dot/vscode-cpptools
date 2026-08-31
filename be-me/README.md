@@ -1,49 +1,88 @@
 # 🪞 Be Me — avatar creator art workspace
 
-Drop your finished art files into the folders under `assets/`. Each folder
-is one **layer** of the avatar; each numbered file in it is one **option**
-the player can pick. Every folder has a `README.txt` with its naming
-pattern and target count, and `CHECKLIST.md` tracks overall progress
-(run `node progress.js` to have it counted for you).
+## Draw at any size. The tools handle the rest.
 
-## The five rules
+You never have to match a pixel dimension, line anything up, or resize
+anything by hand. Draw each piece however you like — any canvas size, any
+crop, any amount of empty space around it — save it as a transparent PNG
+with any filename, and drop it in the matching `incoming/` folder.
 
-1. **Numbering is the ID.** Always two digits (`_01`, `_02` … never `_1`),
-   all lowercase, no spaces. The game discovers options by counting files —
-   adding art never means editing code.
-2. **Matching numbers pair up.** `hairback_03.png` + `hairfront_03.png` are
-   the *same hairstyle*, split into behind-the-head and in-front-of-face
-   halves.
-3. **Every file, same canvas: 512 × 768 px, transparent PNG.** Character
-   anchored in the identical spot in every file. An eyes file is mostly
-   empty canvas with just the eyes where they belong. That's correct;
-   don't crop it. Two exceptions: backgrounds paint the full canvas and
-   may be opaque, and `ui/` icons are 128 × 128 (they're not avatar layers).
+Then run one command:
 
-   **Body placement on the canvas:** body ~300 px wide × ~620 px tall,
-   centered horizontally, feet near y = 740, top of head around y = 120.
-   The empty ~120 px above the head is deliberate — hats, halos, and tall
-   hair need that room. Long back-hair and wings may spread toward the
-   canvas edges. If 512 × 768 feels cramped, draw at 1024 × 1536 and
-   export scaled down — never the reverse.
-4. **Tintables are grayscale.** Skin, hair, eyes, and most clothes get drawn
-   once in white-to-gray shading; the game tints them into every color.
-   One file = a full palette.
-5. **The folders are the to-do list.** Files in folder vs. the target in its
-   `README.txt` = what's done and what's left.
-
-## Layer order (back → front)
-
-```
-background → hair/back → fantasy (wings, tail) → body → shoes → bottoms
-→ tops → outerwear → face (eyes, brows, nose, mouth, extras) → hair/front
-→ hats → glasses → jewelry → props
+```bash
+node tools/normalize.js
 ```
 
-## Style consistency
+It trims the empty space, scales each piece to the right size, positions it
+on the shared canvas, numbers it the way the game expects, and writes it
+into `assets/`. Your filename becomes the label players see, so
+`blue hoodie.png` shows up in the game as "Blue Hoodie".
 
-Whether the art is hand-drawn or generated with GameLab's sprite tool, keep
-one look across everything: same outline thickness, same shading style, same
-level of detail. When generating, reuse the same style words in every prompt
-(e.g. "flat cartoon style, thick clean outline, front-facing, plain flat
-background") and only change the subject.
+**Never edit `assets/` by hand** — it's generated. Edit the art in
+`incoming/` and re-run the command.
+
+## Different ages, same artwork
+
+Every size in this system is a **percentage of the character**, never a
+pixel measurement. So you can re-render the exact same art at different
+proportions:
+
+```bash
+node tools/normalize.js --body adult
+node tools/normalize.js --body teen
+node tools/normalize.js --body kid
+```
+
+Younger body types get proportionally bigger heads and shorter bodies —
+which is what actually makes a character read as a child. Because hair,
+hats, eyes and glasses are all sized relative to the head, they resize
+themselves to match. You draw one hat; it fits every age.
+
+Proportions live in `tools/proportions.json`. If a kid's head should be
+bigger still, change one number there and re-run — every piece of art
+follows automatically.
+
+## Seeing your work
+
+```bash
+node tools/preview.js                      # stack a full avatar
+node tools/preview.js --guides             # show the skeleton lines
+node tools/preview.js --pick hair/front=3  # try a specific option
+node tools/preview.js --body kid --guides  # check the kid proportions
+```
+
+This writes `preview.png` so you can check proportions without opening the
+game.
+
+```bash
+node tools/progress.js                     # what's done, what's left
+```
+
+## Setup (once)
+
+```bash
+cd tools && npm install
+```
+
+## What to draw
+
+Each folder in `incoming/` has a `README.txt` saying what belongs there and
+how many to aim for. The full set is ~109 files; a playable starter is
+much smaller.
+
+**Fastest path to a testable avatar:** body → 2 hairstyles (a back and
+front half each) → eyes → mouths → 2 tops → 1 bottom → 1 background.
+That's one complete stack. Everything after that is adding options.
+
+## The few rules that still matter
+
+1. **Transparent PNG.** Backgrounds are the exception — those can be opaque.
+2. **One item per file.** Just the hat, just the eyes. Not a whole
+   character (except in `body/`).
+3. **Hair comes in two halves** — the part behind the head and the part in
+   front of the face. Give both files the **same filename** so they pair up.
+4. **Draw tintable things in grayscale** — skin, hair, eyes, most clothes.
+   White-to-gray shading. The game colors them, so one file covers every
+   color.
+5. **Keep one art style** — same outline weight, same shading approach
+   across everything. This is the one thing no script can fix for you.

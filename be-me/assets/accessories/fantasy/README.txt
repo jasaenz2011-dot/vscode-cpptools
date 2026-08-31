@@ -1,10 +1,6 @@
-FOLDER: assets/accessories/fantasy
-NAMING: wings_01.png, tail_01.png, halo_01.png, ears_01.png  (always two digits: _01, _02 … never _1)
-TARGET: 4 files
+GENERATED OUTPUT — accessories/fantasy
 
-Fantasy extras. Wings and tails render BEHIND the body.
-
-Every file: 512x768 transparent PNG, art anchored in the identical spot
-in every file. Body placement guide: body ~300px wide x ~620px tall,
-centered, feet near y=740, top of head around y=120 (headroom above is
-for hats/tall hair). Draw at 1024x1536 and scale down if you need room.
+Do not edit or add files here by hand. Everything in this folder is
+produced by tools/normalize.js from your artwork in incoming/.
+To change something, edit the source art in incoming/ and re-run:
+    node tools/normalize.js

@@ -1,8 +1,6 @@
-FOLDER: assets/backgrounds
-NAMING: bg_01.png …  (always two digits: _01, _02 … never _1)
-TARGET: 5 files
+GENERATED OUTPUT — backgrounds
 
-Full-canvas portrait backdrops: gradient, bedroom, city, park, fantasy. These may be fully colored (no tinting).
-
-Backgrounds paint the FULL 512x768 canvas edge to edge and may be
-fully opaque (no transparency needed).
+Do not edit or add files here by hand. Everything in this folder is
+produced by tools/normalize.js from your artwork in incoming/.
+To change something, edit the source art in incoming/ and re-run:
+    node tools/normalize.js
