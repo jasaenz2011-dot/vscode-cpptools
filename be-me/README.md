@@ -58,6 +58,20 @@ game.
 node tools/progress.js                     # what's done, what's left
 ```
 
+## Making new art that matches
+
+Don't guess at wording — have the prompt written for you:
+
+```bash
+node tools/prompt.js hair/front "curly afro"
+node tools/prompt.js clothes/tops "denim jacket" --fix   # to fix art you already have
+node tools/prompt.js --list                              # all categories
+```
+
+Paste the result into GameLab's Sprites tab or any AI image generator. Every
+prompt carries the same style block, which is what keeps a hundred separate
+images looking like one game. See `PROMPTS.md` for the full reference.
+
 ## Setup (once)
 
 ```bash
