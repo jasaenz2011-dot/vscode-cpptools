@@ -1,57 +1,53 @@
 {
-  "_comment": "Everything here is a PERCENTAGE, never pixels. Change a body type and every piece of art rescales to match it automatically.",
+  "_comment": "Sizes are PERCENTAGES of the character, never pixels. Built for 3D-rendered art where the body and outfit are rendered together as one piece, so clothing always fits the body it was rendered on.",
 
   "canvas": { "width": 512, "height": 768 },
 
-  "_bodyTypes_comment": "Skeleton lines as a fraction of canvas height, and reference widths as a fraction of canvas width. Younger characters get proportionally BIGGER heads and shorter bodies — that is what actually makes a character read as a kid. Hair, eyes, and hats scale off headWidth, so they resize themselves when you switch body type.",
+  "_bodyTypes_comment": "One entry per character build. Each needs its own body renders in incoming/bodies/<type>/. Younger and rounder builds get proportionally bigger heads and shorter legs — that is what makes a character read as a kid. Hair, faces, hats and glasses all size off headWidth, so they fit every build automatically from ONE set of art.",
   "bodyTypes": {
     "adult": {
-      "headTop": 0.09, "headCenterY": 0.155, "eyeLine": 0.165, "noseLine": 0.195,
-      "mouthLine": 0.215, "chinY": 0.235, "shoulderY": 0.275, "hipY": 0.545,
-      "kneeY": 0.775, "feetY": 0.975, "headWidth": 0.20, "bodyWidth": 0.40
+      "headTop": 0.075, "headCenterY": 0.140, "eyeLine": 0.150, "noseLine": 0.180,
+      "mouthLine": 0.200, "chinY": 0.220, "shoulderY": 0.265, "hipY": 0.530,
+      "feetY": 0.980, "headWidth": 0.195, "bodyWidth": 0.40
     },
     "teen": {
-      "headTop": 0.10, "headCenterY": 0.175, "eyeLine": 0.185, "noseLine": 0.215,
-      "mouthLine": 0.238, "chinY": 0.262, "shoulderY": 0.305, "hipY": 0.570,
-      "kneeY": 0.785, "feetY": 0.975, "headWidth": 0.225, "bodyWidth": 0.38
+      "headTop": 0.080, "headCenterY": 0.155, "eyeLine": 0.166, "noseLine": 0.198,
+      "mouthLine": 0.220, "chinY": 0.243, "shoulderY": 0.290, "hipY": 0.550,
+      "feetY": 0.980, "headWidth": 0.215, "bodyWidth": 0.39
     },
     "kid": {
-      "headTop": 0.11, "headCenterY": 0.215, "eyeLine": 0.230, "noseLine": 0.272,
-      "mouthLine": 0.300, "chinY": 0.325, "shoulderY": 0.375, "hipY": 0.615,
-      "kneeY": 0.805, "feetY": 0.975, "headWidth": 0.29, "bodyWidth": 0.35
+      "headTop": 0.085, "headCenterY": 0.190, "eyeLine": 0.205, "noseLine": 0.248,
+      "mouthLine": 0.275, "chinY": 0.300, "shoulderY": 0.350, "hipY": 0.590,
+      "feetY": 0.980, "headWidth": 0.275, "bodyWidth": 0.37
+    },
+    "kid-round": {
+      "headTop": 0.085, "headCenterY": 0.190, "eyeLine": 0.205, "noseLine": 0.248,
+      "mouthLine": 0.275, "chinY": 0.302, "shoulderY": 0.355, "hipY": 0.600,
+      "feetY": 0.980, "headWidth": 0.280, "bodyWidth": 0.46
     }
   },
 
-  "_categories_comment": "relativeTo = which reference width this scales against (head or body). widthPct = multiplier of that width. anchorY = which skeleton line it attaches to. anchorMode = which edge of the art lands on that line (top / center / bottom).",
+  "_categories_comment": "bodies is per-body-type art; everything else is drawn ONCE and re-fitted to each build. relativeTo = which width it scales against. widthPct = multiplier. anchorY = the skeleton line it hangs from. anchorMode = which edge of the art lands on that line.",
   "categories": {
-    "body":                  { "fitHeight": ["headTop", "feetY"] },
-    "face/eyes":             { "relativeTo": "head", "widthPct": 0.78, "anchorY": "eyeLine",   "anchorMode": "center" },
-    "face/brows":            { "relativeTo": "head", "widthPct": 0.80, "anchorY": "eyeLine",   "anchorMode": "bottom" },
-    "face/noses":            { "relativeTo": "head", "widthPct": 0.22, "anchorY": "noseLine",  "anchorMode": "center" },
-    "face/mouths":           { "relativeTo": "head", "widthPct": 0.42, "anchorY": "mouthLine", "anchorMode": "center" },
+    "bodies":                { "perBodyType": true, "fitHeight": ["headTop", "feetY"] },
+    "hair":                  { "relativeTo": "head", "widthPct": 1.16, "anchorY": "headTop",   "anchorMode": "top",    "offsetY": -0.10 },
+    "face/eyes":             { "relativeTo": "head", "widthPct": 0.74, "anchorY": "eyeLine",   "anchorMode": "center" },
+    "face/brows":            { "relativeTo": "head", "widthPct": 0.78, "anchorY": "eyeLine",   "anchorMode": "bottom" },
+    "face/noses":            { "relativeTo": "head", "widthPct": 0.20, "anchorY": "noseLine",  "anchorMode": "center" },
+    "face/mouths":           { "relativeTo": "head", "widthPct": 0.38, "anchorY": "mouthLine", "anchorMode": "center" },
     "face/extras":           { "relativeTo": "head", "widthPct": 0.85, "anchorY": "noseLine",  "anchorMode": "center" },
-    "hair/back":             { "relativeTo": "head", "widthPct": 1.45, "anchorY": "headTop",   "anchorMode": "top" },
-    "hair/front":            { "relativeTo": "head", "widthPct": 1.12, "anchorY": "headTop",   "anchorMode": "top" },
-    "clothes/tops":          { "relativeTo": "body", "widthPct": 1.06, "anchorY": "shoulderY", "anchorMode": "top" },
-    "clothes/bottoms":       { "relativeTo": "body", "widthPct": 1.02, "anchorY": "hipY",      "anchorMode": "top" },
-    "clothes/outfits":       { "relativeTo": "body", "widthPct": 1.06, "anchorY": "shoulderY", "anchorMode": "top" },
-    "clothes/outerwear":     { "relativeTo": "body", "widthPct": 1.16, "anchorY": "shoulderY", "anchorMode": "top" },
-    "clothes/shoes":         { "relativeTo": "body", "widthPct": 0.92, "anchorY": "feetY",     "anchorMode": "bottom" },
-    "accessories/glasses":   { "relativeTo": "head", "widthPct": 0.92, "anchorY": "eyeLine",   "anchorMode": "center" },
-    "accessories/hats":      { "relativeTo": "head", "widthPct": 1.30, "anchorY": "headTop",   "anchorMode": "bottom" },
+    "accessories/hats":      { "relativeTo": "head", "widthPct": 1.22, "anchorY": "eyeLine",   "anchorMode": "bottom", "offsetY": -0.05 },
+    "accessories/glasses":   { "relativeTo": "head", "widthPct": 0.90, "anchorY": "eyeLine",   "anchorMode": "center" },
     "accessories/jewelry":   { "relativeTo": "head", "widthPct": 1.00, "anchorY": "chinY",     "anchorMode": "top" },
     "accessories/props":     { "relativeTo": "body", "widthPct": 0.55, "anchorY": "hipY",      "anchorMode": "center" },
-    "accessories/fantasy":   { "relativeTo": "body", "widthPct": 1.70, "anchorY": "shoulderY", "anchorMode": "center" },
     "backgrounds":           { "fill": true },
     "ui":                    { "iconSize": 128 }
   },
 
-  "_layerOrder_comment": "Back to front. Used by preview.js to stack a full avatar.",
+  "_layerOrder_comment": "Back to front. Body and outfit are one piece, so nothing has to line up with anything it wasn't rendered on.",
   "layerOrder": [
-    "backgrounds", "hair/back", "accessories/fantasy", "body", "clothes/shoes",
-    "clothes/bottoms", "clothes/tops", "clothes/outfits", "clothes/outerwear",
+    "backgrounds", "bodies", "hair",
     "face/eyes", "face/brows", "face/noses", "face/mouths", "face/extras",
-    "hair/front", "accessories/hats", "accessories/glasses", "accessories/jewelry",
-    "accessories/props"
+    "accessories/hats", "accessories/glasses", "accessories/jewelry", "accessories/props"
   ]
 }

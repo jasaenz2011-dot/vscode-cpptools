@@ -1,17 +1,14 @@
 DRAW HERE — backgrounds
 ======================
 
-Full portrait backdrops. These may be fully colored and opaque.
+Portrait backdrops. These fill the whole canvas and can be fully opaque.
 
 TARGET: 5 files
 
-SIZE: whatever you want. Seriously — any dimensions, any crop, any
-amount of empty space around it. Just draw the item on a transparent
-background and save it as a .png with any filename you like
-("blue hoodie.png" is fine — the name becomes the label in the game).
+SIZE: any. Any dimensions, any crop, any empty space around it.
+Transparent background. Any filename — it becomes the label players see.
 
-Then from the be-me folder run:
-    node tools/normalize.js
+Get the prompt written for you:
+    node tools/prompt.js backgrounds "what you want"
 
-It trims, scales and positions everything onto the shared canvas for
-you and writes the result into assets/. Never edit assets/ by hand.
+Then run:  node tools/normalize.js

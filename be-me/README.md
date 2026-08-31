@@ -1,76 +1,86 @@
 # 🪞 Be Me — avatar creator art workspace
 
-## Draw at any size. The tools handle the rest.
+Built for **3D rendered** character art. The key idea: the body and its
+clothes are rendered **together as one piece**, so the clothing always fits
+the body it was made for. Hair, faces and accessories are made **once** and
+automatically re-fitted to every body build.
 
-You never have to match a pixel dimension, line anything up, or resize
-anything by hand. Draw each piece however you like — any canvas size, any
-crop, any amount of empty space around it — save it as a transparent PNG
-with any filename, and drop it in the matching `incoming/` folder.
+## You never size or place anything
 
-Then run one command:
+Render at any size, any crop, any amount of empty space, any filename.
+Drop it in the matching `incoming/` folder and run:
 
 ```bash
 node tools/normalize.js
 ```
 
-It trims the empty space, scales each piece to the right size, positions it
-on the shared canvas, numbers it the way the game expects, and writes it
-into `assets/`. Your filename becomes the label players see, so
-`blue hoodie.png` shows up in the game as "Blue Hoodie".
+It trims, scales, positions, numbers it, and writes it into
+`assets/<body type>/`. Your filename becomes the label players see, so
+`purple hoodie.png` shows up in the game as "Purple Hoodie".
 
-**Never edit `assets/` by hand** — it's generated. Edit the art in
-`incoming/` and re-run the command.
+**Never edit `assets/` by hand** — it's generated. Change the art in
+`incoming/` and re-run.
 
-## Different ages, same artwork
+## The layers
 
-Every size in this system is a **percentage of the character**, never a
-pixel measurement. So you can re-render the exact same art at different
-proportions:
+| Layer | Folder | What one file is |
+|---|---|---|
+| Backdrop | `incoming/backgrounds/` | a scene behind the character |
+| **Body + outfit** | `incoming/bodies/<build>/` | a whole dressed character: bald, blank face, arms down, head to feet |
+| Hair | `incoming/hair/` | a hairstyle, hollow where the head goes |
+| Face | `incoming/face/eyes|brows|noses|mouths|extras/` | one feature on its own |
+| Accessories | `incoming/accessories/hats|glasses|jewelry|props/` | one item on its own |
+
+Bodies are the main variety: each file is one skin tone + one outfit. Every
+other layer is shared across all body builds.
+
+## Body builds
+
+Four are defined — `adult`, `teen`, `kid`, `kid-round`. Each needs its own
+body renders in `incoming/bodies/<build>/`, because a chunky eight-year-old
+and a tall teenager are genuinely different renders.
+
+But you only make hair, faces and accessories **once**. Because every size
+is a percentage of the character (never pixels), the same hairstyle
+automatically fits a small round kid and a tall adult:
 
 ```bash
-node tools/normalize.js --body adult
-node tools/normalize.js --body teen
-node tools/normalize.js --body kid
+node tools/normalize.js              # fits shared art to every build
+node tools/normalize.js --body kid   # just one build
 ```
 
-Younger body types get proportionally bigger heads and shorter bodies —
-which is what actually makes a character read as a child. Because hair,
-hats, eyes and glasses are all sized relative to the head, they resize
-themselves to match. You draw one hat; it fits every age.
-
-Proportions live in `tools/proportions.json`. If a kid's head should be
-bigger still, change one number there and re-run — every piece of art
-follows automatically.
+Want a different build? Add it to `bodyTypes` in `tools/proportions.json`.
 
 ## Seeing your work
 
 ```bash
-node tools/preview.js                      # stack a full avatar
-node tools/preview.js --guides             # show the skeleton lines
-node tools/preview.js --pick hair/front=3  # try a specific option
-node tools/preview.js --body kid --guides  # check the kid proportions
+node tools/preview.js --body kid          # stack a full avatar
+node tools/preview.js --all               # every build side by side
+node tools/preview.js --guides            # show the skeleton lines
+node tools/preview.js --pick hair=3       # try a specific option
+node tools/progress.js                    # what's done, what's left
 ```
 
-This writes `preview.png` so you can check proportions without opening the
-game.
+## When something sits slightly wrong
 
-```bash
-node tools/progress.js                     # what's done, what's left
-```
+Hat too high? Hair too wide? That's one number in
+`tools/proportions.json`, then re-run — never a redraw.
+
+- `widthPct` — how wide the piece is, relative to the head or body
+- `offsetY` — nudge up (negative) or down, measured in head-heights so the
+  nudge stays right on every build
 
 ## Making new art that matches
 
-Don't guess at wording — have the prompt written for you:
-
 ```bash
-node tools/prompt.js hair/front "curly afro"
-node tools/prompt.js clothes/tops "denim jacket" --fix   # to fix art you already have
-node tools/prompt.js --list                              # all categories
+node tools/prompt.js bodies "medium brown skin, white tee, tan cargo shorts"
+node tools/prompt.js hair "short curly black hair"
+node tools/prompt.js accessories/hats "red cap" --fix   # fix art you already have
+node tools/prompt.js --list
 ```
 
-Paste the result into GameLab's Sprites tab or any AI image generator. Every
-prompt carries the same style block, which is what keeps a hundred separate
-images looking like one game. See `PROMPTS.md` for the full reference.
+Every prompt carries the same style block — that's what keeps a hundred
+renders looking like one game. Full reference in `PROMPTS.md`.
 
 ## Setup (once)
 
@@ -78,25 +88,13 @@ images looking like one game. See `PROMPTS.md` for the full reference.
 cd tools && npm install
 ```
 
-## What to draw
+## The rules that still matter
 
-Each folder in `incoming/` has a `README.txt` saying what belongs there and
-how many to aim for. The full set is ~109 files; a playable starter is
-much smaller.
-
-**Fastest path to a testable avatar:** body → 2 hairstyles (a back and
-front half each) → eyes → mouths → 2 tops → 1 bottom → 1 background.
-That's one complete stack. Everything after that is adding options.
-
-## The few rules that still matter
-
-1. **Transparent PNG.** Backgrounds are the exception — those can be opaque.
-2. **One item per file.** Just the hat, just the eyes. Not a whole
-   character (except in `body/`).
-3. **Hair comes in two halves** — the part behind the head and the part in
-   front of the face. Give both files the **same filename** so they pair up.
-4. **Draw tintable things in grayscale** — skin, hair, eyes, most clothes.
-   White-to-gray shading. The game colors them, so one file covers every
-   color.
-5. **Keep one art style** — same outline weight, same shading approach
-   across everything. This is the one thing no script can fix for you.
+1. **Transparent background.** If your generator can output transparency,
+   turn it on — it saves a cleanup step on every file.
+2. **One front view per file.** No turnaround sheets. Side and back views
+   aren't used.
+3. **Bodies are bald with blank faces.** Hair and features layer on top.
+4. **One item per file** for everything that isn't a body.
+5. **Keep one style** — same lighting, same rendering, same proportions.
+   This is the one thing no script can fix.

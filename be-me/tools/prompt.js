@@ -2,57 +2,55 @@
 /*
  * Be Me — prompt writer.
  *
- * Prints a ready-to-paste art prompt so every new piece comes out matching
- * the rest of the set. Paste the result into GameLab's Sprites tab or any
- * AI image generator.
+ * Prints a ready-to-paste art prompt so every new piece matches the rest of
+ * the set. Paste into your image generator of choice.
  *
- *   node tools/prompt.js hair/front "curly afro"
- *   node tools/prompt.js clothes/tops "denim jacket" --fix
+ *   node tools/prompt.js bodies "Lakers t-shirt and tan cargo shorts"
+ *   node tools/prompt.js hair "curly afro with white bows"
+ *   node tools/prompt.js accessories/hats "red baseball cap" --fix
  *   node tools/prompt.js --list
  */
 
 // ---------------------------------------------------------------------------
-// THE STYLE BLOCK. This same text goes into every prompt — that is what makes
-// all the artwork look like one set. Edit it once if you want a different
-// look for your whole game, then leave it alone.
+// THE STYLE BLOCK — goes into every prompt. This is what makes a hundred
+// separate renders look like one game. Edit once, then leave it alone.
 // ---------------------------------------------------------------------------
 const STYLE = '3D rendered character art, soft toy-like stylization with rounded '
   + 'friendly proportions, smooth matte skin, realistic fabric texture with visible '
   + 'weave and stitching, soft even studio lighting, gentle contact shadows only, '
-  + 'completely blank featureless face with no eyes no nose no mouth and no eyebrows, '
   + 'straight-on front view, upright and centered, high detail, clean product-shot '
   + 'presentation';
 
-const GRAYSCALE = 'drawn in grayscale only — white, grays and black, absolutely no '
-  + 'color, shading expressed purely as lighter and darker gray values';
+const BLANK_FACE = 'completely blank featureless face with no eyes, no nose, no mouth '
+  + 'and no eyebrows, smooth and empty';
 
-const NEGATIVE = 'photo, realistic, 3d render, gradient, texture, noise, grain, '
-  + 'sketchy lines, multiple views, character sheet, grid, collage, text, letters, '
-  + 'watermark, signature, cropped, cut off, drop shadow, ground shadow, busy '
-  + 'background, scenery';
+const NEGATIVE = 'photo of a real person, realistic human face, facial features, eyes, '
+  + 'mouth, nose, multiple views, character sheet, turnaround, grid, collage, side view, '
+  + 'back view, three-quarter view, text, letters, logo, watermark, signature, cropped, '
+  + 'cut off, scenery, furniture, props, busy background, dramatic lighting, harsh shadows';
 
-// subject = what to draw; item = what to say "only the ___ and nothing else"
 const CATEGORIES = {
-  'body': { subject: 'a full standing character body, head to feet, arms relaxed slightly away from the sides, neutral pose, blank featureless face', item: 'body', gray: true },
-  'face/eyes': { subject: 'a single pair of cartoon eyes, no face around them', item: 'pair of eyes', gray: true },
-  'face/brows': { subject: 'a single pair of eyebrows', item: 'pair of eyebrows', gray: true },
-  'face/noses': { subject: 'one simple cartoon nose', item: 'nose', gray: true },
-  'face/mouths': { subject: 'one cartoon mouth', item: 'mouth', gray: false },
-  'face/extras': { subject: 'one facial detail', item: 'facial detail', gray: false },
-  'hair/back': { subject: 'the rear section of a hairstyle only — the mass of hair that sits behind the head and shoulders, with a hollow empty gap where the face would be', item: 'back section of hair', gray: true },
-  'hair/front': { subject: 'the front section of a hairstyle only — the bangs and fringe that fall in front of the forehead', item: 'front section of hair', gray: true },
-  'clothes/tops': { subject: 'an empty garment shaped as if worn, with no body inside it', item: 'garment', gray: true },
-  'clothes/bottoms': { subject: 'empty trousers or skirt shaped as if worn, with no legs inside', item: 'garment', gray: true },
-  'clothes/outfits': { subject: 'a full one-piece outfit shaped as if worn, with no body inside', item: 'outfit', gray: true },
-  'clothes/shoes': { subject: 'one matching pair of shoes side by side, no feet or legs', item: 'pair of shoes', gray: false },
-  'clothes/outerwear': { subject: 'an open jacket or coat shaped as if worn, with no body inside', item: 'jacket', gray: true },
-  'accessories/glasses': { subject: 'one pair of eyeglasses, no face', item: 'eyeglasses', gray: false },
-  'accessories/hats': { subject: 'one hat seen from the front as if worn, with no head inside it', item: 'hat', gray: false },
-  'accessories/jewelry': { subject: 'one piece of jewelry, no body', item: 'jewelry', gray: false },
-  'accessories/props': { subject: 'one hand-held object', item: 'object', gray: false },
-  'accessories/fantasy': { subject: 'one fantasy accessory, symmetrical', item: 'accessory', gray: false },
-  'backgrounds': { subject: 'a simple portrait backdrop scene, empty of characters, tall vertical composition', item: 'background scene', gray: false, isBackground: true },
-  'ui': { subject: 'one simple flat interface icon, square, bold and readable at small size', item: 'icon', gray: false }
+  'bodies': {
+    subject: 'a full standing character from head to feet wearing an outfit, completely bald with no hair at all, ' + BLANK_FACE + ', arms relaxed straight down at the sides, standing upright facing forward, entire body and both feet visible',
+    item: 'character',
+    note: 'Body AND clothing render together — that is why the clothes fit. Say the skin tone and the whole outfit in one description. Save into incoming/bodies/<body type>/.'
+  },
+  'hair': {
+    subject: 'a hairstyle by itself, shaped as if it were being worn, with a hollow empty opening where the head and face would be',
+    item: 'hair',
+    note: 'The hardest one. If the generator insists on drawing a head, render it on a bald head and erase the head afterwards.'
+  },
+  'face/eyes': { subject: 'a single pair of stylized cartoon eyes floating by themselves, no face, no head, no skin around them', item: 'pair of eyes' },
+  'face/brows': { subject: 'a single pair of eyebrows by themselves, no face, no skin', item: 'pair of eyebrows' },
+  'face/noses': { subject: 'one simple stylized nose by itself, no face', item: 'nose' },
+  'face/mouths': { subject: 'one stylized cartoon mouth by itself, no face, no chin, no skin around it', item: 'mouth' },
+  'face/extras': { subject: 'one facial detail by itself, no face around it', item: 'facial detail' },
+  'accessories/hats': { subject: 'one hat seen straight from the front as if being worn, with a hollow empty space where the head would be', item: 'hat' },
+  'accessories/glasses': { subject: 'one pair of eyeglasses seen straight from the front, floating by themselves, no face', item: 'eyeglasses' },
+  'accessories/jewelry': { subject: 'one piece of jewelry by itself, no body, no neck, no ears', item: 'jewelry' },
+  'accessories/props': { subject: 'one hand-held object by itself, no hand, no character', item: 'object' },
+  'backgrounds': { subject: 'a simple portrait backdrop, empty of characters, tall vertical composition, soft and uncluttered so a character reads clearly in front of it', item: 'backdrop', isBackground: true },
+  'ui': { subject: 'one simple flat interface icon, square, bold and readable at small size', item: 'icon' }
 };
 
 const args = process.argv.slice(2);
@@ -64,8 +62,9 @@ if (args.includes('--list') || !positional.length) {
   console.log('  Categories:');
   Object.keys(CATEGORIES).forEach((c) => console.log('    ' + c));
   console.log('\n  Examples:');
-  console.log('    node tools/prompt.js hair/front "curly afro"');
-  console.log('    node tools/prompt.js clothes/tops "denim jacket" --fix\n');
+  console.log('    node tools/prompt.js bodies "medium brown skin, white tee, tan cargo shorts, white sneakers"');
+  console.log('    node tools/prompt.js hair "short curly black hair"');
+  console.log('    node tools/prompt.js accessories/hats "red baseball cap" --fix\n');
   process.exit(0);
 }
 
@@ -82,54 +81,60 @@ if (!description) {
   process.exit(1);
 }
 
-const line = '─'.repeat(70);
+const line = '─'.repeat(72);
+const slug = description.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 if (wantFix) {
   console.log(`\n${line}\n  FIX-EXISTING-ART PROMPT — ${category}: ${description}`);
   console.log('  Attach your image, then paste everything below.');
   console.log(`${line}\n`);
   console.log(`Rework this image so it matches an avatar-creator asset set. Keep the
-design, shapes and personality exactly as they are — change only what the
+design, colors and personality exactly as they are — change only what the
 rules below require.
 
 Apply each of these that isn't already true:
 1. ${STYLE}
-2. Remove the background completely — plain flat white, nothing behind the subject.
-3. Show ONLY the ${spec.item}. Delete any character, body parts, props, scenery,
-   shadow or ground it is sitting on.
-4. Face the viewer straight on, symmetrical and upright — no tilt, no
-   three-quarter angle, no perspective.${spec.gray ? `
-5. ${GRAYSCALE}` : ''}
-${spec.gray ? '6' : '5'}. Leave clear empty space around every edge; nothing touching or running
+2. Make the background fully transparent. No backdrop, no gradient, no
+   scenery, no ground, no cast shadow on any surface.
+3. Show ONLY the ${spec.item}. Remove everything else — any other
+   characters, body parts, props or objects that aren't part of it.
+4. Show ONE single front view. Delete any side views, back views,
+   three-quarter views or turnaround panels.
+5. Face straight forward, upright and level — no tilt, no rotation,
+   no perspective.${category === 'bodies' ? `
+6. The face must be completely blank — no eyes, nose, mouth or eyebrows.
+7. The head must be completely bald — no hair at all.` : ''}
+${category === 'bodies' ? '8' : '6'}. Leave clear empty space around every edge; nothing touching or running
    off the sides.
-${spec.gray ? '7' : '6'}. Remove any text, labels, watermarks, borders or frames.
+${category === 'bodies' ? '9' : '7'}. Remove any text, labels, brand logos, watermarks, borders or frames.
 
 If something in this list is already correct, leave it alone.`);
   console.log(`\n${line}\n`);
 } else {
-  const parts = [
-    `${spec.subject}, ${description}`,
-    STYLE
-  ];
-  if (spec.gray) parts.push(GRAYSCALE);
+  const parts = [`${spec.subject}, ${description}`, STYLE];
   if (spec.isBackground) {
     parts.push('fills the entire frame edge to edge', 'no characters, no people, no text, no watermark');
   } else {
     parts.push(
-      'isolated on a plain flat white background',
-      `only the ${spec.item} and nothing else, no character, no body parts, no shadow, no ground`,
-      'no text, no watermark, no border',
-      'full item visible with clear space around all edges'
+      'completely transparent background',
+      `only the ${spec.item} and nothing else`,
+      'one single front view only, no turnaround, no side or back views',
+      'no text, no logos, no watermark, no border',
+      'entire subject visible with clear empty space around all edges'
     );
   }
 
   console.log(`\n${line}\n  NEW ART PROMPT — ${category}: ${description}`);
   console.log(`${line}\n`);
   console.log(parts.join(', '));
-  console.log(`\n${line}\n  NEGATIVE PROMPT (paste in the negative field, if you have one)\n${line}\n`);
+  console.log(`\n${line}\n  NEGATIVE PROMPT (paste into the negative field if you have one)\n${line}\n`);
   console.log(NEGATIVE);
+  if (spec.note) console.log(`\n${line}\n  NOTE: ${spec.note}`);
   console.log(`\n${line}`);
-  console.log(`  Save the result into: incoming/${category}/${description.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.png`);
-  console.log('  Then run: node tools/normalize.js   (size and placement are handled for you)');
+  const dest = category === 'bodies'
+    ? `incoming/bodies/<body type>/${slug}.png`
+    : `incoming/${category}/${slug}.png`;
+  console.log(`  Save it to: ${dest}`);
+  console.log('  Then run:   node tools/normalize.js   (sizing and placement are automatic)');
   console.log(`${line}\n`);
 }

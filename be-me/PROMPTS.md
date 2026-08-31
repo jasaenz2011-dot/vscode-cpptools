@@ -107,43 +107,44 @@ It's more files, but they're generated files, not hand-drawn ones. And
 Drop these into the `[SUBJECT]` and `[ITEM TYPE]` slots. `tools/prompt.js`
 does it for you automatically.
 
-| Folder | Subject phrasing | Grayscale? |
-|---|---|---|
-| `body` | full standing character body, head to feet, arms relaxed slightly away from the sides, neutral pose, blank featureless face | yes |
-| `face/eyes` | a single pair of cartoon eyes, no face around them | yes |
-| `face/brows` | a single pair of eyebrows, nothing else | yes |
-| `face/noses` | one simple cartoon nose, nothing else | yes |
-| `face/mouths` | one cartoon mouth, nothing else | no |
-| `face/extras` | facial detail | no |
-| `hair/back` | the rear section of a hairstyle only — the mass that sits behind the head and shoulders, with a hollow gap where the face would be | yes |
-| `hair/front` | the front section of a hairstyle only — bangs and fringe that fall in front of the forehead | yes |
-| `clothes/tops` | an empty garment shaped as if worn, with no body inside it | yes |
-| `clothes/bottoms` | empty trousers or skirt shaped as if worn, with no legs inside | yes |
-| `clothes/outfits` | a full one-piece outfit shaped as if worn, with no body inside | yes |
-| `clothes/shoes` | one matching pair of shoes side by side, no feet or legs | no |
-| `clothes/outerwear` | an open jacket or coat shaped as if worn, with no body inside | yes |
-| `accessories/glasses` | one pair of eyeglasses, no face | no |
-| `accessories/hats` | one hat seen from the front as if worn, no head inside | no |
-| `accessories/jewelry` | one piece of jewelry, no body | no |
-| `accessories/props` | one hand-held object | no |
-| `accessories/fantasy` | one fantasy accessory, symmetrical | no |
-| `backgrounds` | a simple portrait backdrop scene, empty of characters, tall vertical composition | no |
-| `ui` | one simple flat interface icon, square, centered, bold and readable at small size | no |
+| Folder | What one file is |
+|---|---|
+| `bodies/<build>` | a whole dressed character — bald, blank face, arms down, head to feet. Skin tone AND outfit in one render, which is why the clothes fit. |
+| `hair` | a hairstyle by itself, hollow where the head goes |
+| `face/eyes` | a single pair of eyes, no face around them |
+| `face/brows` | a single pair of eyebrows |
+| `face/noses` | one nose (optional — blank faces often read better without) |
+| `face/mouths` | one mouth |
+| `face/extras` | freckles, blush, face paint |
+| `accessories/hats` | one hat, front view, hollow where the head goes |
+| `accessories/glasses` | one pair of glasses, front view, no face |
+| `accessories/jewelry` | earrings or a necklace |
+| `accessories/props` | one held or worn item — backpack, book, skateboard |
+| `backgrounds` | a portrait backdrop, no characters |
+| `ui` | one flat square interface icon |
 
 ---
 
 ## 6. Honest expectations
 
-Isolated-item generation is the hard part for image models. Some
-categories fight back:
-
-- **Hair halves** are the fussiest. Generators want to draw a whole head.
-  Often it's faster to generate the full hairstyle once, then erase the
-  front half for `hair/back` and the back half for `hair/front`.
-- **Empty clothes** sometimes come out with a ghost body inside. GameLab's
-  background remover handles the plain background, but a body inside the
-  shirt needs erasing by hand.
+- **Bodies are the easy part.** A whole dressed character is exactly what
+  image generators are good at. Ask for transparent background and a bald
+  head with a blank face, and you'll mostly get usable results first try.
+- **Hair is the fussiest.** Generators badly want to attach it to a head.
+  The reliable trick: render it on a bald head, then erase the head. Or
+  render the hairstyle over one of your own base bodies and cut it out.
+- **Turnaround sheets are wasted work.** If your generator keeps producing
+  front/side/back panels, add "one single front view only, no turnaround"
+  and put the rest in the negative prompt. Only the front view is used.
 - **Expect to reroll.** Two or three tries per item is normal. The style
-  block is what keeps the keepers consistent.
+  block is what keeps the keepers consistent with each other.
 
 You never have to worry about size or placement — that's `normalize.js`.
+
+## 7. A note on brand logos
+
+Real logos (team badges, sportswear marks) are trademarks. Fine for
+artwork that stays inside your own classroom; a real problem if the game
+is ever published, shared publicly, or distributed to other schools.
+Generic designs — a plain jersey, an unbranded sneaker — avoid the issue
+entirely and cost nothing to prompt for.

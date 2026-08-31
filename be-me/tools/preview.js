@@ -1,16 +1,13 @@
 #!/usr/bin/env node
 /*
  * Be Me — avatar preview.
+ * Stacks one option from each layer so you can SEE whether things line up,
+ * without running the game.
  *
- * Stacks one option from each layer into a finished avatar so you can SEE
- * whether your proportions look right, without opening the game.
- *
- * Usage:
- *   node preview.js                       # first option of every layer
- *   node preview.js --pick hair/front=3   # choose specific options
- *   node preview.js --guides              # draw the skeleton lines on top
- *   node preview.js --body kid            # show the kid skeleton guides
- *   node preview.js --out my-preview.png
+ *   node tools/preview.js --body kid
+ *   node tools/preview.js --body kid --pick hair=3 --pick face/eyes=2
+ *   node tools/preview.js --body kid --guides      # draw the skeleton lines
+ *   node tools/preview.js --all                    # every body type, side by side
  */
 const fs = require('fs');
 const path = require('path');
@@ -27,10 +24,9 @@ const getArg = (name, fallback) => {
   return i !== -1 && args[i + 1] ? args[i + 1] : fallback;
 };
 const showGuides = args.includes('--guides');
-const bodyType = getArg('body', 'adult');
+const showAll = args.includes('--all');
 const outPath = path.resolve(getArg('out', path.join(ROOT, 'preview.png')));
 
-// --pick can appear several times: --pick hair/front=3 --pick clothes/tops=2
 const picks = {};
 args.forEach((a, i) => {
   if (a === '--pick' && args[i + 1]) {
@@ -39,40 +35,55 @@ args.forEach((a, i) => {
   }
 });
 
-function optionsFor(category) {
-  const dir = path.join(ROOT, 'assets', category);
+function optionsFor(bodyType, category) {
+  const dir = path.join(ROOT, 'assets', bodyType, category);
   if (!fs.existsSync(dir)) return [];
   return fs.readdirSync(dir).filter((f) => f.endsWith('.png')).sort();
 }
 
-(async () => {
-  const canvas = new Jimp({ width: CW, height: CH, color: 0xffffffff });
+async function buildOne(bodyType) {
+  const canvas = new Jimp({ width: CW, height: CH, color: 0xf2f2f4ff });
   const used = [];
-
   for (const category of CONFIG.layerOrder) {
-    const options = optionsFor(category);
+    const options = optionsFor(bodyType, category);
     if (!options.length) continue;
-    const index = Math.min(options.length, Math.max(1, picks[category] || 1)) - 1;
-    const layer = await Jimp.read(path.join(ROOT, 'assets', category, options[index]));
-    canvas.composite(layer, 0, 0);
-    used.push(`${category} → ${options[index]}`);
+    const idx = Math.min(options.length, Math.max(1, picks[category] || 1)) - 1;
+    canvas.composite(await Jimp.read(path.join(ROOT, 'assets', bodyType, category, options[idx])), 0, 0);
+    used.push(`${category} → ${options[idx]}`);
   }
-
   if (showGuides) {
-    // Draw the skeleton lines so you can see what each piece is aligning to.
     const skeleton = CONFIG.bodyTypes[bodyType];
-    if (!skeleton) { console.error(`Unknown body type "${bodyType}"`); process.exit(1); }
     for (const [name, pct] of Object.entries(skeleton)) {
       if (name === 'headWidth' || name === 'bodyWidth') continue;
       const y = Math.round(pct * CH);
-      if (y < 0 || y >= CH) continue;
-      for (let x = 0; x < CW; x += 4) canvas.setPixelColor(0xff0080ff, x, y);
+      if (y >= 0 && y < CH) for (let x = 0; x < CW; x += 4) canvas.setPixelColor(0xff0080ff, x, y);
     }
   }
+  return { canvas, used };
+}
 
-  await canvas.write(outPath);
+(async () => {
+  const types = showAll
+    ? Object.keys(CONFIG.bodyTypes).filter((t) => optionsFor(t, 'bodies').length)
+    : [getArg('body', Object.keys(CONFIG.bodyTypes)[0])];
+
+  if (!types.length) {
+    console.log('\n  No normalized art yet — run: node tools/normalize.js\n');
+    return;
+  }
+
+  const built = [];
+  for (const t of types) built.push({ type: t, ...(await buildOne(t)) });
+
+  const sheet = new Jimp({ width: CW * built.length, height: CH, color: 0xf2f2f4ff });
+  built.forEach((b, i) => sheet.composite(b.canvas, CW * i, 0));
+  await sheet.write(outPath);
+
   console.log('\n  Preview written to ' + outPath + '\n');
-  used.forEach((u) => console.log('    ' + u));
-  if (!used.length) console.log('    (no assets yet — run normalize.js first)');
+  built.forEach((b) => {
+    console.log(`  ${b.type}:`);
+    b.used.forEach((u) => console.log('    ' + u));
+    if (!b.used.length) console.log('    (nothing normalized for this body type yet)');
+  });
   console.log('');
 })().catch((e) => { console.error(e); process.exit(1); });
