@@ -124,6 +124,12 @@ If something in this list is already correct, leave it alone.`);
     );
   }
 
+  // --raw prints just the prompt text, for piping into other files.
+  if (args.includes('--raw')) {
+    console.log(parts.join(', '));
+    process.exit(0);
+  }
+
   console.log(`\n${line}\n  NEW ART PROMPT — ${category}: ${description}`);
   console.log(`${line}\n`);
   console.log(parts.join(', '));
