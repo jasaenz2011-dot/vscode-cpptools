@@ -20,10 +20,12 @@ every piece, forever. It is what makes 100 separate images look like one
 game instead of a ransom note. Change it once at the start if you want a
 different look, then never touch it again.
 
-> flat vector cartoon style, bold clean uniform black outlines of even
-> thickness, simple two-tone cel shading, no gradients, no texture, no
-> painterly rendering, friendly modern character design, straight-on front
-> view, perfectly symmetrical, centered
+> 3D rendered character art, soft toy-like stylization with rounded
+> friendly proportions, smooth matte skin, realistic fabric texture with
+> visible weave and stitching, soft even studio lighting, gentle contact
+> shadows only, completely blank featureless face with no eyes no nose no
+> mouth and no eyebrows, straight-on front view, upright and centered,
+> high detail, clean product-shot presentation
 
 Two extra tricks for consistency:
 
@@ -81,16 +83,22 @@ If something in this list is already correct, leave it alone.
 
 ---
 
-## 4. Grayscale rule — for anything the game recolors
+## 4. Color: bake it, don't tint it
 
-Skin, hair, eyes, and most clothing are **tinted by the game**, so one
-grayscale file becomes every color. For those, add this line:
+Tinting a grayscale file works beautifully for flat cartoon art. It does
+**not** work well for 3D rendered art — real shading and fabric texture go
+muddy when you recolor them, and skin tone especially looks wrong.
 
-> drawn in grayscale only — white, grays and black, absolutely no color,
-> shading expressed purely as lighter and darker gray values
+So for this art style, generate real variants instead:
 
-Leave color in for: backgrounds, props, and any item you want to look
-exactly one specific way.
+- **Skin tones:** render the base body separately in each tone you want
+  (5–6 is a good range). Same prompt, same pose, one word changed.
+- **Clothing colors:** if a shirt should come in four colors, that's four
+  renders. Cheap to generate, and they'll actually look right.
+- **Hair colors:** same — render each color.
+
+It's more files, but they're generated files, not hand-drawn ones. And
+`normalize.js` doesn't care how many you have.
 
 ---
 

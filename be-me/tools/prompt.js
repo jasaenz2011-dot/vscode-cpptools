@@ -16,10 +16,12 @@
 // all the artwork look like one set. Edit it once if you want a different
 // look for your whole game, then leave it alone.
 // ---------------------------------------------------------------------------
-const STYLE = 'flat vector cartoon style, bold clean uniform black outlines of even '
-  + 'thickness, simple two-tone cel shading, no gradients, no texture, no painterly '
-  + 'rendering, friendly modern character design, straight-on front view, perfectly '
-  + 'symmetrical, centered';
+const STYLE = '3D rendered character art, soft toy-like stylization with rounded '
+  + 'friendly proportions, smooth matte skin, realistic fabric texture with visible '
+  + 'weave and stitching, soft even studio lighting, gentle contact shadows only, '
+  + 'completely blank featureless face with no eyes no nose no mouth and no eyebrows, '
+  + 'straight-on front view, upright and centered, high detail, clean product-shot '
+  + 'presentation';
 
 const GRAYSCALE = 'drawn in grayscale only — white, grays and black, absolutely no '
   + 'color, shading expressed purely as lighter and darker gray values';
