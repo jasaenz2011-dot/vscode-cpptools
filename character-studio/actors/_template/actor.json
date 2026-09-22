@@ -1,0 +1,141 @@
+{
+  "id": "template",
+  "name": "TEMPLATE",
+  "slug": "template",
+  "style": "photoreal",
+  "content_mode": "sfw",
+  "priority": "balanced",
+  "body_type": "custom",
+  "sex": "male",
+  "anatomy_lock": {
+    "genitals": "penis",
+    "forbid": [
+      "vagina",
+      "breasts as female",
+      "futanari unless explicitly requested"
+    ]
+  },
+  "face": {
+    "landmarks_notes": "",
+    "unique_traits": [],
+    "do_not_change": []
+  },
+  "body": {
+    "proportions": "",
+    "regions": {
+      "face": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "ears": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "neck": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "chest": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "belly": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "navel": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "back": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "arms": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "hands": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "nails": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "groin": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "penis": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "scrotum": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "ass": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "thighs": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "calves": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "feet": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "tattoos": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "scars": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      }
+    }
+  },
+  "refs": {
+    "master": [],
+    "face": [],
+    "body": [],
+    "detail": []
+  },
+  "consistency_rules": [],
+  "negative_prompt": "",
+  "positive_prompt_core": "",
+  "style_prompt": "",
+  "nsfw_prompt_additions": "",
+  "export": {
+    "comfy_prompt": "",
+    "image_gen_prompt": "",
+    "video_gen_prompt": "",
+    "3d_blocking_notes": ""
+  },
+  "locked": false
+}

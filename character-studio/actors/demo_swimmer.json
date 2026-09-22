@@ -1,0 +1,144 @@
+{
+  "id": "db8e7defb8b845fc81bd71c09d8cb0a1",
+  "name": "Demo Swimmer",
+  "slug": "demo_swimmer",
+  "style": "anime",
+  "content_mode": "sfw",
+  "priority": "body",
+  "body_type": "swimmer",
+  "sex": "male",
+  "anatomy_lock": {
+    "genitals": "penis",
+    "forbid": [
+      "vagina",
+      "breasts as female",
+      "futanari unless explicitly requested"
+    ]
+  },
+  "face": {
+    "landmarks_notes": "wide-set almond eyes, roughly one eye-width apart; short straight nose; jaw tapers to a soft point; hairline sits high with a left-side part",
+    "unique_traits": [
+      "small mole under the left eye",
+      "single silver stud in the right earlobe"
+    ],
+    "do_not_change": []
+  },
+  "body": {
+    "proportions": "athletic adult male swimmer build, broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat",
+    "regions": {
+      "face": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "ears": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "neck": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "chest": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "belly": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "navel": {
+        "enabled": false,
+        "notes": "vertical oval navel, shallow",
+        "ref_files": []
+      },
+      "back": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "arms": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "hands": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "nails": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "groin": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "penis": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "scrotum": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "ass": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "thighs": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "calves": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "feet": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "tattoos": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "scars": {
+        "enabled": false,
+        "notes": "thin 3 cm surfing scar on the right shin",
+        "ref_files": []
+      }
+    }
+  },
+  "refs": {
+    "master": [],
+    "face": [],
+    "body": [],
+    "detail": []
+  },
+  "consistency_rules": [],
+  "negative_prompt": "",
+  "positive_prompt_core": "",
+  "style_prompt": "",
+  "nsfw_prompt_additions": "",
+  "export": {
+    "comfy_prompt": "",
+    "image_gen_prompt": "",
+    "video_gen_prompt": "",
+    "3d_blocking_notes": ""
+  },
+  "locked": false
+}

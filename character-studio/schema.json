@@ -1,0 +1,219 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Character Studio Actor Spec",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "slug",
+    "style",
+    "content_mode",
+    "priority",
+    "body_type",
+    "sex",
+    "anatomy_lock",
+    "face",
+    "body",
+    "refs",
+    "consistency_rules",
+    "negative_prompt",
+    "positive_prompt_core",
+    "style_prompt",
+    "nsfw_prompt_additions",
+    "export",
+    "locked"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+$"
+    },
+    "style": {
+      "enum": [
+        "photoreal",
+        "anime"
+      ]
+    },
+    "content_mode": {
+      "enum": [
+        "sfw",
+        "nsfw_local"
+      ]
+    },
+    "priority": {
+      "enum": [
+        "face",
+        "body",
+        "balanced"
+      ]
+    },
+    "body_type": {
+      "enum": [
+        "twink",
+        "swimmer",
+        "bear",
+        "custom"
+      ]
+    },
+    "sex": {
+      "const": "male"
+    },
+    "anatomy_lock": {
+      "type": "object",
+      "required": [
+        "genitals",
+        "forbid"
+      ],
+      "properties": {
+        "genitals": {
+          "const": "penis"
+        },
+        "forbid": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "face": {
+      "type": "object",
+      "required": [
+        "landmarks_notes",
+        "unique_traits",
+        "do_not_change"
+      ],
+      "properties": {
+        "landmarks_notes": {
+          "type": "string"
+        },
+        "unique_traits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "do_not_change": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "body": {
+      "type": "object",
+      "required": [
+        "proportions",
+        "regions"
+      ],
+      "properties": {
+        "proportions": {
+          "type": "string"
+        },
+        "regions": {
+          "type": "object",
+          "propertyNames": {
+            "enum": [
+              "face",
+              "ears",
+              "neck",
+              "chest",
+              "belly",
+              "navel",
+              "back",
+              "arms",
+              "hands",
+              "nails",
+              "groin",
+              "penis",
+              "scrotum",
+              "ass",
+              "thighs",
+              "calves",
+              "feet",
+              "tattoos",
+              "scars"
+            ]
+          },
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "enabled",
+              "notes",
+              "ref_files"
+            ],
+            "properties": {
+              "enabled": {
+                "type": "boolean"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "ref_files": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "refs": {
+      "type": "object",
+      "required": [
+        "master",
+        "face",
+        "body",
+        "detail"
+      ],
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "consistency_rules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "negative_prompt": {
+      "type": "string"
+    },
+    "positive_prompt_core": {
+      "type": "string"
+    },
+    "style_prompt": {
+      "type": "string"
+    },
+    "nsfw_prompt_additions": {
+      "type": "string"
+    },
+    "export": {
+      "type": "object",
+      "required": [
+        "comfy_prompt",
+        "image_gen_prompt",
+        "video_gen_prompt",
+        "3d_blocking_notes"
+      ],
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "locked": {
+      "type": "boolean"
+    }
+  }
+}
