@@ -1,0 +1,149 @@
+{
+  "id": "f4fe34bdea8a401586239f5e5fe2959a",
+  "name": "Demo Swimmer",
+  "slug": "demo-swimmer",
+  "style": "anime",
+  "content_mode": "sfw",
+  "priority": "body",
+  "body_type": "swimmer",
+  "sex": "male",
+  "anatomy_lock": {
+    "genitals": "penis",
+    "forbid": [
+      "vagina",
+      "breasts as female",
+      "futanari unless explicitly requested"
+    ]
+  },
+  "face": {
+    "landmarks_notes": "",
+    "unique_traits": [],
+    "do_not_change": []
+  },
+  "body": {
+    "proportions": "athletic adult male swimmer build, broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat",
+    "regions": {
+      "face": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "ears": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "neck": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "chest": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "belly": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "navel": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "back": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "arms": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "hands": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "nails": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "groin": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "penis": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "scrotum": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "ass": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "thighs": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "calves": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "feet": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "tattoos": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "scars": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      }
+    }
+  },
+  "refs": {
+    "master": [],
+    "face": [],
+    "body": [],
+    "detail": []
+  },
+  "consistency_rules": [
+    "sex is male; genitals are a penis; never render female genitals",
+    "never render breasts as female breasts",
+    "no futanari or hermaphrodite variants unless explicitly requested",
+    "only depict regions backed by reference files; do not invent anatomy that has no reference",
+    "body is immutable: proportions, scars, tattoos, navel, and nails must match the body references exactly in every generation",
+    "face may simplify at distance but must keep its unique traits",
+    "keep eye shape, hair, colors, proportions, and shading style identical across generations"
+  ],
+  "negative_prompt": "vagina, pussy, breasts, feminine body, futanari, hermaphrodite, deformed hands, extra fingers, extra limbs, off-model face, inconsistent eye shape, photorealistic rendering, 3d render, watermark, text, nudity, explicit content",
+  "positive_prompt_core": "solo adult male, Demo Swimmer, athletic adult male swimmer build, broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, exact same eye shape, hair, colors, and proportions as the reference art, identity matches the provided reference images exactly",
+  "style_prompt": "anime style, clean line art, flat cel shading with soft rim light, consistent character design, on-model in every frame",
+  "nsfw_prompt_additions": "",
+  "export": {
+    "comfy_prompt": "solo adult male, Demo Swimmer, athletic adult male swimmer build, broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, exact same eye shape, hair, colors, and proportions as the reference art, identity matches the provided reference images exactly, anime style, clean line art, flat cel shading with soft rim light, consistent character design, on-model in every frame",
+    "image_gen_prompt": "solo adult male, Demo Swimmer, athletic adult male swimmer build, broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, exact same eye shape, hair, colors, and proportions as the reference art, identity matches the provided reference images exactly, anime style, clean line art, flat cel shading with soft rim light, consistent character design, on-model in every frame",
+    "video_gen_prompt": "solo adult male, Demo Swimmer, athletic adult male swimmer build, broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, exact same eye shape, hair, colors, and proportions as the reference art, identity matches the provided reference images exactly, anime style, clean line art, flat cel shading with soft rim light, consistent character design, on-model in every frame, stable identity in every frame, no morphing between frames, same face and body markings across all shots and camera angles",
+    "3d_blocking_notes": "character: Demo Swimmer (demo-swimmer)\nsex: male; genitals: penis (locked)\nbody type: swimmer — athletic adult male swimmer build, broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat\npriority: body\nregions with references: none\nblock the silhouette from master refs first, then refine regions that have references; leave unreferenced regions generic"
+  },
+  "locked": true
+}

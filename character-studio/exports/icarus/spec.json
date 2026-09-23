@@ -1,0 +1,293 @@
+{
+  "id": "b4782138bf1e442491599f4169777441",
+  "name": "Icarus",
+  "slug": "icarus",
+  "style": "photoreal",
+  "content_mode": "sfw",
+  "priority": "balanced",
+  "body_type": "swimmer",
+  "sex": "male",
+  "anatomy_lock": {
+    "genitals": "penis",
+    "forbid": [
+      "vagina",
+      "breasts as female",
+      "futanari unless explicitly requested"
+    ]
+  },
+  "face": {
+    "landmarks_notes": "warm brown eyes set roughly one eye-width apart under straight dark brows; short straight nose; full lips; strong square jaw with light stubble; medium-length dark brown wavy hair, tousled and falling over the forehead; face reads confident and open",
+    "unique_traits": [
+      "messy dark brown wavy hair falling over the forehead",
+      "warm brown eyes",
+      "light stubble along the jaw",
+      "sun-bronzed skin tone"
+    ],
+    "do_not_change": [
+      "messy dark brown wavy hair falling over the forehead",
+      "warm brown eyes",
+      "light stubble along the jaw",
+      "sun-bronzed skin tone"
+    ]
+  },
+  "body": {
+    "proportions": "athletic adult male swimmer build, 22 years old, 6'1\" (185 cm), 195 lb (88 kg), broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, sun-bronzed skin with a light sheen",
+    "regions": {
+      "face": {
+        "enabled": true,
+        "notes": "",
+        "ref_files": [
+          "face/icarus-headshots-expressions-face-ears-neck.png",
+          "body/icarus-crouch-rear-face-back-ass-thighs-calves-feet.png",
+          "body/icarus-three-view-speedo-face-chest-belly-thighs-calves-feet.png",
+          "master/icarus-hero-temple-face-chest-belly-navel-arms-hands-thighs-calves-feet.jpg",
+          "master/icarus-side-profile-face-ears-neck-chest-arms-calves-feet.png",
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png",
+          "master/icarus-turnaround-harness-face-neck-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "master/icarus-turnaround-low-angle-face-chest-belly-back-ass-thighs-calves-feet.png",
+          "face/icarus-character-sheet-headshots-ears-neck.png"
+        ]
+      },
+      "ears": {
+        "enabled": true,
+        "notes": "proportionate ears, partially covered by wavy hair, single visible in profile headshots",
+        "ref_files": [
+          "face/icarus-character-sheet-headshots-ears-neck.png",
+          "face/icarus-headshots-expressions-face-ears-neck.png",
+          "master/icarus-side-profile-face-ears-neck-chest-arms-calves-feet.png"
+        ]
+      },
+      "neck": {
+        "enabled": true,
+        "notes": "strong smooth neck, wider at the trapezius",
+        "ref_files": [
+          "face/icarus-character-sheet-headshots-ears-neck.png",
+          "face/icarus-headshots-expressions-face-ears-neck.png",
+          "master/icarus-side-profile-face-ears-neck-chest-arms-calves-feet.png",
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png",
+          "master/icarus-turnaround-harness-face-neck-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png"
+        ]
+      },
+      "chest": {
+        "enabled": true,
+        "notes": "broad defined pecs; light natural chest hair in the photoreal harness turnaround, smooth in stylized sheets — for photoreal renders keep light chest hair",
+        "ref_files": [
+          "body/icarus-flex-arms-chest-belly-thighs-calves.png",
+          "body/icarus-pose-sheet-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "body/icarus-three-view-speedo-face-chest-belly-thighs-calves-feet.png",
+          "master/icarus-hero-temple-face-chest-belly-navel-arms-hands-thighs-calves-feet.jpg",
+          "master/icarus-outfit-variations-chest-belly-arms-thighs.png",
+          "master/icarus-side-profile-face-ears-neck-chest-arms-calves-feet.png",
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png",
+          "master/icarus-turnaround-harness-face-neck-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "master/icarus-turnaround-low-angle-face-chest-belly-back-ass-thighs-calves-feet.png"
+        ]
+      },
+      "belly": {
+        "enabled": true,
+        "notes": "defined eight-pack abs, thin dark hair trail below the navel, light lower-belly hair in photoreal refs",
+        "ref_files": [
+          "body/icarus-flex-arms-chest-belly-thighs-calves.png",
+          "body/icarus-pose-sheet-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "body/icarus-three-view-speedo-face-chest-belly-thighs-calves-feet.png",
+          "master/icarus-hero-temple-face-chest-belly-navel-arms-hands-thighs-calves-feet.jpg",
+          "master/icarus-outfit-variations-chest-belly-arms-thighs.png",
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png",
+          "master/icarus-turnaround-harness-face-neck-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "master/icarus-turnaround-low-angle-face-chest-belly-back-ass-thighs-calves-feet.png"
+        ]
+      },
+      "navel": {
+        "enabled": true,
+        "notes": "vertical oval navel, shallow",
+        "ref_files": [
+          "body/icarus-pose-sheet-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "master/icarus-hero-temple-face-chest-belly-navel-arms-hands-thighs-calves-feet.jpg",
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png",
+          "master/icarus-turnaround-harness-face-neck-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png"
+        ]
+      },
+      "back": {
+        "enabled": true,
+        "notes": "broad V-taper back, defined lats, traps, and spinal groove; multiple dedicated rear references",
+        "ref_files": [
+          "body/icarus-crouch-rear-face-back-ass-thighs-calves-feet.png",
+          "body/icarus-kneel-rear-back-ass-arms-thighs-calves-feet.png",
+          "body/icarus-pose-sheet-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "body/icarus-squat-rear-back-ass-thighs-calves-feet.png",
+          "body/icarus-walk-cycle-back-ass-arms-thighs-calves-feet.jpg",
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png",
+          "master/icarus-turnaround-harness-face-neck-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "master/icarus-turnaround-low-angle-face-chest-belly-back-ass-thighs-calves-feet.png"
+        ]
+      },
+      "arms": {
+        "enabled": true,
+        "notes": "muscular arms, defined biceps and forearms, visible veins on forearms",
+        "ref_files": [
+          "body/icarus-flex-arms-chest-belly-thighs-calves.png",
+          "body/icarus-kneel-rear-back-ass-arms-thighs-calves-feet.png",
+          "body/icarus-pose-sheet-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "body/icarus-walk-cycle-back-ass-arms-thighs-calves-feet.jpg",
+          "master/icarus-hero-temple-face-chest-belly-navel-arms-hands-thighs-calves-feet.jpg",
+          "master/icarus-outfit-variations-chest-belly-arms-thighs.png",
+          "master/icarus-side-profile-face-ears-neck-chest-arms-calves-feet.png",
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png",
+          "master/icarus-turnaround-harness-face-neck-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png"
+        ]
+      },
+      "hands": {
+        "enabled": true,
+        "notes": "large proportionate hands, short nails",
+        "ref_files": [
+          "body/icarus-pose-sheet-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "master/icarus-hero-temple-face-chest-belly-navel-arms-hands-thighs-calves-feet.jpg",
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png",
+          "master/icarus-turnaround-harness-face-neck-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png"
+        ]
+      },
+      "nails": {
+        "enabled": true,
+        "notes": "short clean nails",
+        "ref_files": [
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png"
+        ]
+      },
+      "groin": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "penis": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "scrotum": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "ass": {
+        "enabled": true,
+        "notes": "round muscular glutes; bare in the squat-rear and thong turnaround references, briefs in others",
+        "ref_files": [
+          "body/icarus-crouch-rear-face-back-ass-thighs-calves-feet.png",
+          "body/icarus-kneel-rear-back-ass-arms-thighs-calves-feet.png",
+          "body/icarus-pose-sheet-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "body/icarus-squat-rear-back-ass-thighs-calves-feet.png",
+          "body/icarus-walk-cycle-back-ass-arms-thighs-calves-feet.jpg",
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png",
+          "master/icarus-turnaround-harness-face-neck-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "master/icarus-turnaround-low-angle-face-chest-belly-back-ass-thighs-calves-feet.png"
+        ]
+      },
+      "thighs": {
+        "enabled": true,
+        "notes": "thick defined quads, light natural leg hair in photoreal refs",
+        "ref_files": [
+          "body/icarus-crouch-rear-face-back-ass-thighs-calves-feet.png",
+          "body/icarus-flex-arms-chest-belly-thighs-calves.png",
+          "body/icarus-kneel-rear-back-ass-arms-thighs-calves-feet.png",
+          "body/icarus-pose-sheet-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "body/icarus-squat-rear-back-ass-thighs-calves-feet.png",
+          "body/icarus-three-view-speedo-face-chest-belly-thighs-calves-feet.png",
+          "body/icarus-walk-cycle-back-ass-arms-thighs-calves-feet.jpg",
+          "master/icarus-hero-temple-face-chest-belly-navel-arms-hands-thighs-calves-feet.jpg",
+          "master/icarus-outfit-variations-chest-belly-arms-thighs.png",
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png",
+          "master/icarus-turnaround-harness-face-neck-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "master/icarus-turnaround-low-angle-face-chest-belly-back-ass-thighs-calves-feet.png"
+        ]
+      },
+      "calves": {
+        "enabled": true,
+        "notes": "defined diamond-shaped calves, light natural leg hair in photoreal refs",
+        "ref_files": [
+          "body/icarus-crouch-rear-face-back-ass-thighs-calves-feet.png",
+          "body/icarus-flex-arms-chest-belly-thighs-calves.png",
+          "body/icarus-kneel-rear-back-ass-arms-thighs-calves-feet.png",
+          "body/icarus-pose-sheet-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "body/icarus-squat-rear-back-ass-thighs-calves-feet.png",
+          "body/icarus-three-view-speedo-face-chest-belly-thighs-calves-feet.png",
+          "body/icarus-walk-cycle-back-ass-arms-thighs-calves-feet.jpg",
+          "master/icarus-hero-temple-face-chest-belly-navel-arms-hands-thighs-calves-feet.jpg",
+          "master/icarus-side-profile-face-ears-neck-chest-arms-calves-feet.png",
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png",
+          "master/icarus-turnaround-harness-face-neck-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "master/icarus-turnaround-low-angle-face-chest-belly-back-ass-thighs-calves-feet.png"
+        ]
+      },
+      "feet": {
+        "enabled": true,
+        "notes": "proportionate feet; barefoot in pose sheets and walk cycle, gladiator sandals elsewhere",
+        "ref_files": [
+          "body/icarus-crouch-rear-face-back-ass-thighs-calves-feet.png",
+          "body/icarus-kneel-rear-back-ass-arms-thighs-calves-feet.png",
+          "body/icarus-pose-sheet-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "body/icarus-squat-rear-back-ass-thighs-calves-feet.png",
+          "body/icarus-three-view-speedo-face-chest-belly-thighs-calves-feet.png",
+          "body/icarus-walk-cycle-back-ass-arms-thighs-calves-feet.jpg",
+          "master/icarus-hero-temple-face-chest-belly-navel-arms-hands-thighs-calves-feet.jpg",
+          "master/icarus-side-profile-face-ears-neck-chest-arms-calves-feet.png",
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png",
+          "master/icarus-turnaround-harness-face-neck-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+          "master/icarus-turnaround-low-angle-face-chest-belly-back-ass-thighs-calves-feet.png"
+        ]
+      },
+      "tattoos": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      },
+      "scars": {
+        "enabled": false,
+        "notes": "",
+        "ref_files": []
+      }
+    }
+  },
+  "refs": {
+    "master": [
+      "master/icarus-hero-temple-face-chest-belly-navel-arms-hands-thighs-calves-feet.jpg",
+      "master/icarus-outfit-variations-chest-belly-arms-thighs.png",
+      "master/icarus-side-profile-face-ears-neck-chest-arms-calves-feet.png",
+      "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png",
+      "master/icarus-turnaround-harness-face-neck-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+      "master/icarus-turnaround-low-angle-face-chest-belly-back-ass-thighs-calves-feet.png"
+    ],
+    "face": [
+      "face/icarus-character-sheet-headshots-ears-neck.png",
+      "face/icarus-headshots-expressions-face-ears-neck.png"
+    ],
+    "body": [
+      "body/icarus-crouch-rear-face-back-ass-thighs-calves-feet.png",
+      "body/icarus-flex-arms-chest-belly-thighs-calves.png",
+      "body/icarus-kneel-rear-back-ass-arms-thighs-calves-feet.png",
+      "body/icarus-pose-sheet-chest-belly-navel-back-ass-arms-hands-thighs-calves-feet.png",
+      "body/icarus-squat-rear-back-ass-thighs-calves-feet.png",
+      "body/icarus-three-view-speedo-face-chest-belly-thighs-calves-feet.png",
+      "body/icarus-walk-cycle-back-ass-arms-thighs-calves-feet.jpg"
+    ],
+    "detail": []
+  },
+  "consistency_rules": [
+    "sex is male; genitals are a penis; never render female genitals",
+    "never render breasts as female breasts",
+    "no futanari or hermaphrodite variants unless explicitly requested",
+    "only depict regions backed by reference files; do not invent anatomy that has no reference",
+    "face and body carry equal weight: keep unique facial traits and body markings consistent in every generation",
+    "keep facial distances and skin detail consistent with the reference photos; no beauty-filter smoothing"
+  ],
+  "negative_prompt": "vagina, pussy, breasts, feminine body, futanari, hermaphrodite, deformed hands, extra fingers, extra limbs, plastic skin, airbrushed skin, waxy skin, cartoon, anime, illustration, watermark, text, nudity, explicit content",
+  "positive_prompt_core": "solo adult male, Icarus, athletic adult male swimmer build, 22 years old, 6'1\" (185 cm), 195 lb (88 kg), broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, sun-bronzed skin with a light sheen, face: warm brown eyes set roughly one eye-width apart under straight dark brows; short straight nose; full lips; strong square jaw with light stubble; medium-length dark brown wavy hair, tousled and falling over the forehead; face reads confident and open, messy dark brown wavy hair falling over the forehead, warm brown eyes, light stubble along the jaw, sun-bronzed skin tone, ears: proportionate ears, partially covered by wavy hair, single visible in profile headshots, neck: strong smooth neck, wider at the trapezius, chest: broad defined pecs; light natural chest hair in the photoreal harness turnaround, smooth in stylized sheets — for photoreal renders keep light chest hair, belly: defined eight-pack abs, thin dark hair trail below the navel, light lower-belly hair in photoreal refs, navel: vertical oval navel, shallow, back: broad V-taper back, defined lats, traps, and spinal groove; multiple dedicated rear references, arms: muscular arms, defined biceps and forearms, visible veins on forearms, hands: large proportionate hands, short nails, nails: short clean nails, ass: round muscular glutes; bare in the squat-rear and thong turnaround references, briefs in others, thighs: thick defined quads, light natural leg hair in photoreal refs, calves: defined diamond-shaped calves, light natural leg hair in photoreal refs, feet: proportionate feet; barefoot in pose sheets and walk cycle, gladiator sandals elsewhere, visible skin texture and pores as shown in the reference photos; stubble, veins, and blemishes only where the references show them, identity matches the provided reference images exactly",
+  "style_prompt": "photorealistic, natural lighting, true-to-life skin tones, realistic proportions, sharp focus, consistent identity across shots",
+  "nsfw_prompt_additions": "",
+  "export": {
+    "comfy_prompt": "solo adult male, Icarus, athletic adult male swimmer build, 22 years old, 6'1\" (185 cm), 195 lb (88 kg), broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, sun-bronzed skin with a light sheen, face: warm brown eyes set roughly one eye-width apart under straight dark brows; short straight nose; full lips; strong square jaw with light stubble; medium-length dark brown wavy hair, tousled and falling over the forehead; face reads confident and open, messy dark brown wavy hair falling over the forehead, warm brown eyes, light stubble along the jaw, sun-bronzed skin tone, ears: proportionate ears, partially covered by wavy hair, single visible in profile headshots, neck: strong smooth neck, wider at the trapezius, chest: broad defined pecs; light natural chest hair in the photoreal harness turnaround, smooth in stylized sheets — for photoreal renders keep light chest hair, belly: defined eight-pack abs, thin dark hair trail below the navel, light lower-belly hair in photoreal refs, navel: vertical oval navel, shallow, back: broad V-taper back, defined lats, traps, and spinal groove; multiple dedicated rear references, arms: muscular arms, defined biceps and forearms, visible veins on forearms, hands: large proportionate hands, short nails, nails: short clean nails, ass: round muscular glutes; bare in the squat-rear and thong turnaround references, briefs in others, thighs: thick defined quads, light natural leg hair in photoreal refs, calves: defined diamond-shaped calves, light natural leg hair in photoreal refs, feet: proportionate feet; barefoot in pose sheets and walk cycle, gladiator sandals elsewhere, visible skin texture and pores as shown in the reference photos; stubble, veins, and blemishes only where the references show them, identity matches the provided reference images exactly, photorealistic, natural lighting, true-to-life skin tones, realistic proportions, sharp focus, consistent identity across shots",
+    "image_gen_prompt": "solo adult male, Icarus, athletic adult male swimmer build, 22 years old, 6'1\" (185 cm), 195 lb (88 kg), broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, sun-bronzed skin with a light sheen, face: warm brown eyes set roughly one eye-width apart under straight dark brows; short straight nose; full lips; strong square jaw with light stubble; medium-length dark brown wavy hair, tousled and falling over the forehead; face reads confident and open, messy dark brown wavy hair falling over the forehead, warm brown eyes, light stubble along the jaw, sun-bronzed skin tone, ears: proportionate ears, partially covered by wavy hair, single visible in profile headshots, neck: strong smooth neck, wider at the trapezius, chest: broad defined pecs; light natural chest hair in the photoreal harness turnaround, smooth in stylized sheets — for photoreal renders keep light chest hair, belly: defined eight-pack abs, thin dark hair trail below the navel, light lower-belly hair in photoreal refs, navel: vertical oval navel, shallow, back: broad V-taper back, defined lats, traps, and spinal groove; multiple dedicated rear references, arms: muscular arms, defined biceps and forearms, visible veins on forearms, hands: large proportionate hands, short nails, nails: short clean nails, ass: round muscular glutes; bare in the squat-rear and thong turnaround references, briefs in others, thighs: thick defined quads, light natural leg hair in photoreal refs, calves: defined diamond-shaped calves, light natural leg hair in photoreal refs, feet: proportionate feet; barefoot in pose sheets and walk cycle, gladiator sandals elsewhere, visible skin texture and pores as shown in the reference photos; stubble, veins, and blemishes only where the references show them, identity matches the provided reference images exactly, photorealistic, natural lighting, true-to-life skin tones, realistic proportions, sharp focus, consistent identity across shots",
+    "video_gen_prompt": "solo adult male, Icarus, athletic adult male swimmer build, 22 years old, 6'1\" (185 cm), 195 lb (88 kg), broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, sun-bronzed skin with a light sheen, face: warm brown eyes set roughly one eye-width apart under straight dark brows; short straight nose; full lips; strong square jaw with light stubble; medium-length dark brown wavy hair, tousled and falling over the forehead; face reads confident and open, messy dark brown wavy hair falling over the forehead, warm brown eyes, light stubble along the jaw, sun-bronzed skin tone, ears: proportionate ears, partially covered by wavy hair, single visible in profile headshots, neck: strong smooth neck, wider at the trapezius, chest: broad defined pecs; light natural chest hair in the photoreal harness turnaround, smooth in stylized sheets — for photoreal renders keep light chest hair, belly: defined eight-pack abs, thin dark hair trail below the navel, light lower-belly hair in photoreal refs, navel: vertical oval navel, shallow, back: broad V-taper back, defined lats, traps, and spinal groove; multiple dedicated rear references, arms: muscular arms, defined biceps and forearms, visible veins on forearms, hands: large proportionate hands, short nails, nails: short clean nails, ass: round muscular glutes; bare in the squat-rear and thong turnaround references, briefs in others, thighs: thick defined quads, light natural leg hair in photoreal refs, calves: defined diamond-shaped calves, light natural leg hair in photoreal refs, feet: proportionate feet; barefoot in pose sheets and walk cycle, gladiator sandals elsewhere, visible skin texture and pores as shown in the reference photos; stubble, veins, and blemishes only where the references show them, identity matches the provided reference images exactly, photorealistic, natural lighting, true-to-life skin tones, realistic proportions, sharp focus, consistent identity across shots, stable identity in every frame, no morphing between frames, same face and body markings across all shots and camera angles",
+    "3d_blocking_notes": "character: Icarus (icarus)\nsex: male; genitals: penis (locked)\nbody type: swimmer — athletic adult male swimmer build, 22 years old, 6'1\" (185 cm), 195 lb (88 kg), broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, sun-bronzed skin with a light sheen\npriority: balanced\nregions with references: face, ears, neck, chest, belly, navel, back, arms, hands, nails, ass, thighs, calves, feet\nblock the silhouette from master refs first, then refine regions that have references; leave unreferenced regions generic\nface landmarks: warm brown eyes set roughly one eye-width apart under straight dark brows; short straight nose; full lips; strong square jaw with light stubble; medium-length dark brown wavy hair, tousled and falling over the forehead; face reads confident and open\nnavel: vertical oval navel, shallow\nnails: short clean nails"
+  },
+  "locked": true
+}
