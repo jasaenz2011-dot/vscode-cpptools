@@ -37,66 +37,73 @@
         "enabled": true,
         "notes": "",
         "ref_files": [
-          "master/icarus-turnaround-face-chest-belly-navel-back-arms-hands-thighs-calves-feet.png",
-          "face/icarus-character-sheet-headshots.png"
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png",
+          "face/icarus-character-sheet-headshots-ears-neck.png"
         ]
       },
       "ears": {
-        "enabled": false,
-        "notes": "",
-        "ref_files": []
+        "enabled": true,
+        "notes": "proportionate ears, partially covered by wavy hair, single visible in profile headshots",
+        "ref_files": [
+          "face/icarus-character-sheet-headshots-ears-neck.png"
+        ]
       },
       "neck": {
-        "enabled": false,
-        "notes": "",
-        "ref_files": []
+        "enabled": true,
+        "notes": "strong smooth neck, wider at the trapezius",
+        "ref_files": [
+          "face/icarus-character-sheet-headshots-ears-neck.png",
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png"
+        ]
       },
       "chest": {
         "enabled": true,
         "notes": "broad defined pecs, smooth chest, light skin sheen",
         "ref_files": [
-          "master/icarus-turnaround-face-chest-belly-navel-back-arms-hands-thighs-calves-feet.png"
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png"
         ]
       },
       "belly": {
         "enabled": true,
         "notes": "defined eight-pack abs, thin dark hair trail below the navel",
         "ref_files": [
-          "master/icarus-turnaround-face-chest-belly-navel-back-arms-hands-thighs-calves-feet.png"
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png"
         ]
       },
       "navel": {
         "enabled": true,
         "notes": "vertical oval navel, shallow",
         "ref_files": [
-          "master/icarus-turnaround-face-chest-belly-navel-back-arms-hands-thighs-calves-feet.png"
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png"
         ]
       },
       "back": {
         "enabled": true,
         "notes": "broad V-taper back, defined lats, traps, and spinal groove",
         "ref_files": [
-          "master/icarus-turnaround-face-chest-belly-navel-back-arms-hands-thighs-calves-feet.png"
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png"
         ]
       },
       "arms": {
         "enabled": true,
         "notes": "muscular arms, defined biceps and forearms, visible veins on forearms",
         "ref_files": [
-          "master/icarus-turnaround-face-chest-belly-navel-back-arms-hands-thighs-calves-feet.png"
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png"
         ]
       },
       "hands": {
         "enabled": true,
         "notes": "large proportionate hands, short nails",
         "ref_files": [
-          "master/icarus-turnaround-face-chest-belly-navel-back-arms-hands-thighs-calves-feet.png"
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png"
         ]
       },
       "nails": {
-        "enabled": false,
-        "notes": "",
-        "ref_files": []
+        "enabled": true,
+        "notes": "short clean nails",
+        "ref_files": [
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png"
+        ]
       },
       "groin": {
         "enabled": false,
@@ -114,29 +121,31 @@
         "ref_files": []
       },
       "ass": {
-        "enabled": false,
-        "notes": "",
-        "ref_files": []
+        "enabled": true,
+        "notes": "round muscular glutes, shown in fitted briefs in the 3/4-back and swimwear references",
+        "ref_files": [
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png"
+        ]
       },
       "thighs": {
         "enabled": true,
         "notes": "thick defined quads",
         "ref_files": [
-          "master/icarus-turnaround-face-chest-belly-navel-back-arms-hands-thighs-calves-feet.png"
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png"
         ]
       },
       "calves": {
         "enabled": true,
         "notes": "defined diamond-shaped calves",
         "ref_files": [
-          "master/icarus-turnaround-face-chest-belly-navel-back-arms-hands-thighs-calves-feet.png"
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png"
         ]
       },
       "feet": {
         "enabled": true,
         "notes": "proportionate feet, shown barefoot and in gladiator sandals in refs",
         "ref_files": [
-          "master/icarus-turnaround-face-chest-belly-navel-back-arms-hands-thighs-calves-feet.png"
+          "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png"
         ]
       },
       "tattoos": {
@@ -153,10 +162,10 @@
   },
   "refs": {
     "master": [
-      "master/icarus-turnaround-face-chest-belly-navel-back-arms-hands-thighs-calves-feet.png"
+      "master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png"
     ],
     "face": [
-      "face/icarus-character-sheet-headshots.png"
+      "face/icarus-character-sheet-headshots-ears-neck.png"
     ],
     "body": [],
     "detail": []
@@ -170,14 +179,14 @@
     "keep facial distances and skin detail consistent with the reference photos; no beauty-filter smoothing"
   ],
   "negative_prompt": "vagina, pussy, breasts, feminine body, futanari, hermaphrodite, deformed hands, extra fingers, extra limbs, plastic skin, airbrushed skin, waxy skin, cartoon, anime, illustration, watermark, text, nudity, explicit content",
-  "positive_prompt_core": "solo adult male, Icarus, athletic adult male swimmer build, 22 years old, 6'1\" (185 cm), 195 lb (88 kg), broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, sun-bronzed skin with a light sheen, face: warm brown eyes set roughly one eye-width apart under straight dark brows; short straight nose; full lips; strong square jaw with light stubble; medium-length dark brown wavy hair, tousled and falling over the forehead; face reads confident and open, messy dark brown wavy hair falling over the forehead, warm brown eyes, light stubble along the jaw, sun-bronzed skin tone, chest: broad defined pecs, smooth chest, light skin sheen, belly: defined eight-pack abs, thin dark hair trail below the navel, navel: vertical oval navel, shallow, back: broad V-taper back, defined lats, traps, and spinal groove, arms: muscular arms, defined biceps and forearms, visible veins on forearms, hands: large proportionate hands, short nails, thighs: thick defined quads, calves: defined diamond-shaped calves, feet: proportionate feet, shown barefoot and in gladiator sandals in refs, visible skin texture and pores as shown in the reference photos; stubble, veins, and blemishes only where the references show them, identity matches the provided reference images exactly",
+  "positive_prompt_core": "solo adult male, Icarus, athletic adult male swimmer build, 22 years old, 6'1\" (185 cm), 195 lb (88 kg), broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, sun-bronzed skin with a light sheen, face: warm brown eyes set roughly one eye-width apart under straight dark brows; short straight nose; full lips; strong square jaw with light stubble; medium-length dark brown wavy hair, tousled and falling over the forehead; face reads confident and open, messy dark brown wavy hair falling over the forehead, warm brown eyes, light stubble along the jaw, sun-bronzed skin tone, ears: proportionate ears, partially covered by wavy hair, single visible in profile headshots, neck: strong smooth neck, wider at the trapezius, chest: broad defined pecs, smooth chest, light skin sheen, belly: defined eight-pack abs, thin dark hair trail below the navel, navel: vertical oval navel, shallow, back: broad V-taper back, defined lats, traps, and spinal groove, arms: muscular arms, defined biceps and forearms, visible veins on forearms, hands: large proportionate hands, short nails, nails: short clean nails, ass: round muscular glutes, shown in fitted briefs in the 3/4-back and swimwear references, thighs: thick defined quads, calves: defined diamond-shaped calves, feet: proportionate feet, shown barefoot and in gladiator sandals in refs, visible skin texture and pores as shown in the reference photos; stubble, veins, and blemishes only where the references show them, identity matches the provided reference images exactly",
   "style_prompt": "photorealistic, natural lighting, true-to-life skin tones, realistic proportions, sharp focus, consistent identity across shots",
   "nsfw_prompt_additions": "",
   "export": {
-    "comfy_prompt": "solo adult male, Icarus, athletic adult male swimmer build, 22 years old, 6'1\" (185 cm), 195 lb (88 kg), broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, sun-bronzed skin with a light sheen, face: warm brown eyes set roughly one eye-width apart under straight dark brows; short straight nose; full lips; strong square jaw with light stubble; medium-length dark brown wavy hair, tousled and falling over the forehead; face reads confident and open, messy dark brown wavy hair falling over the forehead, warm brown eyes, light stubble along the jaw, sun-bronzed skin tone, chest: broad defined pecs, smooth chest, light skin sheen, belly: defined eight-pack abs, thin dark hair trail below the navel, navel: vertical oval navel, shallow, back: broad V-taper back, defined lats, traps, and spinal groove, arms: muscular arms, defined biceps and forearms, visible veins on forearms, hands: large proportionate hands, short nails, thighs: thick defined quads, calves: defined diamond-shaped calves, feet: proportionate feet, shown barefoot and in gladiator sandals in refs, visible skin texture and pores as shown in the reference photos; stubble, veins, and blemishes only where the references show them, identity matches the provided reference images exactly, photorealistic, natural lighting, true-to-life skin tones, realistic proportions, sharp focus, consistent identity across shots",
-    "image_gen_prompt": "solo adult male, Icarus, athletic adult male swimmer build, 22 years old, 6'1\" (185 cm), 195 lb (88 kg), broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, sun-bronzed skin with a light sheen, face: warm brown eyes set roughly one eye-width apart under straight dark brows; short straight nose; full lips; strong square jaw with light stubble; medium-length dark brown wavy hair, tousled and falling over the forehead; face reads confident and open, messy dark brown wavy hair falling over the forehead, warm brown eyes, light stubble along the jaw, sun-bronzed skin tone, chest: broad defined pecs, smooth chest, light skin sheen, belly: defined eight-pack abs, thin dark hair trail below the navel, navel: vertical oval navel, shallow, back: broad V-taper back, defined lats, traps, and spinal groove, arms: muscular arms, defined biceps and forearms, visible veins on forearms, hands: large proportionate hands, short nails, thighs: thick defined quads, calves: defined diamond-shaped calves, feet: proportionate feet, shown barefoot and in gladiator sandals in refs, visible skin texture and pores as shown in the reference photos; stubble, veins, and blemishes only where the references show them, identity matches the provided reference images exactly, photorealistic, natural lighting, true-to-life skin tones, realistic proportions, sharp focus, consistent identity across shots",
-    "video_gen_prompt": "solo adult male, Icarus, athletic adult male swimmer build, 22 years old, 6'1\" (185 cm), 195 lb (88 kg), broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, sun-bronzed skin with a light sheen, face: warm brown eyes set roughly one eye-width apart under straight dark brows; short straight nose; full lips; strong square jaw with light stubble; medium-length dark brown wavy hair, tousled and falling over the forehead; face reads confident and open, messy dark brown wavy hair falling over the forehead, warm brown eyes, light stubble along the jaw, sun-bronzed skin tone, chest: broad defined pecs, smooth chest, light skin sheen, belly: defined eight-pack abs, thin dark hair trail below the navel, navel: vertical oval navel, shallow, back: broad V-taper back, defined lats, traps, and spinal groove, arms: muscular arms, defined biceps and forearms, visible veins on forearms, hands: large proportionate hands, short nails, thighs: thick defined quads, calves: defined diamond-shaped calves, feet: proportionate feet, shown barefoot and in gladiator sandals in refs, visible skin texture and pores as shown in the reference photos; stubble, veins, and blemishes only where the references show them, identity matches the provided reference images exactly, photorealistic, natural lighting, true-to-life skin tones, realistic proportions, sharp focus, consistent identity across shots, stable identity in every frame, no morphing between frames, same face and body markings across all shots and camera angles",
-    "3d_blocking_notes": "character: Icarus (icarus)\nsex: male; genitals: penis (locked)\nbody type: swimmer — athletic adult male swimmer build, 22 years old, 6'1\" (185 cm), 195 lb (88 kg), broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, sun-bronzed skin with a light sheen\npriority: balanced\nregions with references: face, chest, belly, navel, back, arms, hands, thighs, calves, feet\nblock the silhouette from master refs first, then refine regions that have references; leave unreferenced regions generic\nface landmarks: warm brown eyes set roughly one eye-width apart under straight dark brows; short straight nose; full lips; strong square jaw with light stubble; medium-length dark brown wavy hair, tousled and falling over the forehead; face reads confident and open\nnavel: vertical oval navel, shallow"
+    "comfy_prompt": "solo adult male, Icarus, athletic adult male swimmer build, 22 years old, 6'1\" (185 cm), 195 lb (88 kg), broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, sun-bronzed skin with a light sheen, face: warm brown eyes set roughly one eye-width apart under straight dark brows; short straight nose; full lips; strong square jaw with light stubble; medium-length dark brown wavy hair, tousled and falling over the forehead; face reads confident and open, messy dark brown wavy hair falling over the forehead, warm brown eyes, light stubble along the jaw, sun-bronzed skin tone, ears: proportionate ears, partially covered by wavy hair, single visible in profile headshots, neck: strong smooth neck, wider at the trapezius, chest: broad defined pecs, smooth chest, light skin sheen, belly: defined eight-pack abs, thin dark hair trail below the navel, navel: vertical oval navel, shallow, back: broad V-taper back, defined lats, traps, and spinal groove, arms: muscular arms, defined biceps and forearms, visible veins on forearms, hands: large proportionate hands, short nails, nails: short clean nails, ass: round muscular glutes, shown in fitted briefs in the 3/4-back and swimwear references, thighs: thick defined quads, calves: defined diamond-shaped calves, feet: proportionate feet, shown barefoot and in gladiator sandals in refs, visible skin texture and pores as shown in the reference photos; stubble, veins, and blemishes only where the references show them, identity matches the provided reference images exactly, photorealistic, natural lighting, true-to-life skin tones, realistic proportions, sharp focus, consistent identity across shots",
+    "image_gen_prompt": "solo adult male, Icarus, athletic adult male swimmer build, 22 years old, 6'1\" (185 cm), 195 lb (88 kg), broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, sun-bronzed skin with a light sheen, face: warm brown eyes set roughly one eye-width apart under straight dark brows; short straight nose; full lips; strong square jaw with light stubble; medium-length dark brown wavy hair, tousled and falling over the forehead; face reads confident and open, messy dark brown wavy hair falling over the forehead, warm brown eyes, light stubble along the jaw, sun-bronzed skin tone, ears: proportionate ears, partially covered by wavy hair, single visible in profile headshots, neck: strong smooth neck, wider at the trapezius, chest: broad defined pecs, smooth chest, light skin sheen, belly: defined eight-pack abs, thin dark hair trail below the navel, navel: vertical oval navel, shallow, back: broad V-taper back, defined lats, traps, and spinal groove, arms: muscular arms, defined biceps and forearms, visible veins on forearms, hands: large proportionate hands, short nails, nails: short clean nails, ass: round muscular glutes, shown in fitted briefs in the 3/4-back and swimwear references, thighs: thick defined quads, calves: defined diamond-shaped calves, feet: proportionate feet, shown barefoot and in gladiator sandals in refs, visible skin texture and pores as shown in the reference photos; stubble, veins, and blemishes only where the references show them, identity matches the provided reference images exactly, photorealistic, natural lighting, true-to-life skin tones, realistic proportions, sharp focus, consistent identity across shots",
+    "video_gen_prompt": "solo adult male, Icarus, athletic adult male swimmer build, 22 years old, 6'1\" (185 cm), 195 lb (88 kg), broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, sun-bronzed skin with a light sheen, face: warm brown eyes set roughly one eye-width apart under straight dark brows; short straight nose; full lips; strong square jaw with light stubble; medium-length dark brown wavy hair, tousled and falling over the forehead; face reads confident and open, messy dark brown wavy hair falling over the forehead, warm brown eyes, light stubble along the jaw, sun-bronzed skin tone, ears: proportionate ears, partially covered by wavy hair, single visible in profile headshots, neck: strong smooth neck, wider at the trapezius, chest: broad defined pecs, smooth chest, light skin sheen, belly: defined eight-pack abs, thin dark hair trail below the navel, navel: vertical oval navel, shallow, back: broad V-taper back, defined lats, traps, and spinal groove, arms: muscular arms, defined biceps and forearms, visible veins on forearms, hands: large proportionate hands, short nails, nails: short clean nails, ass: round muscular glutes, shown in fitted briefs in the 3/4-back and swimwear references, thighs: thick defined quads, calves: defined diamond-shaped calves, feet: proportionate feet, shown barefoot and in gladiator sandals in refs, visible skin texture and pores as shown in the reference photos; stubble, veins, and blemishes only where the references show them, identity matches the provided reference images exactly, photorealistic, natural lighting, true-to-life skin tones, realistic proportions, sharp focus, consistent identity across shots, stable identity in every frame, no morphing between frames, same face and body markings across all shots and camera angles",
+    "3d_blocking_notes": "character: Icarus (icarus)\nsex: male; genitals: penis (locked)\nbody type: swimmer — athletic adult male swimmer build, 22 years old, 6'1\" (185 cm), 195 lb (88 kg), broad shoulders, tapered waist, lean defined muscle, long limbs, low body fat, sun-bronzed skin with a light sheen\npriority: balanced\nregions with references: face, ears, neck, chest, belly, navel, back, arms, hands, nails, ass, thighs, calves, feet\nblock the silhouette from master refs first, then refine regions that have references; leave unreferenced regions generic\nface landmarks: warm brown eyes set roughly one eye-width apart under straight dark brows; short straight nose; full lips; strong square jaw with light stubble; medium-length dark brown wavy hair, tousled and falling over the forehead; face reads confident and open\nnavel: vertical oval navel, shallow\nnails: short clean nails"
   },
   "locked": true
 }

@@ -13,27 +13,27 @@
 
 ## Reference files
 
-- master: master/icarus-turnaround-face-chest-belly-navel-back-arms-hands-thighs-calves-feet.png
-- face: face/icarus-character-sheet-headshots.png
+- master: master/icarus-turnaround-face-neck-chest-belly-navel-back-arms-hands-nails-ass-thighs-calves-feet.png
+- face: face/icarus-character-sheet-headshots-ears-neck.png
 - body: (none)
 - detail: (none)
 
 ## Regions
 
 - face: enabled
-- ears: disabled (no refs)
-- neck: disabled (no refs)
+- ears: enabled — proportionate ears, partially covered by wavy hair, single visible in profile headshots
+- neck: enabled — strong smooth neck, wider at the trapezius
 - chest: enabled — broad defined pecs, smooth chest, light skin sheen
 - belly: enabled — defined eight-pack abs, thin dark hair trail below the navel
 - navel: enabled — vertical oval navel, shallow
 - back: enabled — broad V-taper back, defined lats, traps, and spinal groove
 - arms: enabled — muscular arms, defined biceps and forearms, visible veins on forearms
 - hands: enabled — large proportionate hands, short nails
-- nails: disabled (no refs)
+- nails: enabled — short clean nails
 - groin: disabled (no refs)
 - penis: disabled (no refs)
 - scrotum: disabled (no refs)
-- ass: disabled (no refs)
+- ass: enabled — round muscular glutes, shown in fitted briefs in the 3/4-back and swimwear references
 - thighs: enabled — thick defined quads
 - calves: enabled — defined diamond-shaped calves
 - feet: enabled — proportionate feet, shown barefoot and in gladiator sandals in refs
