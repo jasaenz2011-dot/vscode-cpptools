@@ -1,0 +1,413 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------ *
+ * Be ME! — Under Construction / The Maker's Workshop design tokens
+ * ------------------------------------------------------------------ */
+@theme {
+  --color-hazard: #f59e0b;
+  --color-hazard-deep: #d97706;
+  --color-hazard-glow: #fbbf24;
+  --color-steel: #1e293b;
+  --color-steel-light: #334155;
+  --color-steel-lighter: #475569;
+  --color-pitch: #0f172a;
+  --color-pitch-deep: #060d1c;
+  --color-cobalt: #2563eb;
+  --color-cobalt-light: #60a5fa;
+  --color-cobalt-deep: #1d4ed8;
+  --color-volt: #a855f7;
+  --color-volt-light: #c084fc;
+  --color-ember: #fb923c;
+  --color-blueprint: #7dd3fc;
+  --color-chalk: #f8fafc;
+  --color-concrete: #cbd5e1;
+
+  --font-display: var(--font-be-display), 'Arial Black', 'Haettenschweiler', sans-serif;
+  --font-ui: var(--font-be-ui), ui-sans-serif, system-ui, sans-serif;
+  --font-blueprint: var(--font-be-mono), ui-monospace, 'SFMono-Regular', monospace;
+
+  --radius-panel: 14px;
+
+  --shadow-rivet: inset 0 1px 0 rgb(255 255 255 / 0.09), inset 0 -2px 0 rgb(0 0 0 / 0.45);
+  --shadow-lift: 0 18px 40px -18px rgb(0 0 0 / 0.85);
+
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-mech: cubic-bezier(0.2, 0.9, 0.25, 1);
+
+  --animate-gear-spin: gear-spin 9s linear infinite;
+  --animate-gear-kick: gear-kick 620ms var(--ease-mech);
+  --animate-idle-bob: idle-bob 4.6s ease-in-out infinite;
+  --animate-stamp: stamp-in 460ms var(--ease-spring);
+  --animate-scan: scan 7s linear infinite;
+  --animate-flicker: flicker 5s ease-in-out infinite;
+  --animate-pop-in: pop-in 320ms var(--ease-spring);
+}
+
+@keyframes gear-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes gear-kick {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(120deg);
+  }
+}
+
+@keyframes idle-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-3.5px) rotate(0.35deg);
+  }
+}
+
+@keyframes stamp-in {
+  0% {
+    transform: scale(1.9) rotate(-14deg);
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(-8deg);
+    opacity: 1;
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-110%);
+  }
+  100% {
+    transform: translateY(1100%);
+  }
+}
+
+@keyframes flicker {
+  0%,
+  92%,
+  100% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.55;
+  }
+  95% {
+    opacity: 0.92;
+  }
+  97% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@layer base {
+  * {
+    border-color: color-mix(in oklab, var(--color-steel-light) 70%, transparent);
+  }
+
+  html {
+    color-scheme: dark;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--color-pitch-deep);
+    color: var(--color-chalk);
+    font-family: var(--font-ui);
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-hazard);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* The slider is fully custom-drawn; reset the UA chrome. */
+  input[type='range'] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+  }
+
+  input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  input[type='range']::-moz-range-thumb {
+    width: 1px;
+    height: 1px;
+    border: 0;
+    opacity: 0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-pitch);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--color-steel-light), var(--color-steel));
+    border-radius: 999px;
+    border: 2px solid var(--color-pitch);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-hazard-deep);
+  }
+}
+
+@layer components {
+  /* Blueprint graph paper, glowing from the centre out. */
+  .blueprint-field {
+    background-color: var(--color-pitch-deep);
+    background-image:
+      radial-gradient(
+        ellipse 70% 60% at 50% 42%,
+        color-mix(in oklab, var(--color-cobalt) 26%, transparent),
+        transparent 70%
+      ),
+      repeating-linear-gradient(
+        0deg,
+        color-mix(in oklab, var(--color-blueprint) 11%, transparent) 0 1px,
+        transparent 1px 34px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        color-mix(in oklab, var(--color-blueprint) 11%, transparent) 0 1px,
+        transparent 1px 34px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        color-mix(in oklab, var(--color-blueprint) 5%, transparent) 0 1px,
+        transparent 1px 8.5px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        color-mix(in oklab, var(--color-blueprint) 5%, transparent) 0 1px,
+        transparent 1px 8.5px
+      );
+  }
+
+  .grid-off .blueprint-field {
+    background-image: radial-gradient(
+      ellipse 70% 60% at 50% 42%,
+      color-mix(in oklab, var(--color-cobalt) 18%, transparent),
+      transparent 70%
+    );
+  }
+
+  /* Brushed steel plate used by every panel in the workshop. */
+  .plate {
+    position: relative;
+    background:
+      linear-gradient(
+        168deg,
+        color-mix(in oklab, var(--color-steel) 96%, white 4%),
+        var(--color-pitch) 74%
+      );
+    border: 1px solid color-mix(in oklab, var(--color-steel-lighter) 62%, transparent);
+    border-radius: var(--radius-panel);
+    box-shadow: var(--shadow-rivet), var(--shadow-lift);
+  }
+
+  /* Four corner rivets, drawn as backgrounds so they cost no DOM nodes. */
+  .rivets::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-position:
+      10px 10px,
+      calc(100% - 10px) 10px,
+      10px calc(100% - 10px),
+      calc(100% - 10px) calc(100% - 10px);
+    background-size: 12px 12px;
+    background-image:
+      radial-gradient(
+        circle at center,
+        color-mix(in oklab, var(--color-concrete) 74%, transparent) 0 1.1px,
+        color-mix(in oklab, var(--color-steel-lighter) 80%, transparent) 1.4px 2.6px,
+        rgb(0 0 0 / 0.55) 2.7px 3.4px,
+        transparent 3.6px
+      ),
+      radial-gradient(
+        circle at center,
+        color-mix(in oklab, var(--color-concrete) 74%, transparent) 0 1.1px,
+        color-mix(in oklab, var(--color-steel-lighter) 80%, transparent) 1.4px 2.6px,
+        rgb(0 0 0 / 0.55) 2.7px 3.4px,
+        transparent 3.6px
+      ),
+      radial-gradient(
+        circle at center,
+        color-mix(in oklab, var(--color-concrete) 74%, transparent) 0 1.1px,
+        color-mix(in oklab, var(--color-steel-lighter) 80%, transparent) 1.4px 2.6px,
+        rgb(0 0 0 / 0.55) 2.7px 3.4px,
+        transparent 3.6px
+      ),
+      radial-gradient(
+        circle at center,
+        color-mix(in oklab, var(--color-concrete) 74%, transparent) 0 1.1px,
+        color-mix(in oklab, var(--color-steel-lighter) 80%, transparent) 1.4px 2.6px,
+        rgb(0 0 0 / 0.55) 2.7px 3.4px,
+        transparent 3.6px
+      );
+  }
+
+  /* Hazard tape. `--tape-a`/`--tape-b` let callers restripe it. */
+  .caution-tape {
+    --tape-a: var(--color-hazard);
+    --tape-b: var(--color-pitch);
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--tape-a) 0 11px,
+      var(--tape-b) 11px 22px
+    );
+  }
+
+  .tape-strip {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      color-mix(in oklab, var(--color-hazard) 90%, transparent) 0 9px,
+      color-mix(in oklab, var(--color-pitch) 92%, transparent) 9px 18px
+    );
+  }
+
+  /* Springy mechanical button. */
+  .btn-mech {
+    position: relative;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+    border-radius: 10px;
+    border: 1px solid rgb(0 0 0 / 0.55);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.28),
+      0 4px 0 0 rgb(0 0 0 / 0.55),
+      0 10px 18px -10px rgb(0 0 0 / 0.9);
+    transition:
+      transform 140ms var(--ease-spring),
+      box-shadow 140ms var(--ease-mech),
+      filter 140ms linear;
+    will-change: transform;
+  }
+
+  .btn-mech:hover:not(:disabled) {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+  }
+
+  .btn-mech:active:not(:disabled) {
+    transform: translateY(4px);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.2),
+      0 0 0 0 rgb(0 0 0 / 0.55),
+      0 4px 10px -8px rgb(0 0 0 / 0.9);
+  }
+
+  .btn-mech:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1);
+  }
+
+  /* Scanline sweep for the stage. */
+  .scanline {
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      color-mix(in oklab, var(--color-blueprint) 20%, transparent),
+      transparent
+    );
+  }
+
+  .stencil {
+    font-family: var(--font-display);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .paint-splatter {
+    filter: drop-shadow(0 0 14px color-mix(in oklab, var(--color-volt) 55%, transparent));
+  }
+
+  .tray-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-steel-lighter) var(--color-pitch);
+  }
+}
+
+@layer utilities {
+  .text-glow-hazard {
+    text-shadow:
+      0 0 18px color-mix(in oklab, var(--color-hazard) 55%, transparent),
+      0 2px 0 rgb(0 0 0 / 0.6);
+  }
+
+  .text-outline-pitch {
+    -webkit-text-stroke: 1.5px var(--color-pitch-deep);
+    paint-order: stroke fill;
+  }
+
+  .drag-none {
+    -webkit-user-drag: none;
+    user-select: none;
+  }
+}
+
+/* Motion is decoration here — never required to understand the studio. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

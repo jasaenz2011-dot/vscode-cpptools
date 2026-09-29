@@ -13,3 +13,9 @@ OneLocBuild
 
 # ignore imported localization xlf directory
 vscode-translations-import
+
+# Be Me prototype
+be-me-v01/node_modules/
+be-me-v01/dist/
+be-me/node_modules/
+be-me/.next/

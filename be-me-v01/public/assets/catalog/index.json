@@ -1,0 +1,635 @@
+{
+  "note": "Supplied catalog art sliced on a uniform declared grid. NOT master-canvas layer assets - see tools/slice-catalog.mjs.",
+  "items": [
+    {
+      "sheet": "shoes",
+      "id": "white",
+      "file": "/assets/catalog/shoes/white.png",
+      "width": 307,
+      "height": 221
+    },
+    {
+      "sheet": "shoes",
+      "id": "chicago",
+      "file": "/assets/catalog/shoes/chicago.png",
+      "width": 307,
+      "height": 221
+    },
+    {
+      "sheet": "shoes",
+      "id": "royal",
+      "file": "/assets/catalog/shoes/royal.png",
+      "width": 308,
+      "height": 221
+    },
+    {
+      "sheet": "shoes",
+      "id": "slime",
+      "file": "/assets/catalog/shoes/slime.png",
+      "width": 307,
+      "height": 221
+    },
+    {
+      "sheet": "shoes",
+      "id": "blackout",
+      "file": "/assets/catalog/shoes/blackout.png",
+      "width": 307,
+      "height": 221
+    },
+    {
+      "sheet": "shoes",
+      "id": "ice",
+      "file": "/assets/catalog/shoes/ice.png",
+      "width": 307,
+      "height": 243
+    },
+    {
+      "sheet": "shoes",
+      "id": "flame",
+      "file": "/assets/catalog/shoes/flame.png",
+      "width": 307,
+      "height": 243
+    },
+    {
+      "sheet": "shoes",
+      "id": "teal-cement",
+      "file": "/assets/catalog/shoes/teal-cement.png",
+      "width": 308,
+      "height": 243
+    },
+    {
+      "sheet": "shoes",
+      "id": "spider",
+      "file": "/assets/catalog/shoes/spider.png",
+      "width": 307,
+      "height": 243
+    },
+    {
+      "sheet": "shoes",
+      "id": "galaxy",
+      "file": "/assets/catalog/shoes/galaxy.png",
+      "width": 307,
+      "height": 243
+    },
+    {
+      "sheet": "shoes",
+      "id": "hazard",
+      "file": "/assets/catalog/shoes/hazard.png",
+      "width": 307,
+      "height": 252
+    },
+    {
+      "sheet": "shoes",
+      "id": "shark",
+      "file": "/assets/catalog/shoes/shark.png",
+      "width": 307,
+      "height": 252
+    },
+    {
+      "sheet": "shoes",
+      "id": "primary",
+      "file": "/assets/catalog/shoes/primary.png",
+      "width": 308,
+      "height": 252
+    },
+    {
+      "sheet": "shoes",
+      "id": "neon-crown",
+      "file": "/assets/catalog/shoes/neon-crown.png",
+      "width": 307,
+      "height": 252
+    },
+    {
+      "sheet": "shoes",
+      "id": "rainbow-drip",
+      "file": "/assets/catalog/shoes/rainbow-drip.png",
+      "width": 307,
+      "height": 252
+    },
+    {
+      "sheet": "shoes",
+      "id": "ferrari",
+      "file": "/assets/catalog/shoes/ferrari.png",
+      "width": 307,
+      "height": 260
+    },
+    {
+      "sheet": "shoes",
+      "id": "lightning",
+      "file": "/assets/catalog/shoes/lightning.png",
+      "width": 307,
+      "height": 260
+    },
+    {
+      "sheet": "shoes",
+      "id": "monogram",
+      "file": "/assets/catalog/shoes/monogram.png",
+      "width": 308,
+      "height": 260
+    },
+    {
+      "sheet": "shoes",
+      "id": "camo",
+      "file": "/assets/catalog/shoes/camo.png",
+      "width": 307,
+      "height": 260
+    },
+    {
+      "sheet": "shoes",
+      "id": "pink-heart",
+      "file": "/assets/catalog/shoes/pink-heart.png",
+      "width": 307,
+      "height": 260
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "bear-blue",
+      "file": "/assets/catalog/tees-graphic/bear-blue.png",
+      "width": 307,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "game-on",
+      "file": "/assets/catalog/tees-graphic/game-on.png",
+      "width": 307,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "red-boy",
+      "file": "/assets/catalog/tees-graphic/red-boy.png",
+      "width": 308,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "legend",
+      "file": "/assets/catalog/tees-graphic/legend.png",
+      "width": 307,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "lion-crown",
+      "file": "/assets/catalog/tees-graphic/lion-crown.png",
+      "width": 307,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "astronaut",
+      "file": "/assets/catalog/tees-graphic/astronaut.png",
+      "width": 307,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "smiley-drip",
+      "file": "/assets/catalog/tees-graphic/smiley-drip.png",
+      "width": 307,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "controller-neon",
+      "file": "/assets/catalog/tees-graphic/controller-neon.png",
+      "width": 308,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "hoops-boy",
+      "file": "/assets/catalog/tees-graphic/hoops-boy.png",
+      "width": 307,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "just-do-it",
+      "file": "/assets/catalog/tees-graphic/just-do-it.png",
+      "width": 307,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "dino-rex",
+      "file": "/assets/catalog/tees-graphic/dino-rex.png",
+      "width": 307,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "hooded-figure",
+      "file": "/assets/catalog/tees-graphic/hooded-figure.png",
+      "width": 307,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "level-up",
+      "file": "/assets/catalog/tees-graphic/level-up.png",
+      "width": 308,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "night-car",
+      "file": "/assets/catalog/tees-graphic/night-car.png",
+      "width": 307,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "ninja-fire",
+      "file": "/assets/catalog/tees-graphic/ninja-fire.png",
+      "width": 307,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "spider-hero",
+      "file": "/assets/catalog/tees-graphic/spider-hero.png",
+      "width": 307,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "shark-jaws",
+      "file": "/assets/catalog/tees-graphic/shark-jaws.png",
+      "width": 307,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "controller-crown",
+      "file": "/assets/catalog/tees-graphic/controller-crown.png",
+      "width": 308,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "money-bear",
+      "file": "/assets/catalog/tees-graphic/money-bear.png",
+      "width": 307,
+      "height": 256
+    },
+    {
+      "sheet": "tees-graphic",
+      "id": "texas",
+      "file": "/assets/catalog/tees-graphic/texas.png",
+      "width": 307,
+      "height": 256
+    },
+    {
+      "sheet": "tops",
+      "id": "ninja",
+      "file": "/assets/catalog/tops/ninja.png",
+      "width": 234,
+      "height": 186
+    },
+    {
+      "sheet": "tops",
+      "id": "dragon-red",
+      "file": "/assets/catalog/tops/dragon-red.png",
+      "width": 233,
+      "height": 186
+    },
+    {
+      "sheet": "tops",
+      "id": "slam",
+      "file": "/assets/catalog/tops/slam.png",
+      "width": 234,
+      "height": 186
+    },
+    {
+      "sheet": "tops",
+      "id": "mech",
+      "file": "/assets/catalog/tops/mech.png",
+      "width": 233,
+      "height": 186
+    },
+    {
+      "sheet": "tops",
+      "id": "power-bolt",
+      "file": "/assets/catalog/tops/power-bolt.png",
+      "width": 234,
+      "height": 186
+    },
+    {
+      "sheet": "tops",
+      "id": "wrestle",
+      "file": "/assets/catalog/tops/wrestle.png",
+      "width": 234,
+      "height": 182
+    },
+    {
+      "sheet": "tops",
+      "id": "kick",
+      "file": "/assets/catalog/tops/kick.png",
+      "width": 233,
+      "height": 182
+    },
+    {
+      "sheet": "tops",
+      "id": "beast",
+      "file": "/assets/catalog/tops/beast.png",
+      "width": 234,
+      "height": 182
+    },
+    {
+      "sheet": "tops",
+      "id": "touchdown",
+      "file": "/assets/catalog/tops/touchdown.png",
+      "width": 233,
+      "height": 182
+    },
+    {
+      "sheet": "tops",
+      "id": "power-fist",
+      "file": "/assets/catalog/tops/power-fist.png",
+      "width": 234,
+      "height": 182
+    },
+    {
+      "sheet": "tops",
+      "id": "shadow",
+      "file": "/assets/catalog/tops/shadow.png",
+      "width": 234,
+      "height": 194
+    },
+    {
+      "sheet": "tops",
+      "id": "strike",
+      "file": "/assets/catalog/tops/strike.png",
+      "width": 233,
+      "height": 194
+    },
+    {
+      "sheet": "tops",
+      "id": "dragon-flame",
+      "file": "/assets/catalog/tops/dragon-flame.png",
+      "width": 234,
+      "height": 194
+    },
+    {
+      "sheet": "tops",
+      "id": "robot",
+      "file": "/assets/catalog/tops/robot.png",
+      "width": 233,
+      "height": 194
+    },
+    {
+      "sheet": "tops",
+      "id": "dunk",
+      "file": "/assets/catalog/tops/dunk.png",
+      "width": 234,
+      "height": 194
+    },
+    {
+      "sheet": "tops",
+      "id": "pin",
+      "file": "/assets/catalog/tops/pin.png",
+      "width": 234,
+      "height": 222
+    },
+    {
+      "sheet": "tops",
+      "id": "jaws",
+      "file": "/assets/catalog/tops/jaws.png",
+      "width": 233,
+      "height": 222
+    },
+    {
+      "sheet": "tops",
+      "id": "star",
+      "file": "/assets/catalog/tops/star.png",
+      "width": 234,
+      "height": 222
+    },
+    {
+      "sheet": "tops",
+      "id": "fight",
+      "file": "/assets/catalog/tops/fight.png",
+      "width": 233,
+      "height": 222
+    },
+    {
+      "sheet": "tops",
+      "id": "dragon-orange",
+      "file": "/assets/catalog/tops/dragon-orange.png",
+      "width": 234,
+      "height": 222
+    },
+    {
+      "sheet": "bottoms",
+      "id": "chino-khaki",
+      "file": "/assets/catalog/bottoms/chino-khaki.png",
+      "width": 234,
+      "height": 262
+    },
+    {
+      "sheet": "bottoms",
+      "id": "denim-light",
+      "file": "/assets/catalog/bottoms/denim-light.png",
+      "width": 233,
+      "height": 262
+    },
+    {
+      "sheet": "bottoms",
+      "id": "mesh-black",
+      "file": "/assets/catalog/bottoms/mesh-black.png",
+      "width": 234,
+      "height": 262
+    },
+    {
+      "sheet": "bottoms",
+      "id": "sweat-grey",
+      "file": "/assets/catalog/bottoms/sweat-grey.png",
+      "width": 233,
+      "height": 262
+    },
+    {
+      "sheet": "bottoms",
+      "id": "cargo-navy",
+      "file": "/assets/catalog/bottoms/cargo-navy.png",
+      "width": 234,
+      "height": 262
+    },
+    {
+      "sheet": "bottoms",
+      "id": "track-red",
+      "file": "/assets/catalog/bottoms/track-red.png",
+      "width": 234,
+      "height": 268
+    },
+    {
+      "sheet": "bottoms",
+      "id": "denim-dark",
+      "file": "/assets/catalog/bottoms/denim-dark.png",
+      "width": 233,
+      "height": 268
+    },
+    {
+      "sheet": "bottoms",
+      "id": "cargo-olive",
+      "file": "/assets/catalog/bottoms/cargo-olive.png",
+      "width": 234,
+      "height": 268
+    },
+    {
+      "sheet": "bottoms",
+      "id": "knit-black",
+      "file": "/assets/catalog/bottoms/knit-black.png",
+      "width": 233,
+      "height": 268
+    },
+    {
+      "sheet": "bottoms",
+      "id": "camo",
+      "file": "/assets/catalog/bottoms/camo.png",
+      "width": 234,
+      "height": 268
+    },
+    {
+      "sheet": "tees-white",
+      "id": "goku",
+      "file": "/assets/catalog/tees-white/goku.png",
+      "width": 234,
+      "height": 183
+    },
+    {
+      "sheet": "tees-white",
+      "id": "wwe-champion",
+      "file": "/assets/catalog/tees-white/wwe-champion.png",
+      "width": 233,
+      "height": 183
+    },
+    {
+      "sheet": "tees-white",
+      "id": "heroic",
+      "file": "/assets/catalog/tees-white/heroic.png",
+      "width": 234,
+      "height": 183
+    },
+    {
+      "sheet": "tees-white",
+      "id": "dunk-orange",
+      "file": "/assets/catalog/tees-white/dunk-orange.png",
+      "width": 233,
+      "height": 183
+    },
+    {
+      "sheet": "tees-white",
+      "id": "boom",
+      "file": "/assets/catalog/tees-white/boom.png",
+      "width": 234,
+      "height": 183
+    },
+    {
+      "sheet": "tees-white",
+      "id": "soccer",
+      "file": "/assets/catalog/tees-white/soccer.png",
+      "width": 234,
+      "height": 188
+    },
+    {
+      "sheet": "tees-white",
+      "id": "mech-red",
+      "file": "/assets/catalog/tees-white/mech-red.png",
+      "width": 233,
+      "height": 188
+    },
+    {
+      "sheet": "tees-white",
+      "id": "dragon-purple",
+      "file": "/assets/catalog/tees-white/dragon-purple.png",
+      "width": 234,
+      "height": 188
+    },
+    {
+      "sheet": "tees-white",
+      "id": "touchdown-blue",
+      "file": "/assets/catalog/tees-white/touchdown-blue.png",
+      "width": 233,
+      "height": 188
+    },
+    {
+      "sheet": "tees-white",
+      "id": "race",
+      "file": "/assets/catalog/tees-white/race.png",
+      "width": 234,
+      "height": 188
+    },
+    {
+      "sheet": "tees-white",
+      "id": "ninja-white",
+      "file": "/assets/catalog/tees-white/ninja-white.png",
+      "width": 234,
+      "height": 172
+    },
+    {
+      "sheet": "tees-white",
+      "id": "super-bolt",
+      "file": "/assets/catalog/tees-white/super-bolt.png",
+      "width": 233,
+      "height": 172
+    },
+    {
+      "sheet": "tees-white",
+      "id": "lava-monster",
+      "file": "/assets/catalog/tees-white/lava-monster.png",
+      "width": 234,
+      "height": 172
+    },
+    {
+      "sheet": "tees-white",
+      "id": "shark-white",
+      "file": "/assets/catalog/tees-white/shark-white.png",
+      "width": 233,
+      "height": 172
+    },
+    {
+      "sheet": "tees-white",
+      "id": "shadow-white",
+      "file": "/assets/catalog/tees-white/shadow-white.png",
+      "width": 234,
+      "height": 172
+    },
+    {
+      "sheet": "tees-white",
+      "id": "robot-space",
+      "file": "/assets/catalog/tees-white/robot-space.png",
+      "width": 234,
+      "height": 192
+    },
+    {
+      "sheet": "tees-white",
+      "id": "dunk-lightning",
+      "file": "/assets/catalog/tees-white/dunk-lightning.png",
+      "width": 233,
+      "height": 192
+    },
+    {
+      "sheet": "tees-white",
+      "id": "legend-burst",
+      "file": "/assets/catalog/tees-white/legend-burst.png",
+      "width": 234,
+      "height": 192
+    },
+    {
+      "sheet": "tees-white",
+      "id": "luchador",
+      "file": "/assets/catalog/tees-white/luchador.png",
+      "width": 233,
+      "height": 192
+    },
+    {
+      "sheet": "tees-white",
+      "id": "dragon-green",
+      "file": "/assets/catalog/tees-white/dragon-green.png",
+      "width": 234,
+      "height": 192
+    }
+  ]
+}
