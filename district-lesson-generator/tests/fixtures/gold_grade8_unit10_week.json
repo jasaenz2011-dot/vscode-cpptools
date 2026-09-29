@@ -1,0 +1,526 @@
+{
+  "unit": "Unit 10: Pythagorean Theorem",
+  "grade": "8",
+  "subject": "math",
+  "days_total": 7,
+  "source": "8th Grade Math Pacing_S&S 26-27.xlsx | Scope & Sequence, row 15",
+  "standards": [
+    {
+      "code": "8.6C",
+      "text": "Use models and diagrams to explain the Pythagorean theorem"
+    },
+    {
+      "code": "8.7C",
+      "text": "Use the Pythagorean Theorem and its converse to solve problems"
+    },
+    {
+      "code": "8.7D",
+      "text": "Determine the distance between two points on a coordinate plane using the Pythagorean Theorem"
+    }
+  ],
+  "days": [
+    {
+      "day": 1,
+      "topic": "Squares on the sides",
+      "focus_standards": [
+        "8.6C"
+      ],
+      "spiraled_standards": [],
+      "lesson_focus": "Build a square on every side of a 3-4-5 right triangle and tile the two leg squares into the hypotenuse square.",
+      "ticket_focus": "Draw the three squares, label the areas, explain why the two smaller areas fill the larger one.",
+      "materials": [
+        "Centimetre grid paper",
+        "Scissors",
+        "Pre-cut 3x3, 4x4 and 5x5 squares",
+        "Square tiles",
+        "String",
+        "Index cards"
+      ],
+      "notebooklm_pack_id": "PACK-8.6C",
+      "part_d": {
+        "concept_one_liner": "the area of the square on the hypotenuse equals the combined area of the squares on the two legs.",
+        "motion_movie": {
+          "scene": "Centimetre grid paper. A right triangle with legs 3 and 4, and a real paper square resting on each of its three sides.",
+          "move": "Cut the 3 by 3 and 4 by 4 squares into 25 loose unit squares and slide them one at a time into the 5 by 5 square on the hypotenuse.",
+          "freeze_frame": "The last unit square drops in and the 5 by 5 square is exactly full. That picture becomes 9 + 16 = 25.",
+          "talk_back": "The area of the square on the hypotenuse equals ___ because ___."
+        },
+        "misconceptions_to_show": [
+          "the hypotenuse is the two legs added, 3 + 4 = 7",
+          "the relationship holds for any triangle, not only a right one",
+          "squaring is a keystroke rather than the area of a square on that side"
+        ],
+        "gemini_sim_prompt": "You are building an interactive teaching simulation inside this chat / Canvas.\n\nAUDIENCE: Grade 8 Mathematics. TEKS 8.6C.\nGOAL: Students must SEE the area of the square on the hypotenuse equals the combined area of the squares on the two legs. They must not only compute.\n\nREQUIRED CONTROLS\n- Draggable vertices, so the student can pull leg a and leg b and watch all three squares resize live.\n- Draggable unit squares the student can move from the leg squares into the hypotenuse square.\n- Live labels using right triangle, leg, hypotenuse, area, square unit.\n- A talk-back stem on screen: \"The area of the square on the hypotenuse equals ___ because ___.\"\n- A misconception mode that can display: the hypotenuse is the two legs added, 3 + 4 = 7; the relationship holds for any triangle, not only a right one; squaring is a keystroke rather than the area of a square on that side\n\nREQUIRED VISUAL\n- A right triangle with an actual square drawn on all three sides, so a squared, b squared and c squared are AREAS the student can count.\n- Faint grid lines inside every square so unit squares are countable.\n- An area bar that updates: 9 + 16 = 25.\n- An obtuse mode where the tiles visibly fail to fill the largest square.\n\nCONSTRAINTS\n- Start on a clean 3-4-5 triangle so the areas are 9, 16 and 25.\n- Do not show the algebraic form until after the tiles have filled the square.\n- Eighth-grade readable. No clutter. Do not invent extra TEKS.\n- If you cannot draw the model, say so and draw the next-best area model. Do not ship a calculator.\n\nWalk me through the first interaction as if I am the teacher on a document camera.",
+        "notebooklm_pack_id": "PACK-8.6C",
+        "veo_shot_list": [
+          {
+            "shot_id": "V1",
+            "seconds": 6,
+            "purpose": "hook",
+            "prompt": "Top-down on centimetre grid paper. A right triangle is inked in, legs 3 and 4. Three blank paper squares slide into place on its three sides. Slow push-in. No people."
+          },
+          {
+            "shot_id": "V2",
+            "seconds": 6,
+            "purpose": "misconception",
+            "prompt": "Top-down. A ghosted square of side 7 fades over the hypotenuse square and visibly overhangs it on two edges, then dissolves. Static camera. No text."
+          },
+          {
+            "shot_id": "V3",
+            "seconds": 6,
+            "purpose": "model",
+            "prompt": "Top-down. Twenty-five loose unit squares slide one at a time from the two small squares into the large square. Slow, steady. No hands."
+          },
+          {
+            "shot_id": "V4",
+            "seconds": 5,
+            "purpose": "freeze",
+            "prompt": "Top-down. The final unit square drops into place and the large square is exactly full. The camera holds completely still."
+          }
+        ],
+        "classroom_use": {
+          "when_in_hunter": "Explain",
+          "minutes": 8,
+          "grouping": "whole group on board",
+          "teacher_move_after": "The tiles filled it exactly. Explain what would have to be true about the corner for them not to."
+        }
+      },
+      "package": "output/gold/grade8-math-unit10-day1.md"
+    },
+    {
+      "day": 2,
+      "topic": "Does it hold for every right triangle?",
+      "focus_standards": [
+        "8.6C"
+      ],
+      "spiraled_standards": [],
+      "lesson_focus": "Rebuild the area model on 6-8-10 and 5-12-13 to test whether the relationship is a coincidence of 3-4-5.",
+      "ticket_focus": "Given legs 9 and 12, give the three areas and justify the hypotenuse without a formula.",
+      "materials": [
+        "Centimetre grid paper",
+        "Square tiles",
+        "Scissors",
+        "Whiteboards"
+      ],
+      "notebooklm_pack_id": "PACK-8.6C",
+      "part_d": {
+        "concept_one_liner": "the area relationship holds for every right triangle, not just the friendly one.",
+        "motion_movie": {
+          "scene": "Three different right triangles drawn on one long strip of grid paper: 3-4-5, 6-8-10 and 5-12-13.",
+          "move": "Build the squares on each triangle in turn and tile the leg squares into the hypotenuse square, keeping a running tally on the board.",
+          "freeze_frame": "All three tallies stand side by side: 9+16=25, 36+64=100, 25+144=169. Nothing left over in any of them.",
+          "talk_back": "It worked again because ___, so this is not a coincidence."
+        },
+        "misconceptions_to_show": [
+          "the relationship is a special property of 3-4-5",
+          "bigger triangles need a different rule",
+          "the longest side can be a leg"
+        ],
+        "gemini_sim_prompt": "You are building an interactive teaching simulation inside this chat / Canvas.\n\nAUDIENCE: Grade 8 Mathematics. TEKS 8.6C.\nGOAL: Students must SEE the area relationship holds for every right triangle, not just the friendly one. They must not only compute.\n\nREQUIRED CONTROLS\n- A preset selector for 3-4-5, 6-8-10 and 5-12-13, plus a free mode with draggable vertices.\n- A running tally panel the student can pin, so all three results stay on screen at once.\n- A toggle that hides the numbers and leaves only the shaded areas.\n- A talk-back stem on screen: \"It worked again because ___, so this is not a coincidence.\"\n- A misconception mode that can display: the relationship is a special property of 3-4-5; bigger triangles need a different rule; the longest side can be a leg\n\nREQUIRED VISUAL\n- Squares on all three sides of whichever triangle is selected, with grid lines so the areas stay countable at every size.\n- A tally strip recording each result as the student works through the presets.\n- A deliberate trap mode where the student is invited to treat the longest side as a leg and watch the tiling fail.\n\nCONSTRAINTS\n- Keep every preset a whole-number triple so the areas stay countable.\n- Do not let the tally panel show the algebraic form until all three presets are done.\n- Eighth-grade readable. No clutter. Do not invent extra TEKS.\n- If you cannot draw the model, say so and draw the next-best area model. Do not ship a calculator.\n\nWalk me through the first interaction as if I am the teacher on a document camera.",
+        "notebooklm_pack_id": "PACK-8.6C",
+        "veo_shot_list": [
+          {
+            "shot_id": "V1",
+            "seconds": 6,
+            "purpose": "hook",
+            "prompt": "Top-down. Three right triangles of increasing size are inked onto one long strip of grid paper, left to right. Slow pan along the strip."
+          },
+          {
+            "shot_id": "V2",
+            "seconds": 6,
+            "purpose": "model",
+            "prompt": "Top-down. Squares build outward on all three sides of the 6-8-10 triangle, one after another. Static camera."
+          },
+          {
+            "shot_id": "V3",
+            "seconds": 6,
+            "purpose": "freeze",
+            "prompt": "Top-down. Three tally lines appear beneath the strip: 9+16=25, 36+64=100, 25+144=169. The camera holds still."
+          },
+          {
+            "shot_id": "V4",
+            "seconds": 5,
+            "purpose": "transfer",
+            "prompt": "Top-down. A fourth, unlabelled right triangle is inked in and the squares begin to build, then the shot cuts before the answer."
+          }
+        ],
+        "classroom_use": {
+          "when_in_hunter": "Explore",
+          "minutes": 10,
+          "grouping": "pairs on Chromebook",
+          "teacher_move_after": "Three triangles worked. Justify whether that is enough to be sure, and say what would convince you."
+        }
+      },
+      "package": ""
+    },
+    {
+      "day": 3,
+      "topic": "The converse: is this corner square?",
+      "focus_standards": [
+        "8.7C"
+      ],
+      "spiraled_standards": [
+        "8.6C"
+      ],
+      "lesson_focus": "Run the relationship backwards: given three side lengths, decide whether the triangle is right by comparing areas.",
+      "ticket_focus": "Given three side lengths, decide whether the triangle is right and justify with areas.",
+      "materials": [
+        "Hinged card strips (6, 8, 10 units)",
+        "Paper squares 36, 64 and 100 square units",
+        "Grid paper",
+        "Paper right-angle markers"
+      ],
+      "notebooklm_pack_id": "PACK-8.7C",
+      "part_d": {
+        "concept_one_liner": "if the two smaller squares fill the largest one, the corner has to be square.",
+        "motion_movie": {
+          "scene": "Three hinged card strips of length 6, 8 and 10 lie on grid paper beside squares of area 36, 64 and 100 square units.",
+          "move": "Open the hinge slowly. Each time the gap between the far ends changes, rebuild the square on that gap and watch its area climb.",
+          "freeze_frame": "The moment the square on the longest side reads exactly 100 square units and a paper right angle slides into the corner and fits.",
+          "talk_back": "This is a right triangle because ___ plus ___ equals ___."
+        },
+        "misconceptions_to_show": [
+          "any three lengths that look reasonable make a right triangle",
+          "you can decide by eye whether a corner is square",
+          "the theorem and its converse are the same tool"
+        ],
+        "gemini_sim_prompt": "You are building an interactive teaching simulation inside this chat / Canvas.\n\nAUDIENCE: Grade 8 Mathematics. TEKS 8.7C.\nGOAL: Students must SEE if the two smaller squares fill the largest one, the corner has to be square. They must not only compute.\n\nREQUIRED CONTROLS\n- A hinge slider that opens and closes the angle between the two shorter sides, with the third side and its square rebuilding live.\n- Three number inputs for side lengths, with a verdict panel that reports right, acute or obtuse and shows the area gap.\n- A draggable paper right-angle marker the student can drop into the corner.\n- A talk-back stem on screen: \"This is a right triangle because ___ plus ___ equals ___.\"\n- A misconception mode that can display: any three lengths that look reasonable make a right triangle; you can decide by eye whether a corner is square; the theorem and its converse are the same tool\n\nREQUIRED VISUAL\n- Squares on all three sides that resize as the hinge opens, each labelled with its area in square units.\n- A gap readout showing how many square units short or over the two smaller squares are.\n- A side-by-side compare mode holding 9-12-15 against 9-12-16.\n\nCONSTRAINTS\n- Open on 6-8-10 so the first verdict is a clean yes.\n- Always show the area gap, even when it is zero, so the test is visible rather than announced.\n- Eighth-grade readable. No clutter. Do not invent extra TEKS.\n- If you cannot draw the model, say so and draw the next-best area model. Do not ship a calculator.\n\nWalk me through the first interaction as if I am the teacher on a document camera.",
+        "notebooklm_pack_id": "PACK-8.7C",
+        "veo_shot_list": [
+          {
+            "shot_id": "V1",
+            "seconds": 6,
+            "purpose": "hook",
+            "prompt": "Top-down. Three hinged card strips lie flat, then lift and close into a narrow triangle. Slow push-in. No people."
+          },
+          {
+            "shot_id": "V2",
+            "seconds": 6,
+            "purpose": "model",
+            "prompt": "Top-down. The hinge opens slowly and the square on the far side rebuilds larger with each degree. Static camera."
+          },
+          {
+            "shot_id": "V3",
+            "seconds": 5,
+            "purpose": "freeze",
+            "prompt": "Top-down. A paper right-angle marker slides into the corner and seats flush. The camera holds still."
+          },
+          {
+            "shot_id": "V4",
+            "seconds": 6,
+            "purpose": "misconception",
+            "prompt": "Top-down. Sides 9, 12 and 16. The two smaller squares tile into the largest and stop short, leaving a visible gap. Slow pull-back."
+          }
+        ],
+        "classroom_use": {
+          "when_in_hunter": "Explore",
+          "minutes": 10,
+          "grouping": "pairs on Chromebook",
+          "teacher_move_after": "The gap read zero. Explain what a gap of thirty-one square units would have told you about the corner."
+        }
+      },
+      "package": ""
+    },
+    {
+      "day": 4,
+      "topic": "Converse in problem situations",
+      "focus_standards": [
+        "8.7C"
+      ],
+      "spiraled_standards": [
+        "8.6C"
+      ],
+      "lesson_focus": "Apply the converse to squaring a corner: a garden bed, a stage flat, a chalk baseball diamond.",
+      "ticket_focus": "Decide whether a described corner is square and justify with areas.",
+      "materials": [
+        "String",
+        "Metre sticks",
+        "Chalk or painter's tape",
+        "Grid paper"
+      ],
+      "notebooklm_pack_id": "PACK-8.7C",
+      "part_d": {
+        "concept_one_liner": "carpenters and groundskeepers square a corner by checking a 3-4-5 triangle, not by looking at it.",
+        "motion_movie": {
+          "scene": "A rectangle of painter's tape on the classroom floor, one corner deliberately off square.",
+          "move": "Measure 3 units along one edge and 4 along the other, then stretch string between the marks and read its length against a metre stick.",
+          "freeze_frame": "The string reads 5.3 units instead of 5. The corner is not square, and the number says so before anyone argues.",
+          "talk_back": "The corner is off because the diagonal should read ___ and it reads ___."
+        },
+        "misconceptions_to_show": [
+          "a corner that looks square is square",
+          "the 3-4-5 check only works with those exact numbers",
+          "the diagonal is the sum of the two measured edges"
+        ],
+        "gemini_sim_prompt": "You are building an interactive teaching simulation inside this chat / Canvas.\n\nAUDIENCE: Grade 8 Mathematics. TEKS 8.7C.\nGOAL: Students must SEE carpenters and groundskeepers square a corner by checking a 3-4-5 triangle, not by looking at it. They must not only compute.\n\nREQUIRED CONTROLS\n- Draggable corner points on a floor plan, so the student can knock a corner out of square and watch the diagonal reading change.\n- A units selector for feet and metres, so the check survives a change of scale.\n- A tolerance slider showing when a corner is close enough for the job.\n- A talk-back stem on screen: \"The corner is off because the diagonal should read ___ and it reads ___.\"\n- A misconception mode that can display: a corner that looks square is square; the 3-4-5 check only works with those exact numbers; the diagonal is the sum of the two measured edges\n\nREQUIRED VISUAL\n- A floor plan with one adjustable corner, the 3-4-5 marks shown on the two edges, and the diagonal measured live.\n- An area panel behind the plan showing 9 + 16 against the square on the measured diagonal.\n- A scaled mode using 6-8-10 to show the same check on a bigger footprint.\n\nCONSTRAINTS\n- Start with the corner visibly out of square so the check has work to do.\n- Keep every reading to one decimal place, as a tape measure would.\n- Eighth-grade readable. No clutter. Do not invent extra TEKS.\n- If you cannot draw the model, say so and draw the next-best area model. Do not ship a calculator.\n\nWalk me through the first interaction as if I am the teacher on a document camera.",
+        "notebooklm_pack_id": "PACK-8.7C",
+        "veo_shot_list": [
+          {
+            "shot_id": "V1",
+            "seconds": 6,
+            "purpose": "hook",
+            "prompt": "Top-down. Painter's tape marks a rectangle on a classroom floor, one corner slightly off. Slow push-in. No people."
+          },
+          {
+            "shot_id": "V2",
+            "seconds": 6,
+            "purpose": "model",
+            "prompt": "Top-down. Marks appear at 3 units and 4 units along the two edges. A string stretches between them. Static camera."
+          },
+          {
+            "shot_id": "V3",
+            "seconds": 5,
+            "purpose": "freeze",
+            "prompt": "Top-down. The string lies against a metre stick reading just over 5. The camera holds still."
+          },
+          {
+            "shot_id": "V4",
+            "seconds": 6,
+            "purpose": "transfer",
+            "prompt": "Top-down. The corner is nudged true, the string is re-stretched, and it now reads exactly 5. Slow pull-back."
+          }
+        ],
+        "classroom_use": {
+          "when_in_hunter": "Elaborate",
+          "minutes": 8,
+          "grouping": "station",
+          "teacher_move_after": "The diagonal read 5.3. Explain what you would tell the builder to change, and how you would check it again."
+        }
+      },
+      "package": ""
+    },
+    {
+      "day": 5,
+      "topic": "Distance on the coordinate plane",
+      "focus_standards": [
+        "8.7D"
+      ],
+      "spiraled_standards": [
+        "8.6C",
+        "8.7C"
+      ],
+      "lesson_focus": "Drop a right triangle between two plotted points and read the distance as the hypotenuse.",
+      "ticket_focus": "Given two points, draw the triangle, label both legs, and give the distance with a justification.",
+      "materials": [
+        "Coordinate grid paper",
+        "Counters",
+        "String",
+        "Rulers"
+      ],
+      "notebooklm_pack_id": "PACK-8.7D",
+      "part_d": {
+        "concept_one_liner": "two points on a grid already have a right triangle between them.",
+        "motion_movie": {
+          "scene": "A coordinate plane on grid paper. Counters mark A at (1, 2) and B at (5, 5), with string stretched between them.",
+          "move": "Walk one counter horizontally from A until it sits under B, counting 4 units aloud, then vertically up to B, counting 3.",
+          "freeze_frame": "The horizontal leg reads 4, the vertical leg reads 3, and the string lies along the hypotenuse.",
+          "talk_back": "The legs are ___ and ___, so the distance is the hypotenuse, not ___."
+        },
+        "misconceptions_to_show": [
+          "the distance is the horizontal gap plus the vertical gap",
+          "subtracting coordinates the wrong way makes a negative leg",
+          "the distance is the area of the square on the hypotenuse"
+        ],
+        "gemini_sim_prompt": "You are building an interactive teaching simulation inside this chat / Canvas.\n\nAUDIENCE: Grade 8 Mathematics. TEKS 8.7D.\nGOAL: Students must SEE two points on a grid already have a right triangle between them. They must not only compute.\n\nREQUIRED CONTROLS\n- Two draggable points, with the right triangle and both leg lengths redrawing live as they move.\n- A toggle between walking the legs and flying the hypotenuse, with both distances shown.\n- A grid-count mode that highlights each unit square along a leg as it counts.\n- A talk-back stem on screen: \"The legs are ___ and ___, so the distance is the hypotenuse, not ___.\"\n- A misconception mode that can display: the distance is the horizontal gap plus the vertical gap; subtracting coordinates the wrong way makes a negative leg; the distance is the area of the square on the hypotenuse\n\nREQUIRED VISUAL\n- A coordinate plane with the dashed horizontal and vertical legs, a right angle box at the corner, and the solid hypotenuse.\n- Squares built on both legs and on the hypotenuse, labelled by area, so the link back to day one is visible.\n- A readout comparing the walked distance of 7 against the flown distance of 5.\n\nCONSTRAINTS\n- Open on (1, 2) and (5, 5) so the first triangle is a 3-4-5.\n- Never display a negative leg length; count grid squares instead.\n- Eighth-grade readable. No clutter. Do not invent extra TEKS.\n- If you cannot draw the model, say so and draw the next-best area model. Do not ship a calculator.\n\nWalk me through the first interaction as if I am the teacher on a document camera.",
+        "notebooklm_pack_id": "PACK-8.7D",
+        "veo_shot_list": [
+          {
+            "shot_id": "V1",
+            "seconds": 6,
+            "purpose": "hook",
+            "prompt": "Top-down. A coordinate plane. Two counters land at (1,2) and (5,5). A string stretches taut between them. Slow push-in. No people."
+          },
+          {
+            "shot_id": "V2",
+            "seconds": 6,
+            "purpose": "model",
+            "prompt": "Top-down. A dashed line runs right four squares, then up three, tracing the two legs. Static camera."
+          },
+          {
+            "shot_id": "V3",
+            "seconds": 5,
+            "purpose": "freeze",
+            "prompt": "Top-down. A right-angle box appears at the corner and the hypotenuse draws last. The camera holds still."
+          },
+          {
+            "shot_id": "V4",
+            "seconds": 6,
+            "purpose": "misconception",
+            "prompt": "Top-down. The dashed legs unfold end to end beside the string, showing seven units against five. Slow pull-back."
+          }
+        ],
+        "classroom_use": {
+          "when_in_hunter": "Guided Practice",
+          "minutes": 10,
+          "grouping": "pairs on Chromebook",
+          "teacher_move_after": "Walking took seven and flying took five. Explain why the gap between them grows as the points move apart."
+        }
+      },
+      "package": ""
+    },
+    {
+      "day": 6,
+      "topic": "Distance in problem situations",
+      "focus_standards": [
+        "8.7D"
+      ],
+      "spiraled_standards": [
+        "8.6C",
+        "8.7C"
+      ],
+      "lesson_focus": "Use coordinate distance on a map: two campus buildings, a park path, the shortest route across a field.",
+      "ticket_focus": "Given a mapped situation, find the straight-line distance and justify why it beats the walked route.",
+      "materials": [
+        "Campus map on grid overlay",
+        "Coordinate grid paper",
+        "String",
+        "Rulers"
+      ],
+      "notebooklm_pack_id": "PACK-8.7D",
+      "part_d": {
+        "concept_one_liner": "the shortest route between two mapped places is the hypotenuse of a triangle already on the grid.",
+        "motion_movie": {
+          "scene": "A grid overlay on a simple campus map. The gym sits at (2, 1) and the library at (10, 7).",
+          "move": "Trace the sidewalk route along the grid lines, counting 8 units across and 6 up, then stretch string directly between the two buildings.",
+          "freeze_frame": "The sidewalk route reads 14 units and the string reads 10. The saving is visible as slack string.",
+          "talk_back": "The walk is ___ units and the straight line is ___ because ___."
+        },
+        "misconceptions_to_show": [
+          "the map distance is whatever the sidewalk measures",
+          "a diagonal cannot be measured without a special formula",
+          "the answer is the area rather than the length"
+        ],
+        "gemini_sim_prompt": "You are building an interactive teaching simulation inside this chat / Canvas.\n\nAUDIENCE: Grade 8 Mathematics. TEKS 8.7D.\nGOAL: Students must SEE the shortest route between two mapped places is the hypotenuse of a triangle already on the grid. They must not only compute.\n\nREQUIRED CONTROLS\n- Draggable building markers on the map, with both routes recomputing live.\n- A route toggle showing sidewalk versus straight line, with a saving readout.\n- A scale control converting grid units to metres.\n- A talk-back stem on screen: \"The walk is ___ units and the straight line is ___ because ___.\"\n- A misconception mode that can display: the map distance is whatever the sidewalk measures; a diagonal cannot be measured without a special formula; the answer is the area rather than the length\n\nREQUIRED VISUAL\n- A campus map under a coordinate grid, with the two routes drawn in contrasting styles and both lengths labelled.\n- The right triangle picked out beneath the straight-line route.\n- A saving panel reporting the difference between the two routes.\n\nCONSTRAINTS\n- Open on the gym and library so the first triangle is 6-8-10.\n- Keep the scale honest: if a grid unit is ten metres, say so on screen.\n- Eighth-grade readable. No clutter. Do not invent extra TEKS.\n- If you cannot draw the model, say so and draw the next-best area model. Do not ship a calculator.\n\nWalk me through the first interaction as if I am the teacher on a document camera.",
+        "notebooklm_pack_id": "PACK-8.7D",
+        "veo_shot_list": [
+          {
+            "shot_id": "V1",
+            "seconds": 6,
+            "purpose": "hook",
+            "prompt": "Top-down. A coordinate grid fades in over a simple campus map. Two markers drop onto two buildings. Slow push-in. No people."
+          },
+          {
+            "shot_id": "V2",
+            "seconds": 6,
+            "purpose": "model",
+            "prompt": "Top-down. A route traces along the grid lines, eight across then six up, in a dashed style. Static camera."
+          },
+          {
+            "shot_id": "V3",
+            "seconds": 6,
+            "purpose": "transfer",
+            "prompt": "Top-down. A straight line draws directly between the two markers, cutting the corner. The camera holds still."
+          },
+          {
+            "shot_id": "V4",
+            "seconds": 5,
+            "purpose": "freeze",
+            "prompt": "Top-down. Two length labels sit side by side, fourteen and ten, with the difference shaded between the routes."
+          }
+        ],
+        "classroom_use": {
+          "when_in_hunter": "Elaborate",
+          "minutes": 8,
+          "grouping": "station",
+          "teacher_move_after": "The straight line saved four units. Explain when a walked route would save nothing at all."
+        }
+      },
+      "package": ""
+    },
+    {
+      "day": 7,
+      "topic": "Unit review and performance check",
+      "focus_standards": [
+        "8.6C",
+        "8.7C",
+        "8.7D"
+      ],
+      "spiraled_standards": [],
+      "lesson_focus": "Sort mixed tasks by which tool they need: explain with area, test a corner, or find a distance.",
+      "ticket_focus": "Three mixed items, one per standard, each requiring a model and a justification.",
+      "materials": [
+        "Task card set",
+        "Grid paper",
+        "Square tiles",
+        "String",
+        "Whiteboards"
+      ],
+      "notebooklm_pack_id": "PACK-8.6C",
+      "part_d": {
+        "concept_one_liner": "the three standards are one relationship used in three directions.",
+        "motion_movie": {
+          "scene": "Three stations on one table: paper squares, hinged strips, and a coordinate grid.",
+          "move": "Carry one mixed task card to whichever station can answer it, and say out loud which direction of the relationship the card needs.",
+          "freeze_frame": "All three stations hold the same picture: two smaller squares and one larger square that they exactly fill.",
+          "talk_back": "This card needs the ___ station because it asks me to ___."
+        },
+        "misconceptions_to_show": [
+          "the three standards are three unrelated procedures",
+          "distance problems need a formula the other two do not",
+          "a right angle can be assumed when a problem does not say so"
+        ],
+        "gemini_sim_prompt": "You are building an interactive teaching simulation inside this chat / Canvas.\n\nAUDIENCE: Grade 8 Mathematics. TEKS 8.6C, 8.7C, 8.7D.\nGOAL: Students must SEE the three standards are one relationship used in three directions. They must not only compute.\n\nREQUIRED CONTROLS\n- A station selector that switches between the area model, the hinge test and the coordinate plane, keeping the same triangle on screen.\n- Draggable task cards the student drops onto a station, with feedback on whether the tool fits.\n- A shared triangle whose sides stay linked across all three views.\n- A talk-back stem on screen: \"This card needs the ___ station because it asks me to ___.\"\n- A misconception mode that can display: the three standards are three unrelated procedures; distance problems need a formula the other two do not; a right angle can be assumed when a problem does not say so\n\nREQUIRED VISUAL\n- One triangle rendered three ways: with squares on the sides, on a hinge, and dropped onto a coordinate grid.\n- A direction indicator naming which way the relationship is being used.\n- A mixed card tray holding tasks from all three standards.\n\nCONSTRAINTS\n- Keep the same 6-8-10 triangle across all three views so the link is unmistakable.\n- Do not reveal which standard a card belongs to until the student commits.\n- Eighth-grade readable. No clutter. Do not invent extra TEKS.\n- If you cannot draw the model, say so and draw the next-best area model. Do not ship a calculator.\n\nWalk me through the first interaction as if I am the teacher on a document camera.",
+        "notebooklm_pack_id": "PACK-8.6C",
+        "veo_shot_list": [
+          {
+            "shot_id": "V1",
+            "seconds": 6,
+            "purpose": "hook",
+            "prompt": "Top-down. Three station mats slide into frame side by side: paper squares, hinged strips, a coordinate grid. Slow pan across."
+          },
+          {
+            "shot_id": "V2",
+            "seconds": 6,
+            "purpose": "model",
+            "prompt": "Top-down. The same 6-8-10 triangle appears on each mat in turn, drawn in the same ink. Static camera."
+          },
+          {
+            "shot_id": "V3",
+            "seconds": 5,
+            "purpose": "freeze",
+            "prompt": "Top-down. Three identical area pictures sit in a row, each showing 36 and 64 filling 100. The camera holds still."
+          },
+          {
+            "shot_id": "V4",
+            "seconds": 6,
+            "purpose": "transfer",
+            "prompt": "Top-down. A task card slides across the table and lands on the coordinate mat. Slow push-in."
+          }
+        ],
+        "classroom_use": {
+          "when_in_hunter": "Evaluate",
+          "minutes": 8,
+          "grouping": "station",
+          "teacher_move_after": "All three stations drew the same picture. Explain what changes between them and what stays the same."
+        }
+      },
+      "package": ""
+    }
+  ],
+  "notebooklm_packs": [
+    {
+      "pack_id": "PACK-8.6C",
+      "title": "Seeing the Pythagorean Theorem as Area",
+      "audience": "Grade 8 Mathematics",
+      "teks_block": "8.6C Use models and diagrams to explain the Pythagorean theorem",
+      "source_doc_markdown": "VIDEO STEERING: Cinematic classroom explainer, 3-6 minutes, no background music louder than the voice, on-screen labels for every academic vocabulary word the first time it is spoken, freeze on the model before any formula appears.\n\n# Seeing the Pythagorean Theorem as Area\n\nGrade 8 Mathematics. Posted TEKS 8.6C, use models and diagrams to explain the Pythagorean theorem.\n\n## Objective and how mastery is shown\n\nStudents explain the Pythagorean theorem using a model in which each side of a right triangle carries a square, and the area of the square on the hypotenuse equals the combined area of the squares on the two legs. Mastery is shown when a student builds or draws the three squares, states the areas in square units, and explains in their own words why the two smaller areas must fill the larger one. A student who writes a correct number without an area model has not yet met this standard, because 8.6C is about explaining with models and diagrams, not about computing a missing side.\n\n## The motion movie, in four beats\n\nScene. A right triangle is drawn on centimetre grid paper with legs of 3 and 4 units. The right angle is marked with a small box. Three paper squares are cut to sit exactly on the three sides: a 3 by 3 square, a 4 by 4 square, and a 5 by 5 square. Each square is a real object the class can pick up, not a label.\n\nMove. The 3 by 3 square is cut into 9 unit squares and the 4 by 4 square is cut into 16 unit squares. Students slide those 25 loose unit squares, one at a time, into the square resting on the hypotenuse. They keep going until the large square is full. Nothing is left over and no gap remains.\n\nFreeze frame. Hold the moment the last unit square drops into place and the 5 by 5 square is exactly covered. That picture is the equation. Only after the class has looked at the full square does the line 9 + 16 = 25 appear, and only after that does the general form a squared plus b squared equals c squared appear.\n\nTalk-back. A student says: the area of the square on the hypotenuse equals the area of the square on one leg plus the area of the square on the other leg.\n\n## One fully worked example\n\nWorked example: a right triangle with legs of 3 units and 4 units. Step 1, build the square on the first leg. Its side is 3 units, so its area is 3 times 3, which is 9 square units. Count the 9 unit squares on the grid to confirm it. Step 2, build the square on the second leg. Its side is 4 units, so its area is 4 times 4, which is 16 square units. Count the 16 unit squares. Step 3, build the square on the hypotenuse. Its side is 5 units, so its area is 5 times 5, which is 25 square units. Step 4, test the claim by moving area. Take all 9 unit squares from the first square and all 16 unit squares from the second, which is 25 unit squares in total, and tile them into the 25 square units of the largest square. They fit exactly. Step 5, write what the picture showed: 9 + 16 = 25, and in general a squared plus b squared equals c squared, where a and b are the legs and c is the hypotenuse.\n\nThe diagram to describe on screen: a right triangle sits in the centre with the right angle at the lower left. A shaded square hangs below the horizontal leg labelled 16 square units. A shaded square sits to the left of the vertical leg labelled 9 square units. A larger square rests on the slanted side, labelled 25 square units. Faint grid lines run through all three squares so every unit square is countable.\n\n## The misconception this visual kills\n\nThe wrong idea is that the hypotenuse is simply the two legs added together, so a triangle with legs 3 and 4 would have a hypotenuse of 7. It survives when students only ever see the letters a, b and c and never see area. The model kills it because a square built on a side of 7 would have an area of 49 square units, and the class has just watched only 25 unit squares come off the legs. There is no way to fill 49 with 25, and the gap is visible on the grid rather than argued about.\n\nA second wrong idea is that the relationship holds for any triangle. Tilting the triangle so the right angle opens past ninety degrees makes the square on the longest side grow while the leg squares stay the same, and the tiles no longer fill it. The right angle is the condition, not decoration.\n\n## Talk-back stem and an acceptable answer\n\nStem: the area of the square on the hypotenuse equals ___ because ___. An acceptable answer: the area of the square on the hypotenuse equals 25 square units because the 9 unit squares from one leg and the 16 unit squares from the other leg filled it exactly, with nothing left over. A student who says c equals 5 because I used the formula has computed, not explained, and the narrator should return to the tiles.\n\n## One STAAR-flavored check\n\nA right triangle has legs measuring 6 units and 8 units. Squares are drawn on all three sides. What is the area of the square drawn on the hypotenuse? The correct answer is 100 square units, because 36 plus 64 is 100. A choice of 14 square units catches the student who added the two side lengths instead of the areas. A choice of 48 square units catches the student who multiplied the legs, which finds twice the area of the triangle rather than the square on the hypotenuse. A choice of 10 square units catches the student who found the length of the hypotenuse and stopped, reporting a length where an area was asked for.\n\n## Closing line for the narrator\n\nThe theorem is not a formula to remember. It is a statement about area you can watch happen on grid paper."
+    },
+    {
+      "pack_id": "PACK-8.7C",
+      "title": "Testing for a Right Angle: the Converse",
+      "audience": "Grade 8 Mathematics",
+      "teks_block": "8.7C Use the Pythagorean Theorem and its converse to solve problems",
+      "source_doc_markdown": "VIDEO STEERING: Cinematic classroom explainer, 3-6 minutes, no background music louder than the voice, on-screen labels for every academic vocabulary word the first time it is spoken, freeze on the model before any formula appears.\n\n# Testing for a Right Angle: the Converse\n\nGrade 8 Mathematics. Posted TEKS 8.7C, use the Pythagorean Theorem and its converse to solve problems.\n\n## Objective and how mastery is shown\n\nStudents decide whether a triangle is a right triangle by comparing the area of the square on the longest side against the combined areas of the squares on the other two sides. Mastery is shown when a student tests a set of three side lengths, states whether the triangle is right, and justifies the decision with areas rather than with a remembered rule. The theorem says that if a triangle is right, the areas balance. The converse runs the other way: if the areas balance, the triangle is right. Students who cannot say which direction they are using will misuse both.\n\n## The motion movie, in four beats\n\nScene. Three strips of card, 6, 8 and 10 units long, lie on grid paper beside three paper squares of area 36, 64 and 100 square units. The strips are hinged at their ends so the triangle can open and close.\n\nMove. Close the hinge until the triangle is narrow and open it slowly. As the angle between the two shorter strips opens, the square on the longest side is rebuilt each time to match the gap between the far ends. The class watches its area climb.\n\nFreeze frame. Hold the instant the square on the longest side reads exactly 100 square units, the same as 36 plus 64. A paper right angle slid into the corner fits exactly. That coincidence is the converse.\n\nTalk-back. A student says: this is a right triangle because 36 plus 64 equals 100, so the areas balance.\n\n## One fully worked example\n\nWorked example: are 9, 12 and 15 the sides of a right triangle? Step 1, find the longest side. It is 15, so the square on it would have an area of 15 times 15, which is 225 square units. Step 2, square the two shorter sides. 9 times 9 is 81 square units and 12 times 12 is 144 square units. Step 3, combine the two smaller areas. 81 plus 144 is 225 square units. Step 4, compare. 225 equals 225, so the two smaller squares would tile the largest one exactly, and the triangle is right. Step 5, test a set that fails. For 9, 12 and 16 the largest square is 256 square units while 81 plus 144 is only 225 square units. The tiles fall 31 square units short, so the angle must have opened past ninety degrees and the triangle is obtuse.\n\nThe diagram to describe on screen: three hinged strips forming a triangle, with a shaded square built outward on each side. The two smaller squares are labelled 81 and 144 square units. The largest square is labelled 225 square units, and a small paper right-angle marker sits in the corner between the two shorter sides.\n\n## The misconception this visual kills\n\nThe wrong idea is that any three lengths that look reasonable make a right triangle, or that checking is a matter of eyeballing the corner. Students accept 9, 12 and 16 because it is close to 9, 12 and 15. The model kills it because a 31 square unit gap is visible on the grid, and no amount of squinting closes it.\n\nA second wrong idea is direction. Students apply the theorem to a triangle nobody has said is right, and compute a side that does not exist. The converse is the tool for deciding; the theorem is the tool for measuring once the decision is made.\n\n## Talk-back stem and an acceptable answer\n\nStem: this triangle is or is not right because ___. An acceptable answer: this is not a right triangle because the square on the longest side is 256 square units but the other two squares only give 225 square units, so they cannot fill it. A student who says it does not look right has not used the areas and should be sent back to the grid.\n\n## One STAAR-flavored check\n\nWhich set of side lengths forms a right triangle? The correct answer is 7, 24 and 25, because 49 plus 576 is 625, which is 25 times 25. A choice of 5, 6 and 7 catches the student who assumes consecutive numbers work, since 25 plus 36 is 61 and not 49. A choice of 8, 15 and 16 catches the student who is close but never checks, since 64 plus 225 is 289 and not 256. A choice of 3, 4 and 6 catches the student who remembers 3-4-5 and changes one number without retesting.\n\n## Closing line for the narrator\n\nThe corner does not tell you it is right. The areas do."
+    },
+    {
+      "pack_id": "PACK-8.7D",
+      "title": "Distance on the Coordinate Plane",
+      "audience": "Grade 8 Mathematics",
+      "teks_block": "8.7D Determine the distance between two points on a coordinate plane using the Pythagorean Theorem",
+      "source_doc_markdown": "VIDEO STEERING: Cinematic classroom explainer, 3-6 minutes, no background music louder than the voice, on-screen labels for every academic vocabulary word the first time it is spoken, freeze on the model before any formula appears.\n\n# Distance on the Coordinate Plane\n\nGrade 8 Mathematics. Posted TEKS 8.7D, determine the distance between two points on a coordinate plane using the Pythagorean Theorem.\n\n## Objective and how mastery is shown\n\nStudents find the distance between two points by dropping a right triangle onto the coordinate plane, using the horizontal and vertical gaps as the legs. Mastery is shown when a student draws the triangle, labels both legs by counting grid units, and explains that the distance is the hypotenuse rather than the sum of the two gaps. A student who produces a number without the triangle has not shown this standard, because 8.7D is about seeing the triangle that is already hiding in the grid.\n\n## The motion movie, in four beats\n\nScene. A coordinate plane on grid paper. Two points are marked with counters: point A at (1, 2) and point B at (5, 5). A length of string is stretched between them.\n\nMove. Walk one counter horizontally from A until it sits directly under B, counting 4 units aloud, then walk it vertically up to B, counting 3 units. The path traced is two sides of a right triangle. The string stays stretched along the third side the whole time.\n\nFreeze frame. Hold the moment the horizontal leg reads 4, the vertical leg reads 3, and the string lies along the hypotenuse. That picture is the triangle, and the distance is the string.\n\nTalk-back. A student says: the legs are 4 and 3, so the distance is the hypotenuse, not 7.\n\n## One fully worked example\n\nWorked example: find the distance from A at (1, 2) to B at (5, 5). Step 1, find the horizontal gap. From x equals 1 to x equals 5 is 4 units. Count the grid squares; do not subtract carelessly. Step 2, find the vertical gap. From y equals 2 to y equals 5 is 3 units. Step 3, draw the right triangle. The horizontal gap and the vertical gap meet at (5, 2), and that corner is the right angle. Step 4, build the squares. The square on the horizontal leg has an area of 16 square units and the square on the vertical leg has an area of 9 square units. Step 5, combine and read the hypotenuse. 16 plus 9 is 25 square units, so the square on the hypotenuse has an area of 25 square units and its side is 5 units. The distance from A to B is 5 units. Walking the two legs took 7 units, which is why the straight path is shorter.\n\nThe diagram to describe on screen: a coordinate plane with A at (1, 2) and B at (5, 5), a dashed horizontal segment to (5, 2), a dashed vertical segment up to B, a right-angle box at (5, 2), and a solid segment from A to B labelled 5 units.\n\n## A second case worth showing\n\nNot every pair of points needs a triangle. Take C at (3, 6) and D at (9, 6). Both sit on the same horizontal line, so the vertical gap is 0 and the horizontal gap is 6. There is no triangle to drop, and the distance is simply 6 units. Students should meet this case early, because a student who has only ever seen slanted pairs will invent a triangle that is not there and report something other than 6. The same holds for two points sharing an x-coordinate: count the vertical gap and stop. The triangle is a tool for the slanted case, not a ritual to perform every time.\n\n## The misconception this visual kills\n\nThe wrong idea is that the distance is the horizontal gap plus the vertical gap, so 4 plus 3 gives 7. It comes from counting the walk instead of measuring the flight. The model kills it because the string is visibly shorter than the two dashed legs laid end to end, and every student can see that a straight line beats a detour.\n\nA second wrong idea is subtracting the coordinates in the wrong order and reporting a negative leg. A leg is a length. Counting grid squares makes a negative impossible.\n\n## Talk-back stem and an acceptable answer\n\nStem: the distance is ___ and not ___ because ___. An acceptable answer: the distance is 5 and not 7 because 4 and 3 are the legs of the right triangle, and the distance is the hypotenuse, which is always shorter than walking both legs.\n\n## One STAAR-flavored check\n\nWhat is the distance between the points (2, 1) and (10, 7)? The correct answer is 10 units, because the legs are 8 and 6, and 64 plus 36 is 100. A choice of 14 units catches the student who added the two gaps instead of using the triangle. A choice of 48 units catches the student who multiplied the legs. A choice of 100 units catches the student who stopped at the area of the square on the hypotenuse and reported an area where a length was asked for.\n\n## Closing line for the narrator\n\nTwo points on a grid already have a right triangle between them. You just have to draw it."
+    }
+  ],
+  "spiral_review": "Every day after day 2 opens with one area-model warm-up from the previous standard, so 8.6C stays live through the converse and distance work.",
+  "assessment_plan": "Day 7 performance check: three mixed items, one per standard, each requiring a model and a justification.",
+  "teacher_notes": "Pre-cut the paper squares and hinge the card strips during conference period; cutting should not eat a modeling block. Days 1 and 2 share PACK-8.6C, days 3 and 4 share PACK-8.7C, days 5 and 6 share PACK-8.7D. Source: 8th Grade Math Pacing_S&S 26-27.xlsx | Scope & Sequence | row 15."
+}

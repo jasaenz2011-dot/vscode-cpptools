@@ -1,0 +1,21 @@
+# Built index and generated materials -- both are reproducible from corpus/.
+# The index holds chunks of the source documents, so it is district data too:
+# match every index directory, not just the default name.
+.dlg_index*/
+/output/
+
+# A district's real documents must never be committed to a shared repo.
+# Anchored to the project root so samples/corpus/ -- which is committed on
+# purpose, and is what `dlg init` copies from -- is not caught by this.
+/corpus/
+
+/dlg.config.json
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
