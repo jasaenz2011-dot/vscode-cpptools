@@ -44,6 +44,8 @@ The result: **genre-derived prompting is ON by default for grades 2–3 under mo
 
 **Do not renumber by find-and-replace.** Module `01`'s band labels appear inside claim text, prompt tables, and quoted source ranges; a blind substitution would corrupt the source-range citations that make the mapping auditable.
 
+> **Status: resolved in code, not yet in the prose.** `../character-studio/` adopts the one-indexed conventions taxonomy, retains each band's module-01 label in `BAND_SPEC` for auditing, and exposes `fromModule01Label()` to translate. It also resolves the downstream divergence: `genrePromptsOnByDefault()` is false through `B2` and true from `B3`, following module `01`'s evidence under §9's conservative default, with a test confirming it stays a default rather than a gate. **Module `01`'s own prose is still zero-indexed** — anyone reading the module directly still meets the defect.
+
 ### D-2 — Two vocabularies for the same provenance fact. **Severity: low, already documented.**
 
 Modules `01`, `03`, `04` mark retrieval provenance per-claim as `[SNIPPET]`; modules `02`, `05` declare it blanket-wise as `[SECONDARY-SOURCED]`. Reconciled in `00-shared-conventions.md` §2. No action needed beyond not misreading an unmarked claim in `02`/`05` as better-verified.
@@ -252,6 +254,8 @@ Run across all five modules at synthesis time.
 6. **Educator surfaces last**, and only after H-2 clears.
 
 > The ordering is deliberate: every layer constrains the next. A team that builds scaffolds first and prohibitions later will find the prohibitions expensive and will be tempted to weaken them.
+
+**Layers 1–5 are implemented** in `../character-studio/` (TypeScript, zero runtime dependencies, 54 tests). Layer 6 is deliberately absent: `guardAnalytics()` throws unconditionally, because §9 H-2 gates educator surfaces on a qualified-attorney review that has not happened.
 
 ---
 

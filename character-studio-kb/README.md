@@ -36,6 +36,8 @@ The purpose of this knowledge base is not to summarize research. It is to **conv
 
 **566 claims** across the five research modules, all traceable.
 
+An executable subset lives in [`../character-studio/`](../character-studio/) — the prohibitions, do-not-flag list, offer budget, silence-by-default gate and genre filters as enforced code with 54 tests. It resolves defect D-1 by necessity, since code cannot hold two band numberings.
+
 > **Implementers: read `90-integrated-decision-logic.md` before writing code.** It carries one high-severity defect (module `01`'s age bands are offset by one from every other module, which has already produced a two-band divergence in genre-prompt defaults for grades 2–3) and the build order that keeps the prohibitions cheap.
 
 ---
