@@ -19,8 +19,35 @@ character-studio/
   exports/{slug}/    generated spec + prompt files
   prompts/           editable style prompt snippets (photoreal.txt, anime.txt)
   character_studio.py
+  verify_startup.py  go/no-go check for the local toolchain (see below)
   schema.json        JSON Schema for actor files
 ```
+
+## Startup check (`verify_startup.py`)
+
+Before running the pipeline on a workstation, confirm the local toolchain is
+actually up. The checker runs in dependency order and prints a go/no-go
+table; it exits 0 only when everything is GO, so scripts can gate on it:
+
+```
+python verify_startup.py
+python verify_startup.py --ollama-model llama3.1 --strict
+python verify_startup.py --skip arc --skip nvidia        # machine without GPUs
+python verify_startup.py --json > startup.json
+```
+
+| check | what it probes | GO when |
+| --- | --- | --- |
+| `ollama` | `GET /api/tags` on `--ollama-url` (default `127.0.0.1:11434`) | server answers; `--ollama-model` present if given |
+| `comfyui` | `GET /system_stats` on `--comfy-url` (default `127.0.0.1:8188`) | server answers and reports a compute device |
+| `blender` | `blender --version` via PATH, `$BLENDER`, `--blender`, or common install dirs | binary starts and prints a version |
+| `arc` | OS display adapters (PowerShell / `lspci` / sysfs / `xpu-smi`) | an adapter name contains `--arc-name` (default `B60`) |
+| `nvidia` | `nvidia-smi --query-gpu=name,memory.total,driver_version` | a GPU name contains `--nvidia-name` (default `5070 Ti`) |
+
+WARN means "present but not what was expected" (for example an Intel GPU
+whose model name the driver doesn't report, or Ollama with no models
+pulled). WARN still exits 0 unless you pass `--strict`. Every probe has a
+`--timeout` (default 5 s) and only ever talks to localhost.
 
 ## Quick start (sample actor included)
 
